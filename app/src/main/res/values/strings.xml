@@ -1,4 +1,5 @@
 <resources>
+    <!-- App name Strings -->
     <string name="app_name">TablaDeAnunciosKotlin</string>
     <!-- Menu Drawer Strings -->
     <string name="ad_cat1">Объявления</string>
@@ -14,4 +15,6 @@
     <!-- Toolbar Strings -->
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <!-- Toast Strings -->
+    <string name="textAddToast">"Нажата кнопка: "</string>
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "412163273501",
+    "project_id": "tabladkotl1n",
+    "storage_bucket": "tabladkotl1n.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412163273501:android:4f4f6c1e39168dfb7b67f4",
+        "android_client_info": {
+          "package_name": "ru.gamebreaker.tabladeanuncioskotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412163273501-goeqvu371716okebv4ne1f3i8lf72h66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5onz8Ypdjqo3oKY4-Av0V1y58GckRxCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412163273501-goeqvu371716okebv4ne1f3i8lf72h66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

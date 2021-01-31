@@ -28,54 +28,57 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
+        val length = Toast.LENGTH_SHORT
+        val textAddToast = getString(R.string.textAddToast)
+
         when(item.itemId){
 
             R.id.id_my_ads ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ad_my_ads)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ad_my_ads)
+                Toast.makeText(this, text, length).show()
 
             }
             R.id.id_car ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ad_car)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ad_car)
+                Toast.makeText(this, text, length).show()
 
             }
             R.id.id_pc ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ad_pc)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ad_pc)
+                Toast.makeText(this, text, length).show()
 
             }
             R.id.id_smart ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ad_smartphone)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ad_smartphone)
+                Toast.makeText(this, text, length).show()
 
             }
             R.id.id_dm ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ad_dm)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ad_dm)
+                Toast.makeText(this, text, length).show()
 
             }
             R.id.id_sign_up ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ac_sign_up)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ac_sign_up)
+                Toast.makeText(this, text, length).show()
 
             }
             R.id.id_sign_in ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ac_sign_in)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ac_sign_in)
+                Toast.makeText(this, text, length).show()
 
             }
             R.id.id_sign_out ->{
 
-                val text = "Нажата кнопка " + getString(R.string.ac_sign_out)
-                Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+                val text = textAddToast + getString(R.string.ac_sign_out)
+                Toast.makeText(this, text, length).show()
 
             }
 
