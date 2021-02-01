@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
 }
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 30
@@ -17,6 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        android.defaultConfig.vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -31,6 +31,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
