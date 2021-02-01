@@ -19,6 +19,8 @@
     <!-- Toast Strings -->
     <string name="textAddToast">"Нажата кнопка: "</string>
     <!-- Sign dialog -->
+    <string name="email_reset_password_was_sent">Инструкции для сброса пароля были отправлены на указанный Email</string>
+    <string name="email_reset_email_message">Для восстановления пароля укажите ваш Email адрес</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="sign_up">Регистрация</string>
