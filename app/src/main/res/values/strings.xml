@@ -23,6 +23,7 @@
     <string name="email_reset_email_message">Для восстановления пароля укажите ваш Email адрес</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
+    <string name="sent">Отправить</string>
     <string name="sign_up">Регистрация</string>
     <string name="sign_in">Вход</string>
     <string name="sign_up_action">Зарегистрироваться</string>

@@ -10,7 +10,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.databinding.SignDialogBinding
 
 class DialogHelper(act: MainActivity) {
     private val activity = act
-    private val accHelper = AccountHelper(act)
+    val accHelper = AccountHelper(act)
 
     fun createSignDialog(index: Int) {
         val builder = AlertDialog.Builder(activity)
@@ -25,6 +25,9 @@ class DialogHelper(act: MainActivity) {
         rootDialogElement.btForgetP.setOnClickListener {
             setOnClickResetPassword(rootDialogElement, dialog)
         }
+        rootDialogElement.btGoogleSignIn.setOnClickListener {
+            accHelper.signInWithGoogle()
+        }
         dialog.show()
     }
 
@@ -37,7 +40,11 @@ class DialogHelper(act: MainActivity) {
                 }
             }
         } else {
+            rootDialogElement.btForgetP.text = activity.resources.getString(R.string.sent)
             rootDialogElement.tvDialogMessage.visibility = View.VISIBLE
+            rootDialogElement.edSignPassword.visibility = View.GONE
+            rootDialogElement.btSignUpIn.visibility = View.GONE
+            rootDialogElement.btGoogleSignIn.visibility = View.GONE
         }
     }
 

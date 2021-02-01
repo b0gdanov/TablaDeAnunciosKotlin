@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "412163273501-g43qo31rp62r8hfgbol3f8j4tl4kmer5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.gamebreaker.tabladeanuncioskotlin",
+            "certificate_hash": "c66bd2f68c409299f3c987f2e62a1394672012fb"
+          }
+        },
+        {
           "client_id": "412163273501-goeqvu371716okebv4ne1f3i8lf72h66.apps.googleusercontent.com",
           "client_type": 3
         }
