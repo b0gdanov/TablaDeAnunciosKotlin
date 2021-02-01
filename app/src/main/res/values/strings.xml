@@ -12,6 +12,7 @@
     <string name="ac_sign_up">Регистрация</string>
     <string name="ac_sign_in">Вход</string>
     <string name="ac_sign_out">Выход</string>
+    <string name="not_reg">Войдите или зарегистрируйтесь!</string>
     <!-- Toolbar Strings -->
     <string name="open">Open</string>
     <string name="close">Close</string>
@@ -26,7 +27,9 @@
     <string name="sign_in_action">Войти</string>
     <string name="forget_password">Забыли пароль?</string>
     <string name="sign_up_error">Неудалось зарегистрироваться</string>
+    <string name="sign_in_error">Неудалось войти</string>
     <string name="send_verification_email_error">Неудалось отправить email для подтверждения</string>
     <string name="send_verification_email_done">На вашу почту была отправлена ссылка для подтверждения вашего аккаунта, пожалуйста подтвердите ваш аккаунт!</string>
-    <string name="temp_text_sign_in">Вход.. в разработке</string>
+    <string name="sign_in_done">Вход успешно выполнен</string>
+    <string name="sign_out_done">Вы вышли из аккаунта</string>
 </resources>
