@@ -8,10 +8,15 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
+import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
+import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var rootElement:ActivityMainBinding
+    private val dialogHelper = DialogHelper(this)
+    val mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,11 +77,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val text = textAddToast + getString(R.string.ac_sign_up)
                 Toast.makeText(this, text, length).show()
 
+                dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
+
             }
             R.id.id_sign_in ->{
 
                 val text = textAddToast + getString(R.string.ac_sign_in)
                 Toast.makeText(this, text, length).show()
+
+                dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
 
             }
             R.id.id_sign_out ->{

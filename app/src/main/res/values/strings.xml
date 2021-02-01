@@ -17,4 +17,16 @@
     <string name="close">Close</string>
     <!-- Toast Strings -->
     <string name="textAddToast">"Нажата кнопка: "</string>
+    <!-- Sign dialog -->
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="sign_in">Вход</string>
+    <string name="sign_up_action">Зарегистрироваться</string>
+    <string name="sign_in_action">Войти</string>
+    <string name="forget_password">Забыли пароль?</string>
+    <string name="sign_up_error">Неудалось зарегистрироваться</string>
+    <string name="send_verification_email_error">Неудалось отправить email для подтверждения</string>
+    <string name="send_verification_email_done">На вашу почту была отправлена ссылка для подтверждения вашего аккаунта, пожалуйста подтвердите ваш аккаунт!</string>
+    <string name="temp_text_sign_in">Вход.. в разработке</string>
 </resources>
