@@ -35,4 +35,7 @@
     <string name="send_verification_email_done">На вашу почту была отправлена ссылка для подтверждения вашего аккаунта, пожалуйста подтвердите ваш аккаунт!</string>
     <string name="sign_in_done">Вход успешно выполнен</string>
     <string name="sign_out_done">Вы вышли из аккаунта</string>
+    !-- Toast -->
+    <string name="link_done">Аккаунты успешно объединены</string>
+    <string name="enter_to_g">У вас уже есть аккаунт с данным адресом. Для объединения Email войдите с помощью Google и повторите</string>
 </resources>
