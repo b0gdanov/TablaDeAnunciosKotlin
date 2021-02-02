@@ -48,11 +48,7 @@ class DialogHelper(act: MainActivity) {
         }
     }
 
-    private fun setOnClickSignUpIn(
-        index: Int,
-        rootDialogElement: SignDialogBinding,
-        dialog: AlertDialog?
-    ) {
+    private fun setOnClickSignUpIn(index: Int, rootDialogElement: SignDialogBinding, dialog: AlertDialog?) {
         dialog?.dismiss()
         if (index == DialogConst.SIGN_UP_STATE) {
             accHelper.signUpWithEmail(
@@ -64,11 +60,8 @@ class DialogHelper(act: MainActivity) {
                 rootDialogElement.edSignEmail.text.toString(),
                 rootDialogElement.edSignPassword.text.toString()
             )
-            Toast.makeText(
-                activity,
-                activity.resources.getString(R.string.sign_in_done),
-                Toast.LENGTH_LONG
-            ).show()
+            Toast.makeText(activity,activity.resources.getString(R.string.sign_in_done),Toast.LENGTH_LONG).show()
+            dialog?.dismiss()
         }
     }
 
@@ -84,4 +77,5 @@ class DialogHelper(act: MainActivity) {
             rootDialogElement.btForgetP.visibility = View.VISIBLE
         }
     }
+
 }
