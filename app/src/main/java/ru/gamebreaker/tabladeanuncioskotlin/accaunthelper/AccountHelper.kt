@@ -80,6 +80,12 @@ class AccountHelper(act: MainActivity) {
                         } else if (exception.errorCode == FirebaseAuthConstants.ERROR_WRONG_PASSWORD) {
                             Toast.makeText(activity, FirebaseAuthConstants.ERROR_WRONG_PASSWORD,Toast.LENGTH_LONG).show()
                         }
+                    } else if(task.exception is FirebaseAuthInvalidUserException){
+                        val exception = task.exception as FirebaseAuthInvalidUserException
+                        //Log.d(MyLogConst.MY_LOG, "sign In With Email Exception : ${exception.errorCode}")
+                        if (exception.errorCode == FirebaseAuthConstants.ERROR_USER_NOT_FOUND){
+                            Toast.makeText(activity, FirebaseAuthConstants.ERROR_USER_NOT_FOUND,Toast.LENGTH_LONG).show() //добавить стринг описание ошибки(ошибок)
+                        }
                     }
                 }
             }
@@ -110,6 +116,10 @@ class AccountHelper(act: MainActivity) {
         signInClient = getSignInClient()
         val intent = signInClient.signInIntent
         activity.startActivityForResult(intent, GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE)
+    }
+
+    fun signOutGoogle() {
+        getSignInClient().signOut()
     }
 
     fun signInFirebaseWithGoogle(token:String){
