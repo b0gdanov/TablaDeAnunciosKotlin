@@ -41,6 +41,18 @@
                 android:text="@string/select_country"
                 android:textColor="@color/black" />
 
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center"
+                android:onClick="onClickSelectCity"
+                android:padding="10dp"
+                android:text="@string/select_city"
+                android:textColor="@color/black" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
