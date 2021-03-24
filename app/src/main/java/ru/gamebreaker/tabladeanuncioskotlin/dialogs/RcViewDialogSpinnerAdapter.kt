@@ -1,17 +1,21 @@
 package ru.gamebreaker.tabladeanuncioskotlin.dialogs
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.gamebreaker.tabladeanuncioskotlin.R
+import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 
-class RcViewDialogSpinner : RecyclerView.Adapter<RcViewDialogSpinner.SpViewHolder>() {
+class RcViewDialogSpinnerAdapter(var context: Context, var dialog:AlertDialog) : RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
     private val mainList = ArrayList<String>()
+    //private var ctx = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.sp_list_item, parent, false)
-        return SpViewHolder(view)
+        return SpViewHolder(view, context, dialog)
     }
 
     override fun onBindViewHolder(holder: SpViewHolder, position: Int) {
@@ -22,11 +26,18 @@ class RcViewDialogSpinner : RecyclerView.Adapter<RcViewDialogSpinner.SpViewHolde
         return mainList.size
     }
 
-    class SpViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+    class SpViewHolder(itemView: View, var context: Context, var dialog: AlertDialog) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        private var itemText = ""
         fun setData(text : String){
             val tvSpItem = itemView.findViewById<TextView>(R.id.tvSpItem)
             tvSpItem.text = text
+            itemText = text
+            itemView.setOnClickListener (this)
+        }
+
+        override fun onClick(v: View?) {
+            (context as EditAdsAct).rootElement.tvCountry.text = itemText
+            dialog.dismiss()
         }
 
     }

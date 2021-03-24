@@ -12,19 +12,21 @@ import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 class DialogSpinnerHelper {
     fun showSpinnerDialog(context: Context, list:ArrayList<String>){
         val builder = AlertDialog.Builder(context)
+        val dialog = builder.create()
+
         val rootView = LayoutInflater.from(context).inflate(R.layout.spinner_layout, null)
-        val adapter = RcViewDialogSpinner()
+        val adapter = RcViewDialogSpinnerAdapter(context, dialog)
         val rcView = rootView.findViewById<RecyclerView>(R.id.rcSpView)
         val sv = rootView.findViewById<SearchView>(R.id.svSpinner)
         rcView.layoutManager = LinearLayoutManager(context)
         rcView.adapter = adapter
-        builder.setView(rootView)
+        dialog.setView(rootView)
         adapter.updateAdapter(list)
         setSearchView(adapter, list, sv)
-        builder.show()
+        dialog.show()
     }
 
-    private fun setSearchView(adapter: RcViewDialogSpinner, list: ArrayList<String>, sv: SearchView?) {
+    private fun setSearchView(adapter: RcViewDialogSpinnerAdapter, list: ArrayList<String>, sv: SearchView?) {
         sv?.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 return false
