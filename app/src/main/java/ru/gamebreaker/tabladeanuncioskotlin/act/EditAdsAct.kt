@@ -1,6 +1,5 @@
 package ru.gamebreaker.tabladeanuncioskotlin.act
 
-import android.R.attr
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,9 +13,7 @@ import com.fxn.pix.Pix
 import android.content.pm.PackageManager
 import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
-import android.R.attr.data
 
-import android.app.Activity
 import android.util.Log
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
@@ -40,10 +37,14 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES) {
             if (data != null){
-                val returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                Log.d("MyLog", "Image :${returnValue?.get(0)}")
-                Log.d("MyLog", "Image :${returnValue?.get(1)}")
-                Log.d("MyLog", "Image :${returnValue?.get(2)}")
+                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+                if (returnValues?.size!! > 1){
+                    rootElement.scrollViewMain.visibility = View.GONE
+                    val fm = supportFragmentManager.beginTransaction()
+                    fm.replace(R.id.place_holder, ImageListFragment(this, returnValues))
+                    fm.commit()
+                }
+
 
             }
         }
@@ -98,11 +99,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickGetImages(view: View){
-        //ImagePicker.getImages(this)
-        rootElement.scrollViewMain.visibility = View.GONE
-        val fm = supportFragmentManager.beginTransaction()
-        fm.replace(R.id.place_holder, ImageListFragment(this))
-        fm.commit()
+        ImagePicker.getImages(this, 3)
     }
 
     override fun onFragmentClose() {
