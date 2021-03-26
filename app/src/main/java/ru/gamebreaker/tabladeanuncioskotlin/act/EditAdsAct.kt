@@ -18,9 +18,11 @@ import android.R.attr.data
 
 import android.app.Activity
 import android.util.Log
+import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
+import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
 
 
-class EditAdsAct : AppCompatActivity() {
+class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var rootElement: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     private var isImagesPermissionGranted = false
@@ -58,7 +60,7 @@ class EditAdsAct : AppCompatActivity() {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    ImagePicker.getImages(this)
+                    ImagePicker.getImages(this, 3)
                 } else {
 
                     Toast.makeText(
@@ -96,6 +98,14 @@ class EditAdsAct : AppCompatActivity() {
     }
 
     fun onClickGetImages(view: View){
-        ImagePicker.getImages(this)
+        //ImagePicker.getImages(this)
+        rootElement.scrollViewMain.visibility = View.GONE
+        val fm = supportFragmentManager.beginTransaction()
+        fm.replace(R.id.place_holder, ImageListFragment(this))
+        fm.commit()
+    }
+
+    override fun onFragmentClose() {
+        rootElement.scrollViewMain.visibility = View.VISIBLE
     }
 }
