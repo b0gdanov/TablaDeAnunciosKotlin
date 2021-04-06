@@ -8,9 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.gamebreaker.tabladeanuncioskotlin.R
+import ru.gamebreaker.tabladeanuncioskotlin.utils.ItemTouchMoveCallBack
 
-class SelectImageRvAdapter : RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>() {
-    private val mainArray = ArrayList<SelectImageItem>()
+class SelectImageRvAdapter : RecyclerView.Adapter<SelectImageRvAdapter.ImageHolder>(), ItemTouchMoveCallBack.ItemTouchAdapter {
+    val mainArray = ArrayList<SelectImageItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.select_image_fragment_item, parent, false)
@@ -23,6 +24,13 @@ class SelectImageRvAdapter : RecyclerView.Adapter<SelectImageRvAdapter.ImageHold
 
     override fun getItemCount(): Int {
         return mainArray.size
+    }
+
+    override fun onMove(startPos: Int, targetPos: Int) {
+        val targetItem = mainArray[targetPos]
+        mainArray[targetPos] = mainArray[startPos]
+        mainArray[startPos] = targetItem
+        notifyItemMoved(startPos, targetPos)
     }
 
     class ImageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,4 +49,5 @@ class SelectImageRvAdapter : RecyclerView.Adapter<SelectImageRvAdapter.ImageHold
         mainArray.addAll(newList)
         notifyDataSetChanged()
     }
+
 }
