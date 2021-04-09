@@ -44,7 +44,7 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
 
     override fun onDetach() {
         super.onDetach()
-        fragmentCloseInterface.onFragmentClose()
+        fragmentCloseInterface.onFragmentClose(adapter.mainArray)
         Log.d("MyLog", "Title 0 : ${adapter.mainArray[0].title}")
         Log.d("MyLog", "Title 1 : ${adapter.mainArray[1].title}")
         Log.d("MyLog", "Title 2 : ${adapter.mainArray[2].title}")

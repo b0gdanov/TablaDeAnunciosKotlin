@@ -15,14 +15,17 @@ import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 
 import android.util.Log
+import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
+import ru.gamebreaker.tabladeanuncioskotlin.fragments.SelectImageItem
 
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var rootElement: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     private var isImagesPermissionGranted = false
+    private lateinit var imageAdapter : ImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +78,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
     private fun init(){
-
+        imageAdapter = ImageAdapter()
+        rootElement.vpImages.adapter = imageAdapter
     }
 
     //OnClicks
@@ -102,7 +106,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         ImagePicker.getImages(this, 3)
     }
 
-    override fun onFragmentClose() {
+    override fun onFragmentClose(list : ArrayList<SelectImageItem>) {
         rootElement.scrollViewMain.visibility = View.VISIBLE
+        imageAdapter.update(list)
     }
 }
