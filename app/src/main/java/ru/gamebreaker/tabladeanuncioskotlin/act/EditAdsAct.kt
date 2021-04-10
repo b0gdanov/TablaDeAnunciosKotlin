@@ -22,10 +22,12 @@ import ru.gamebreaker.tabladeanuncioskotlin.fragments.SelectImageItem
 
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
+
+    private var chooseImageFragment: ImageListFragment? = null
     lateinit var rootElement: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     private var isImagesPermissionGranted = false
-    private lateinit var imageAdapter : ImageAdapter
+    private lateinit var imageAdapter: ImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,17 +40,26 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES) {
-            if (data != null){
+
+            if (data != null) {
+
                 val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                if (returnValues?.size!! > 1){
+
+                if (returnValues?.size!! > 1 && chooseImageFragment == null) {
+
+                    chooseImageFragment = ImageListFragment(this, returnValues)
                     rootElement.scrollViewMain.visibility = View.GONE
                     val fm = supportFragmentManager.beginTransaction()
-                    fm.replace(R.id.place_holder, ImageListFragment(this, returnValues))
+                    fm.replace(R.id.place_holder, chooseImageFragment!!)
                     fm.commit()
+
+                } else if (chooseImageFragment != null) {
+
+                    chooseImageFragment?.updateAdapter(returnValues)
+
                 }
-
-
             }
         }
     }
@@ -109,5 +120,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     override fun onFragmentClose(list : ArrayList<SelectImageItem>) {
         rootElement.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
+        chooseImageFragment = null
     }
 }

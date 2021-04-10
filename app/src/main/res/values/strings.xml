@@ -43,4 +43,7 @@
     <!-- Edit Ads Act -->
     <string name="select_country">*Выберите страну</string>
     <string name="select_city">Выберите город</string>
+    <!-- menu_choose_image -->
+    <string name="delete_images">удалить картинки</string>
+    <string name="add_image">добавить картинку</string>
 </resources>
