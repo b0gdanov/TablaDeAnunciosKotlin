@@ -17,11 +17,14 @@ import ru.gamebreaker.tabladeanuncioskotlin.databinding.ListImageFragBinding
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ItemTouchMoveCallBack
 
-class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterface,private val newList:ArrayList<String>):Fragment() {
+class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterface,
+                        private val newList : ArrayList<String>) : Fragment() {
+
     lateinit var rootElement: ListImageFragBinding
     val adapter = SelectImageRvAdapter()
     val dragCallback = ItemTouchMoveCallBack(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,11 +40,7 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
         touchHelper.attachToRecyclerView(rootElement.rcViewSelectImage)
         rootElement.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         rootElement.rcViewSelectImage.adapter = adapter
-        val updateList = ArrayList<SelectImageItem>()
-        for (n in 0 until newList.size){
-            updateList.add(SelectImageItem(n.toString(), newList[n]))
-        }
-        adapter.updateAdapter(updateList, true)
+        adapter.updateAdapter(newList, true)
     }
 
     override fun onDetach() {
@@ -74,10 +73,7 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
     }
 
     fun updateAdapter(newList: ArrayList<String>){
-        val updateList = ArrayList<SelectImageItem>()
-        for (n in adapter.mainArray.size until newList.size + adapter.mainArray.size){
-            updateList.add(SelectImageItem(n.toString(), newList[n - adapter.mainArray.size]))
-        }
-        adapter.updateAdapter(updateList, false)
+
+        adapter.updateAdapter(newList, false)
     }
 }
