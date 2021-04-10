@@ -28,6 +28,7 @@ class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog:AlertDial
 
     class SpViewHolder(itemView: View, var tvSelection: TextView, var dialog: AlertDialog) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
         private var itemText = ""
+
         fun setData(text : String){
             val tvSpItem = itemView.findViewById<TextView>(R.id.tvSpItem)
             tvSpItem.text = text
