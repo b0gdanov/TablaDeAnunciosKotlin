@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ListImageFragBinding
+import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ItemTouchMoveCallBack
 
@@ -40,7 +41,8 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
         touchHelper.attachToRecyclerView(rootElement.rcViewSelectImage)
         rootElement.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         rootElement.rcViewSelectImage.adapter = adapter
-        adapter.updateAdapter(newList, true)
+        ImageManager.imageResize(newList)
+        //adapter.updateAdapter(newList, true)
     }
 
     override fun onDetach() {
