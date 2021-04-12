@@ -58,7 +58,7 @@ object ImageManager {
             }
             Log.d("MyLog", "Width : ${tempList[n][WIDTH]} Height : ${tempList[n][HEIGHT]}")
         }
-        delay(10000)
+        delay(3000)
         return@withContext "Done"
     }
 }
