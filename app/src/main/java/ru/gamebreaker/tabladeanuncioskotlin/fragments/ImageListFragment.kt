@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ListImageFragBinding
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
@@ -25,6 +29,7 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
     val adapter = SelectImageRvAdapter()
     val dragCallback = ItemTouchMoveCallBack(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
+    private lateinit var job : Job
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,13 +46,17 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
         touchHelper.attachToRecyclerView(rootElement.rcViewSelectImage)
         rootElement.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         rootElement.rcViewSelectImage.adapter = adapter
-        ImageManager.imageResize(newList)
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val text = ImageManager.imageResize(newList)
+            Log.d("MyTag", "Result : $text")
+        }
         //adapter.updateAdapter(newList, true)
     }
 
     override fun onDetach() {
         super.onDetach()
         fragmentCloseInterface.onFragmentClose(adapter.mainArray)
+        job.cancel()
     }
 
     private fun setUpToolbar(){
