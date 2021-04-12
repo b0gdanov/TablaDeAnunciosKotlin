@@ -11,12 +11,14 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 import com.fxn.pix.Pix
 import android.content.pm.PackageManager
+import android.util.Log
 import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
+import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
@@ -52,7 +54,10 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
                 } else if (returnValues.size == 1 && chooseImageFragment == null) {
 
-                    imageAdapter.update(returnValues)
+                    //imageAdapter.update(returnValues)
+                    val tempList = ImageManager.getImageSize(returnValues[0])
+                    Log.d("MyLog", "Image width : ${tempList[0]}")
+                    Log.d("MyLog", "Image height : ${tempList[1]}")
 
                 } else if (chooseImageFragment != null) {
 
