@@ -58,4 +58,15 @@
         app:layout_constraintEnd_toEndOf="@+id/imEditImage"
         app:layout_constraintTop_toBottomOf="@+id/imEditImage"
         app:srcCompat="@drawable/ic_delete_images" />
+
+    <ProgressBar
+        android:id="@+id/pBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageContent"
+        app:layout_constraintStart_toStartOf="@+id/imageContent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>
