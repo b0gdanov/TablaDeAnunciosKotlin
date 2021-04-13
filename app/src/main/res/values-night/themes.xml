@@ -24,4 +24,10 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <!-- ActionBar theme. -->
+    <style name="ActionBarCustom">
+        <!-- Primary brand color. -->
+        <item name="android:textColorSecondary">@color/ic_main</item>
+    </style>
 </resources>

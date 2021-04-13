@@ -3,11 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/edit_image_bg.xml" value="0.309375" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_add_image.xml" value="0.309375" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_delete_images.xml" value="0.3046153846153846" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_drag.xml" value="0.3046153846153846" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_edit.xml" value="0.3046153846153846" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_logo.xml" value="0.309375" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_new_ads.xml" value="0.3046153846153846" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.5" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/image_adapter_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/list_image_frag.xml" value="0.29322916666666665" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/select_image_fragment_item.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/progress_dialog_layout.xml" value="0.1078125" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/select_image_fragment_item.xml" value="0.67" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/sp_list_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/spinner_layout.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/menu/menu_choose_image.xml" value="0.29322916666666665" />

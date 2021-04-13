@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue_light">#3f497a</color>
     <color name="color_red">#D52417</color>
+    <color name="ic_main">#d3b24d</color>
+    <color name="bg_main">#1b323b</color>
+    <color name="bg_main_light">#104560</color>
 </resources>

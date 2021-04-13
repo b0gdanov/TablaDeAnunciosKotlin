@@ -24,11 +24,10 @@ import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
-    private var chooseImageFragment: ImageListFragment? = null
+    var chooseImageFragment: ImageListFragment? = null
     lateinit var rootElement: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
-    private var isImagesPermissionGranted = false
-    private lateinit var imageAdapter: ImageAdapter
+    lateinit var imageAdapter: ImageAdapter
     var editImagePos = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,38 +42,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_IMAGES) {
+        ImagePicker.showSelectedImages(resultCode, requestCode, data, this)
 
-            if (data != null) {
-
-                val returnValues = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-
-                if (returnValues?.size!! > 1 && chooseImageFragment == null) {
-
-                    openChooseItemFragment(returnValues)
-
-                } else if (returnValues.size == 1 && chooseImageFragment == null) {
-
-                    //imageAdapter.update(returnValues)
-                    val tempList = ImageManager.getImageSize(returnValues[0])
-                    Log.d("MyLog", "Image width : ${tempList[0]}")
-                    Log.d("MyLog", "Image height : ${tempList[1]}")
-
-                } else if (chooseImageFragment != null) {
-
-                    chooseImageFragment?.updateAdapter(returnValues)
-
-                }
-            }
-        } else if (resultCode == RESULT_OK && requestCode == ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGE){
-
-            if (data != null) {
-
-                val uris = data.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                chooseImageFragment?.setSingleImage(uris?.get(0)!!, editImagePos)
-            }
-
-        }
     }
 
     override fun onRequestPermissionsResult(
@@ -147,7 +116,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         chooseImageFragment = null
     }
 
-    private fun openChooseItemFragment(newList: ArrayList<String>?){
+    fun openChooseItemFragment(newList: ArrayList<String>?){
 
         chooseImageFragment = ImageListFragment(this, newList)
         rootElement.scrollViewMain.visibility = View.GONE
