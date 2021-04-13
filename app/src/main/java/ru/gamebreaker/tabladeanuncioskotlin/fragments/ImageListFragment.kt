@@ -1,5 +1,6 @@
 package ru.gamebreaker.tabladeanuncioskotlin.fragments
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.sax.RootElement
 import android.util.Log
@@ -23,13 +24,13 @@ import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ItemTouchMoveCallBack
 
 class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterface,
-                        private val newList : ArrayList<String>) : Fragment() {
+                        private val newList : ArrayList<String>?) : Fragment() {
 
     lateinit var rootElement: ListImageFragBinding
     val adapter = SelectImageRvAdapter()
     val dragCallback = ItemTouchMoveCallBack(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
-    private lateinit var job : Job
+    private var job : Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,17 +47,21 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
         touchHelper.attachToRecyclerView(rootElement.rcViewSelectImage)
         rootElement.rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
         rootElement.rcViewSelectImage.adapter = adapter
-        job = CoroutineScope(Dispatchers.Main).launch {
-            val text = ImageManager.imageResize(newList)
-            Log.d("MyLog", "Result : $text")
+        if (newList != null){
+            job = CoroutineScope(Dispatchers.Main).launch {
+                val bitmapList = ImageManager.imageResize(newList)
+                adapter.updateAdapter(bitmapList, true)
+            }
         }
-        //adapter.updateAdapter(newList, true)
+    }
+    fun updateAdapterFromEdit(bitmapList : List<Bitmap>){
+        adapter.updateAdapter(bitmapList, true)
     }
 
     override fun onDetach() {
         super.onDetach()
         fragmentCloseInterface.onFragmentClose(adapter.mainArray)
-        job.cancel()
+        job?.cancel()
     }
 
     private fun setUpToolbar(){
@@ -84,14 +89,17 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
     }
 
     fun updateAdapter(newList: ArrayList<String>){
-
-        adapter.updateAdapter(newList, false)
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val bitmapList = ImageManager.imageResize(newList)
+            adapter.updateAdapter(bitmapList, false)
+        }
     }
 
     fun setSingleImage(uri : String, pos : Int){
-
-        adapter.mainArray[pos] = uri
-        adapter.notifyDataSetChanged()
-
+        job = CoroutineScope(Dispatchers.Main).launch {
+            val bitmapList = ImageManager.imageResize(listOf(uri))
+            adapter.mainArray[pos] = bitmapList[0]
+            adapter.notifyDataSetChanged()
+        }
     }
 }

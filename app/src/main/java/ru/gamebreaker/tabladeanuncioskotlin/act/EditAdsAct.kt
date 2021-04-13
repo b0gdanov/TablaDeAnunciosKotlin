@@ -11,6 +11,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 import com.fxn.pix.Pix
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.util.Log
 import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
@@ -133,19 +134,20 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
         } else {
 
-            openChooseItemFragment(imageAdapter.mainArray)
+            openChooseItemFragment(null)
+            chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
 
         }
 
     }
 
-    override fun onFragmentClose(list : ArrayList<String>) {
+    override fun onFragmentClose(list : ArrayList<Bitmap>) {
         rootElement.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFragment = null
     }
 
-    private fun openChooseItemFragment(newList: ArrayList<String>){
+    private fun openChooseItemFragment(newList: ArrayList<String>?){
 
         chooseImageFragment = ImageListFragment(this, newList)
         rootElement.scrollViewMain.visibility = View.GONE
