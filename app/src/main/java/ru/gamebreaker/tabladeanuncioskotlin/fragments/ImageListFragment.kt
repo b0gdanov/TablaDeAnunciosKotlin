@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
@@ -26,13 +25,22 @@ import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ItemTouchMoveCallBack
 
-class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterface, private val newList : ArrayList<String>?) : BaseSelectImageFrag(), AdapterCallBack {
+class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterface, private val newList : ArrayList<String>?) : BaseAdsFrag(), AdapterCallBack {
 
     val adapter = SelectImageRvAdapter(this)
     val dragCallback = ItemTouchMoveCallBack(adapter)
     val touchHelper = ItemTouchHelper(dragCallback)
     private var job : Job? = null
     private var addImageItem : MenuItem? = null
+    lateinit var binding : ListImageFragBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        binding = ListImageFragBinding.inflate(layoutInflater)
+        adView = binding.adView
+        return binding.root
+
+    }
 
     override fun onItemDelete() {
         addImageItem?.isVisible = true
@@ -59,6 +67,11 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
         job?.cancel()
     }
 
+    override fun onClose() {
+        super.onClose()
+        activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
+    }
+
     private fun resizeSelectedImages(newList : ArrayList<String>, needClear : Boolean){
         job = CoroutineScope(Dispatchers.Main).launch {
             val dialog = ProgressDialog.createProgressDialog(activity as Activity)
@@ -77,8 +90,9 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
             addImageItem = tb.menu.findItem(R.id.id_add_image)
 
             tb.setNavigationOnClickListener {
-                activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
-                Log.d("MyLog", "Home")
+
+                showInterstitialAd()
+
             }
 
             deleteItem.setOnMenuItemClickListener {

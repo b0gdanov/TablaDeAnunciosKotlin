@@ -1,6 +1,7 @@
 <resources>
     <!-- ad_id -->
-    <string name="ad_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_id_test_banner">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ad_id_test_interstitial">ca-app-pub-3940256099942544/1033173712</string>
     <!-- App name Strings -->
     <string name="app_name">TablaDeAnunciosKotlin</string>
     <!-- Menu Drawer Strings -->
