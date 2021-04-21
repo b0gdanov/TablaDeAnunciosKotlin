@@ -1,4 +1,6 @@
 <resources>
+    <!-- ad_id -->
+    <string name="ad_id">ca-app-pub-3940256099942544/6300978111</string>
     <!-- App name Strings -->
     <string name="app_name">TablaDeAnunciosKotlin</string>
     <!-- Menu Drawer Strings -->
