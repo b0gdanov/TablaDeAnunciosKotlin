@@ -9,17 +9,14 @@ import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityEditAdsBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
-import com.fxn.pix.Pix
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.util.Log
 import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
-import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
@@ -76,22 +73,22 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     //OnClicks
-    fun onClickSelectCountry(view: View){
+    fun onClickSelectFraction(view: View){
         val listCountry = CityHelper.getAllCountries(this)
-        dialog.showSpinnerDialog(this, listCountry, rootElement.tvCountry)
-        if(rootElement.tvCity.text.toString() != getString(R.string.select_city)){
-            rootElement.tvCity.text = getString(R.string.select_city)
+        dialog.showSpinnerDialog(this, listCountry, rootElement.tvFraction)
+        if(rootElement.tvHeroName.text.toString() != getString(R.string.select_hero_name)){
+            rootElement.tvHeroName.text = getString(R.string.select_hero_name)
         }
     }
 
-    fun onClickSelectCity(view: View){
-        val selectedCountry = rootElement.tvCountry.text.toString()
-        if (selectedCountry != getString(R.string.select_country)){
+    fun onClickSelectHeroName(view: View){
+        val selectedCountry = rootElement.tvFraction.text.toString()
+        if (selectedCountry != getString(R.string.select_fraction)){
             val listCity = CityHelper.getAllCities(selectedCountry,this)
-            dialog.showSpinnerDialog(this, listCity, rootElement.tvCity)
+            dialog.showSpinnerDialog(this, listCity, rootElement.tvHeroName)
 
         }else{
-            Toast.makeText(this, "No country selected", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.warning_no_fraction_selected), Toast.LENGTH_LONG).show()
         }
     }
 

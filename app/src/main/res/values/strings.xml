@@ -44,8 +44,23 @@
     <!-- Main menu -->
     <string name="new_ad">New ad</string>
     <!-- Edit Ads Act -->
-    <string name="select_country">*Выберите страну</string>
-    <string name="select_city">Выберите город</string>
+    <string name="tv_fraction">Фракция</string>
+    <string name="select_fraction">*Выберите фракуцию</string>
+    <string name="tv_hero_name">Имя героя</string>
+    <string name="select_hero_name">*Выберите героя</string>
+    <string name="tv_affinity">Стихия</string>
+    <string name="select_affinity">*Выберите стихию</string>
+    <string name="tv_role">Роль</string>
+    <string name="select_role">*Выберите роль</string>
+    <string name="tv_rarity">Редкость</string>
+    <string name="select_rarity">*Выберите редкость</string>
+    <string name="tv_status">Статус</string>
+    <string name="tv_geared">geared</string>
+    <string name="tv_tel">Телефон</string>
+    <string name="tv_tel_hint">Номер телефона</string>
+    <string name="tv_index">Индекс</string>
+    <string name="tv_index_hint">Индекс</string>
+    <string name="tv_hero_data">Данные персонажа</string>
     <!-- menu_choose_image -->
     <string name="delete_images">удалить картинки</string>
     <string name="add_image">добавить картинку</string>
@@ -53,4 +68,5 @@
     <string name="title_equipment">Экипировка</string>
     <string name="title_talents">Таланты</string>
     <string name="title_fight_result">Результат боя</string>
+    <string name="warning_no_fraction_selected">Не выбрана фракция</string>
 </resources>
