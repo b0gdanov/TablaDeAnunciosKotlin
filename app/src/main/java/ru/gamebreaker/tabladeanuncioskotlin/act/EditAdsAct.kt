@@ -15,6 +15,7 @@ import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.database.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
 
@@ -112,6 +113,12 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
 
         }
+
+    }
+
+    fun onClickPublish(view: View){
+        val dbManager = DbManager()
+        dbManager.publishAd()
 
     }
 

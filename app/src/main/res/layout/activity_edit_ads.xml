@@ -331,6 +331,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:onClick="onClickPublish"
                 android:text="@string/publish"
                 android:textColor="@color/ic_main"
                 app:backgroundTint="@color/bg_main" />
