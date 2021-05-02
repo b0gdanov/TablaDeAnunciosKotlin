@@ -56,9 +56,7 @@ class SelectImageRvAdapter(val adapterCallBack : AdapterCallBack) : RecyclerView
 
                 ImagePicker.getImages(
 
-                    context as EditAdsAct,
-                    1,
-                    ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGE
+                    context as EditAdsAct, 1, ImagePicker.REQUEST_CODE_GET_SINGLE_IMAGE
 
                 )
 

@@ -57,10 +57,18 @@
     <string name="tv_status">Статус</string>
     <string name="tv_geared">geared</string>
     <string name="tv_tel">Телефон</string>
-    <string name="tv_tel_hint">Номер телефона</string>
+    <string name="tv_tel_hint">*Номер телефона</string>
     <string name="tv_index">Индекс</string>
-    <string name="tv_index_hint">Индекс</string>
+    <string name="tv_index_hint">*Индекс</string>
     <string name="tv_hero_data">Данные персонажа</string>
+    <string name="category">Категория</string>
+    <string name="select_category">*Выберите категорию</string>
+    <string name="price">Цена</string>
+    <string name="price_hint">*Укажите цену</string>
+    <string name="description">Описание</string>
+    <string name="description_hint">*Введите описание</string>
+    <string name="with_send">С отправкой</string>
+    <string name="publish">Опубликовать</string>
     <!-- menu_choose_image -->
     <string name="delete_images">удалить картинки</string>
     <string name="add_image">добавить картинку</string>
