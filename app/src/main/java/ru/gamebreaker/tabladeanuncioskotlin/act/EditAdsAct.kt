@@ -13,7 +13,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
-
+import ru.gamebreaker.tabladeanuncioskotlin.data.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.database.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
@@ -26,6 +26,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var rootElement: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
+    private val dbManager = DbManager()
     var editImagePos = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -117,9 +118,29 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
-        val dbManager = DbManager()
-        dbManager.publishAd()
 
+        dbManager.publishAd(fillAd())
+
+    }
+
+    private fun fillAd(): Ad{
+        val ad: Ad
+        rootElement.apply{
+
+            ad = Ad(
+                tvFraction.text.toString(),
+                tvHeroName.text.toString(),
+                etTel.text.toString(),
+                etIndex.text.toString(),
+                checkBoxWithSend.isChecked.toString(),
+                tvCategory.text.toString(),
+                etPrice.text.toString(),
+                etDescription.text.toString(),
+                dbManager.db.push().key
+            )
+
+        }
+        return ad
     }
 
     override fun onFragmentClose(list : ArrayList<Bitmap>) {
