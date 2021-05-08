@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "412163273501",
+    "firebase_url": "https://tabladkotl1n-default-rtdb.firebaseio.com",
     "project_id": "tabladkotl1n",
     "storage_bucket": "tabladkotl1n.appspot.com"
   },
@@ -19,6 +20,14 @@
           "android_info": {
             "package_name": "ru.gamebreaker.tabladeanuncioskotlin",
             "certificate_hash": "c66bd2f68c409299f3c987f2e62a1394672012fb"
+          }
+        },
+        {
+          "client_id": "412163273501-pugk9kmmmsugjj4t7l1vtiredndj74ig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.gamebreaker.tabladeanuncioskotlin",
+            "certificate_hash": "c531f74a36855ae4a6c1ab3f424342fbaba6fd96"
           }
         },
         {

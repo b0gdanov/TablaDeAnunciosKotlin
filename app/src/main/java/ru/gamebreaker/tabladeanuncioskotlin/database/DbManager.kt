@@ -10,6 +10,6 @@ class DbManager {
     val auth = Firebase.auth
 
     fun publishAd(ad: Ad){
-        if (auth.uid != null)db.child(ad.key ?: "empty").child(auth.uid!!).child("ad").setValue(ad)
+        if(auth.uid != null)db.child(ad.key ?: "empty").child(auth.uid!!).child("ad").setValue(ad)
     }
 }
