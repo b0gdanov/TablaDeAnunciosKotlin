@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
+import ru.gamebreaker.tabladeanuncioskotlin.database.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var rootElement:ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = FirebaseAuth.getInstance()
+    val dbManager = DbManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val view = rootElement.root
         setContentView(view)
         init()
+        dbManager.readDataFromDb()
 
         Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
     }
