@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -101,27 +100,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, text, length).show()
 
             }
-            R.id.id_car ->{
+            R.id.id_heroes ->{
 
-                val text = textAddToast + getString(R.string.ad_car)
+                val text = textAddToast + getString(R.string.ad_heroes)
                 Toast.makeText(this, text, length).show()
 
             }
-            R.id.id_pc ->{
+            R.id.id_dungeons ->{
 
-                val text = textAddToast + getString(R.string.ad_pc)
+                val text = textAddToast + getString(R.string.ad_dungeons)
                 Toast.makeText(this, text, length).show()
 
             }
-            R.id.id_smart ->{
+            R.id.id_faction_war ->{
 
-                val text = textAddToast + getString(R.string.ad_smartphone)
+                val text = textAddToast + getString(R.string.ad_faction_war)
                 Toast.makeText(this, text, length).show()
 
             }
-            R.id.id_dm ->{
+            R.id.id_arena ->{
 
-                val text = textAddToast + getString(R.string.ad_dm)
+                val text = textAddToast + getString(R.string.ad_arena)
+                Toast.makeText(this, text, length).show()
+
+            }
+            R.id.id_cb ->{
+
+                val text = textAddToast + getString(R.string.ad_cb)
+                Toast.makeText(this, text, length).show()
+
+            }
+            R.id.id_tower ->{
+
+                val text = textAddToast + getString(R.string.ad_tower)
                 Toast.makeText(this, text, length).show()
 
             }

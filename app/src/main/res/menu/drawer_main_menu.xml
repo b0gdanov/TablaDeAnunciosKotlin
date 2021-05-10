@@ -8,20 +8,33 @@
         <menu>
 
             <item
-                android:title="@string/ad_my_ads"
-                android:id="@+id/id_my_ads"/>
+                android:id="@+id/id_my_ads"
+                android:icon="@drawable/ic_menu_doom_tower"
+                android:title="@string/ad_my_ads" />
             <item
-                android:title="@string/ad_car"
-                android:id="@+id/id_car"/>
+                android:id="@+id/id_heroes"
+                android:icon="@drawable/ic_menu_clan_battles"
+                android:title="@string/ad_heroes" />
             <item
-                android:title="@string/ad_pc"
-                android:id="@+id/id_pc"/>
+                android:id="@+id/id_faction_war"
+                android:icon="@drawable/ic_menu_clan_battles"
+                android:title="@string/ad_faction_war" />
             <item
-                android:title="@string/ad_smartphone"
-                android:id="@+id/id_smart"/>
+                android:id="@+id/id_arena"
+                android:icon="@drawable/ic_menu_clan_battles"
+                android:title="@string/ad_arena" />
             <item
-                android:title="@string/ad_dm"
-                android:id="@+id/id_dm"/>
+                android:id="@+id/id_dungeons"
+                android:icon="@drawable/ic_menu_dungeons"
+                android:title="@string/ad_dungeons" />
+            <item
+                android:id="@+id/id_cb"
+                android:icon="@drawable/ic_menu_clan_battles"
+                android:title="@string/ad_cb" />
+            <item
+                android:id="@+id/id_tower"
+                android:icon="@drawable/ic_menu_doom_tower"
+                android:title="@string/ad_tower" />
 
         </menu>
 
