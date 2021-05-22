@@ -1,7 +1,7 @@
 package ru.gamebreaker.tabladeanuncioskotlin.data
 
 data class Ad(
-
+    val title: String? = null,
     val fraction: String? = null,
     val heroName: String? = null,
     val tel: String? = null,
