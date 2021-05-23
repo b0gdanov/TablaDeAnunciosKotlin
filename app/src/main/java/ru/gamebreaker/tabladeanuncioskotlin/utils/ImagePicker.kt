@@ -19,7 +19,7 @@ object ImagePicker {
     const val REQUEST_CODE_GET_SINGLE_IMAGE = 998
 
     fun getImages(context:AppCompatActivity, imageCounter : Int, rCode : Int){
-        val options: Options = Options.init()
+        val options = Options.init()
             .setRequestCode(rCode)            //Request code for activity results
             .setCount(imageCounter)                             //Number of images to restict selection count
             .setFrontfacing(false)                              //Front Facing camera on start
