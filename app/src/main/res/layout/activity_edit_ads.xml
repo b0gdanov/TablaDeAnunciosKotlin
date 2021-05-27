@@ -23,12 +23,6 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardImage"
                 android:layout_width="match_parent"
@@ -263,6 +257,39 @@
                         android:textColor="@color/ic_main"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/divider20"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/ic_main"
+                        android:orientation="horizontal"></LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/tv_title"
+                        android:textColor="@color/ic_main"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:id="@+id/etTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="@string/ed_title"
+                        android:inputType="textPersonName"
+                        android:padding="10dp"
+                        android:shadowColor="@color/black"
+                        android:textColor="@color/ic_main"
+                        android:textColorHint="@color/bg_main_light"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
 
                     <LinearLayout
                         android:id="@+id/divider10"

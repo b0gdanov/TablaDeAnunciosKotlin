@@ -26,7 +26,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var rootElement: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
-    private val dbManager = DbManager()
+    private val dbManager = DbManager(null)
     var editImagePos = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,11 +45,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults) //добавил из-за подчеркивания
         when (requestCode) {
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
 
@@ -135,6 +132,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 checkBoxWithSend.isChecked.toString(),
                 tvCategory.text.toString(),
                 etPrice.text.toString(),
+                etTitle.text.toString(),
                 etDescription.text.toString(),
                 dbManager.db.push().key
             )
