@@ -30,4 +30,10 @@
         <!-- Primary brand color. -->
         <item name="android:textColorSecondary">@color/ic_main</item>
     </style>
+
+    <style name="ToolbarMainStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorControlNormal">@color/ic_main</item>
+        <item name="fontFamily">serif-monospace</item>
+    </style>
 </resources>

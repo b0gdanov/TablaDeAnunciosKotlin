@@ -38,8 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="4dp"
-                android:scaleType="centerCrop"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:scaleType="fitCenter"
+                tools:srcCompat="@drawable/ic_defaul_image" />
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -81,6 +81,8 @@
                         android:id="@+id/tvViewCounter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:text="444"
                         android:textColor="@color/ic_main" />
 
@@ -95,6 +97,8 @@
                         android:id="@+id/tvFavCounter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:text="999"
                         android:textColor="@color/ic_main" />
                 </LinearLayout>
