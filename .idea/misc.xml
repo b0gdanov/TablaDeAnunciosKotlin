@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/edit_image_bg.xml" value="0.29739583333333336" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/edit_image_button.xml" value="0.309375" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_btn_5_k_1.xml" value="0.29739583333333336" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_btn_5i5_k_1.xml" value="0.29739583333333336" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_edit.xml" value="0.309375" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_eye.xml" value="0.309375" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_favorite_off.xml" value="0.309375" />
@@ -11,16 +14,18 @@
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_menu_clan_battles.xml" value="0.309375" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_menu_doom_tower.xml" value="0.309375" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_menu_dungeons.xml" value="0.309375" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/test_btn.xml" value="0.29739583333333336" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_main.xml" value="0.29322916666666665" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/ad_list_item.xml" value="0.6025459688826026" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/ad_list_item.xml" value="0.28125" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/image_adapter_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/list_image_frag.xml" value="0.29322916666666665" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/main_content.xml" value="0.5" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/main_content.xml" value="0.28125" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/nav_header_main.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/select_image_fragment_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/sp_list_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/spinner_layout.xml" value="0.29322916666666665" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/test_act.xml" value="1.25" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/menu/drawer_main_menu.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/menu/main_menu.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/menu/menu_choose_image.xml" value="0.29322916666666665" />
