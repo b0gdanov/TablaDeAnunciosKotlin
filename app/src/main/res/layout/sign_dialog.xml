@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/edit_image_bg_light">
 
     <TextView
         android:id="@+id/tvSignTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:shadowColor="@color/black"
         android:text="@string/sign_up"
-        android:textColor="@color/black"
+        android:textColor="@color/ic_main"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +69,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tvSignTitle" />
 
     <TextView
-        style="@style/MyBtnStyle"
         android:id="@+id/btSignUpIn"
+        style="@style/MyBtnStyle"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/sign_up_action"
@@ -90,10 +92,11 @@
         app:layout_constraintTop_toBottomOf="@+id/btSignUpIn" />
 
     <TextView
-        style="@style/MyBtnStyle"
         android:id="@+id/btGoogleSignIn"
+        style="@style/MyBtnStyle"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:drawableLeft="@drawable/ic_google"
         android:text="Зайти с помощью Google аккаунта"
         app:layout_constraintBottom_toTopOf="@+id/btSignUpIn"
         app:layout_constraintEnd_toEndOf="@+id/btSignUpIn"
