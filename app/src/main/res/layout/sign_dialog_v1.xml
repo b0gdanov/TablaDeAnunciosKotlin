@@ -66,22 +66,26 @@
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/tvSignTitle" />
 
-    <TextView
-        style="@style/MyBtnStyle"
+    <com.google.android.gms.common.internal.SignInButtonImpl
         android:id="@+id/btSignUpIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:text="@string/sign_up_action"
         app:layout_constraintBottom_toTopOf="@+id/btForgetP"
         app:layout_constraintEnd_toEndOf="@+id/edSignEmail"
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/btGoogleSignIn" />
 
-    <TextView
+    <com.google.android.gms.common.internal.SignInButtonImpl
         android:id="@+id/btForgetP"
-        style="@style/MyBtnStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:text="@string/forget_password"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -89,12 +93,13 @@
         app:layout_constraintStart_toStartOf="@+id/edSignEmail"
         app:layout_constraintTop_toBottomOf="@+id/btSignUpIn" />
 
-    <TextView
-        style="@style/MyBtnStyle"
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/btGoogleSignIn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Зайти с помощью Google аккаунта"
+        app:buttonSize="standard"
         app:layout_constraintBottom_toTopOf="@+id/btSignUpIn"
         app:layout_constraintEnd_toEndOf="@+id/btSignUpIn"
         app:layout_constraintStart_toStartOf="@+id/btSignUpIn"
