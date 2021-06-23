@@ -3,13 +3,11 @@ package ru.gamebreaker.tabladeanuncioskotlin.fragments
 import android.app.Activity
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.gamebreaker.tabladeanuncioskotlin.R
+import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ListImageFragBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.ProgressDialog
 import ru.gamebreaker.tabladeanuncioskotlin.utils.AdapterCallBack
@@ -103,8 +102,7 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
 
             addImageItem?.setOnMenuItemClickListener {
                 val imageCount = ImagePicker.MAX_IMAGE_COUNT - adapter.mainArray.size
-                ImagePicker.getImages(activity as AppCompatActivity, imageCount, ImagePicker.REQUEST_CODE_GET_IMAGES)
-                Log.d("MyLog", "Add Item")
+                ImagePicker.launcher(activity as EditAdsAct, (activity as EditAdsAct).launcherMultiSelectImage, imageCount)
                 true
             }
         }
