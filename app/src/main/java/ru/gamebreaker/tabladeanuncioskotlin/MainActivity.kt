@@ -43,12 +43,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initRecyclerView()
         initViewModel()
         firebaseViewModel.loadAllAds()
+        bottomMenuOnClick()
         //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu,menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun onResume() {
+        super.onResume()
+        rootElement.mainContent.botNavView.selectedItemId = R.id.id_home
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -90,6 +91,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
+    private fun bottomMenuOnClick() = with(rootElement){
+        mainContent.botNavView.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId){
+                R.id.id_new_ad -> {
+                    val i = Intent(this@MainActivity, EditAdsAct::class.java) //передаём контекст на котором находимся и активити на которое хотим перейти
+                    startActivity(i) //запускаем интент и новое активити
+                }
+                R.id.id_my_ads -> {
+                    Toast.makeText(this@MainActivity, "my_ads", Toast.LENGTH_SHORT).show()
+                }
+                R.id.id_favs -> {
+                    Toast.makeText(this@MainActivity, "favs", Toast.LENGTH_SHORT).show()
+                }
+                R.id.id_home -> {
+                    Toast.makeText(this@MainActivity, "home", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
+    }
+
     private fun initRecyclerView(){
         rootElement.apply {
             mainContent.rcView.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -99,10 +121,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.id_new_ads){
-            val i = Intent(this, EditAdsAct::class.java) //передаём контекст на котором находимся и активити на которое хотим перейти
-            startActivity(i) //запускаем интент и новое активити
-        }
         return super.onOptionsItemSelected(item)
     }
 
