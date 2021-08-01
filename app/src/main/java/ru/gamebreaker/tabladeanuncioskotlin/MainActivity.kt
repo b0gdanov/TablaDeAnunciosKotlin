@@ -1,5 +1,4 @@
 package ru.gamebreaker.tabladeanuncioskotlin
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,34 +7,32 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
-import ru.gamebreaker.tabladeanuncioskotlin.data.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.database.DbManager
-import ru.gamebreaker.tabladeanuncioskotlin.database.ReadDataCallback
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.GoogleAccConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
+import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, ReadDataCallback {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var tvAccount:TextView
     private lateinit var rootElement:ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
-    val dbManager = DbManager(this)
     val adapter = AdsRcAdapter(mAuth)
+    private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +41,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(view)
         init()
         initRecyclerView()
-        dbManager.readDataFromDb()
-
-        Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
+        initViewModel()
+        firebaseViewModel.loadAllAds()
+        //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -74,6 +71,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStart() {
         super.onStart()
         uiUpdate(mAuth.currentUser)
+    }
+
+    private fun initViewModel(){
+        firebaseViewModel.liveAdsData.observe(this, {
+            adapter.updateAdapter(it)
+        })
     }
 
     private fun init(){
@@ -192,9 +195,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }else{
             user.email
         }
-    }
-
-    override fun readData(list: List<Ad>) {
-        adapter.updateAdapter(list)
     }
 }

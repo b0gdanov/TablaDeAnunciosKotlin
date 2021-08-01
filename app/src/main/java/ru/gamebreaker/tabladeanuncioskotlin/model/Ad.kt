@@ -1,4 +1,4 @@
-package ru.gamebreaker.tabladeanuncioskotlin.data
+package ru.gamebreaker.tabladeanuncioskotlin.model
 
 data class Ad(
     val fraction: String? = null,

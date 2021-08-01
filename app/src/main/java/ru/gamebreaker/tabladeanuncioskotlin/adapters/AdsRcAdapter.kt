@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import ru.gamebreaker.tabladeanuncioskotlin.data.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.AdListItemBinding
 
 class AdsRcAdapter(val auth: FirebaseAuth): RecyclerView.Adapter<AdsRcAdapter.AdHolder>() {
