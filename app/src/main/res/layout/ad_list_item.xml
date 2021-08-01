@@ -39,7 +39,7 @@
                 android:layout_height="200dp"
                 android:layout_margin="4dp"
                 android:scaleType="fitCenter"
-                tools:srcCompat="@drawable/ic_defaul_image" />
+                app:srcCompat="@drawable/ic_defaul_image" />
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -104,6 +104,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/editPanel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
