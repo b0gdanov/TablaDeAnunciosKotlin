@@ -6,6 +6,7 @@
     <string name="app_name">TablaDeAnunciosKotlin</string>
     <!-- Menu Drawer Strings -->
     <string name="ad_cat1">Объявления</string>
+    <string name="def">Разное</string>
     <string name="ad_my_ads">Мои сборки</string>
     <string name="ad_heroes">Герои</string>
     <string name="ad_dungeons">Подземелья</string>

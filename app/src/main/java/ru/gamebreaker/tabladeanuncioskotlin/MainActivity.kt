@@ -99,13 +99,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     startActivity(i) //запускаем интент и новое активити
                 }
                 R.id.id_my_ads -> {
-                    Toast.makeText(this@MainActivity, "my_ads", Toast.LENGTH_SHORT).show()
+                    firebaseViewModel.loadMyAds()
+                    mainContent.toolbar.title = getString(R.string.ad_my_ads)
                 }
                 R.id.id_favs -> {
                     Toast.makeText(this@MainActivity, "favs", Toast.LENGTH_SHORT).show()
                 }
                 R.id.id_home -> {
-                    Toast.makeText(this@MainActivity, "home", Toast.LENGTH_SHORT).show()
+                    firebaseViewModel.loadAllAds()
+                    mainContent.toolbar.title = getString(R.string.def)
                 }
             }
             true
