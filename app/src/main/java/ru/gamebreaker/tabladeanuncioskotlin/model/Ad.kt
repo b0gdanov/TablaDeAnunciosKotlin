@@ -1,5 +1,7 @@
 package ru.gamebreaker.tabladeanuncioskotlin.model
 
+import java.io.Serializable
+
 data class Ad(
     val fraction: String? = null,
     val heroName: String? = null,
@@ -12,4 +14,4 @@ data class Ad(
     val description: String? = null,
     val key: String? = null,
     val uid: String? = null
-)
+): Serializable

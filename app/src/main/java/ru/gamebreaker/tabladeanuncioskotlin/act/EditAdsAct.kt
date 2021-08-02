@@ -13,6 +13,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import androidx.activity.result.ActivityResultLauncher
 import com.fxn.utility.PermUtil
+import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
@@ -38,7 +39,29 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         val view = rootElement.root
         setContentView(view)
         init()
+        checkEditState()
+    }
 
+    private fun checkEditState(){
+        if (isEditState()){
+            fillViews(intent.getSerializableExtra(MainActivity.ADS_DATA) as Ad)
+        }
+    }
+
+    private fun isEditState(): Boolean{
+        return intent.getBooleanExtra(MainActivity.EDIT_STATE, false)
+    }
+
+    private fun fillViews(ad: Ad) = with(rootElement) {
+        tvFraction.text = ad.fraction
+        tvHeroName.text = ad.heroName
+        etTel.setText(ad.tel)
+        etIndex.setText(ad.index)
+        checkBoxWithSend.isChecked = ad.withSend.toBoolean()
+        tvCategory.text = ad.category
+        etTitle.setText(ad.title)
+        etPrice.setText(ad.price)
+        etDescription.setText(ad.description)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
