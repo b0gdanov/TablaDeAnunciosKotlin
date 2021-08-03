@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
+import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.AdListItemBinding
@@ -43,7 +44,15 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             tvPrice.text = ad.price
             tvTitle.text = ad.title
             tvViewCounter.text = ad.viewsCounter
+            if (ad.isFav){
+                ibFav.setImageResource(R.drawable.ic_favorite_on)
+            } else {
+                ibFav.setImageResource(R.drawable.ic_favorite_off)
+            }
             showEditPanel(isOwner(ad))
+            ibFav.setOnClickListener {
+                act.onFavClicked(ad)
+            }
             itemView.setOnClickListener {
                 act.onAdViewed(ad)
             }
@@ -79,6 +88,7 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
     interface Listener{
         fun  onDeleteItem(ad: Ad)
         fun  onAdViewed(ad: Ad)
+        fun  onFavClicked(ad: Ad)
     }
 
 }
