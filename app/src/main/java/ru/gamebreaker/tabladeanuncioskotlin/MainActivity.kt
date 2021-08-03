@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (user.isAnonymous) {
             tvAccount.text = "Гость"
         } else if (!user.isAnonymous) {
-            tvAccount.text = user.displayName //.email
+            tvAccount.text = user.email
         }
     }
 

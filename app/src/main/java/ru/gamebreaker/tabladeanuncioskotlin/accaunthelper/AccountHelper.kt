@@ -11,6 +11,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.constants.FirebaseAuthConstants
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.GoogleAccConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
+import java.lang.Exception
 
 class AccountHelper(act: MainActivity) {
 
@@ -18,75 +19,74 @@ class AccountHelper(act: MainActivity) {
     private lateinit var signInClient: GoogleSignInClient
 
     fun signUpWithEmail(email: String, password: String) {
-
         if (email.isNotEmpty() && password.isNotEmpty()) {
-
-            act.mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-
+            act.mAuth.currentUser?.delete()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    sendEmailVerification(task.result?.user!!)
-                    act.uiUpdate(task.result?.user)
-
-                } else {
-                    Toast.makeText(act, act.resources.getString(R.string.sign_up_error),Toast.LENGTH_LONG).show()
-
-                    if (task.exception is FirebaseAuthUserCollisionException) {
-                        val exception = task.exception as FirebaseAuthUserCollisionException
-
-                        if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
-                            //Toast.makeText(activity, FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE,Toast.LENGTH_LONG).show()
-                            //Link email
-                            linkEmailToG(email, password)
+                    act.mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                signUpWithEmailSuccessful(task.result.user!!)
+                            } else {
+                                signUpWithEmailException(task.exception!!, email, password)
+                            }
                         }
-                    } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        val exception = task.exception as FirebaseAuthInvalidCredentialsException
-
-                        if (exception.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
-                            Toast.makeText(act, FirebaseAuthConstants.ERROR_INVALID_EMAIL, Toast.LENGTH_LONG ).show()
-                        }
-                    }
-                    if (task.exception is FirebaseAuthWeakPasswordException) {
-                        val exception = task.exception as FirebaseAuthWeakPasswordException
-                        Log.d(MyLogConst.MY_LOG, "Exception : ${exception.errorCode}") //1 эмулируем ошибку и смотрим лог
-                        if (exception.errorCode == FirebaseAuthConstants.ERROR_WEAK_PASSWORD) {
-                            Toast.makeText(act, FirebaseAuthConstants.ERROR_WEAK_PASSWORD, Toast.LENGTH_LONG ).show() //сообщение пользователю (заменить на читаемое)
-                        }
-                    }
                 }
             }
         }
     }
 
+    private fun signUpWithEmailSuccessful(user: FirebaseUser){
+        sendEmailVerification(user)
+        act.uiUpdate(user)
+    }
+
+    private fun signUpWithEmailException(e: Exception, email: String, password: String){
+        if (e is FirebaseAuthUserCollisionException) {
+            if (e.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
+                linkEmailToG(email, password)
+            }
+        } else if (e is FirebaseAuthInvalidCredentialsException) {
+                if (e.errorCode == FirebaseAuthConstants.ERROR_INVALID_EMAIL) {
+                Toast.makeText(act, FirebaseAuthConstants.ERROR_INVALID_EMAIL, Toast.LENGTH_LONG ).show()
+            }
+        }
+        if (e is FirebaseAuthWeakPasswordException) {
+            if (e.errorCode == FirebaseAuthConstants.ERROR_WEAK_PASSWORD) {
+                Toast.makeText(act, FirebaseAuthConstants.ERROR_WEAK_PASSWORD, Toast.LENGTH_LONG ).show()
+            }
+        }
+    }
+
     fun signInWithEmail(email: String, password: String) {
-
         if (email.isNotEmpty() && password.isNotEmpty()) {
-
-            act.mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-
+            act.mAuth.currentUser?.delete()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    act.uiUpdate(task.result?.user)
-                } else {
-                    Toast.makeText(act, act.resources.getString(R.string.sign_in_error), Toast.LENGTH_LONG).show()
-                    //Log.d(MyLogConst.MY_LOG, "sign In With Email Exception : ${task.exception}")
-
-                    if (task.exception is FirebaseAuthUserCollisionException) {
-                        //Log.d(MyLogConst.MY_LOG, "Exception : ${task.exception}")
-                        val exception = task.exception as FirebaseAuthUserCollisionException
-                        //Log.d(MyLogConst.MY_LOG, "sign In With Email Exception : ${exception.errorCode}")
-
-                        if (exception.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
-                            Toast.makeText(act, FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE, Toast.LENGTH_LONG).show()
-                        } else if (exception.errorCode == FirebaseAuthConstants.ERROR_WRONG_PASSWORD) {
-                            Toast.makeText(act, FirebaseAuthConstants.ERROR_WRONG_PASSWORD,Toast.LENGTH_LONG).show()
+                    act.mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                act.uiUpdate(task.result?.user)
+                            } else {
+                                signInWithEmailException(task.exception!!, email, password)
+                            }
                         }
-                    } else if(task.exception is FirebaseAuthInvalidUserException){
-                        val exception = task.exception as FirebaseAuthInvalidUserException
-                        //Log.d(MyLogConst.MY_LOG, "sign In With Email Exception : ${exception.errorCode}")
-                        if (exception.errorCode == FirebaseAuthConstants.ERROR_USER_NOT_FOUND){
-                            Toast.makeText(act, FirebaseAuthConstants.ERROR_USER_NOT_FOUND,Toast.LENGTH_LONG).show() //добавить стринг описание ошибки(ошибок)
-                        }
-                    }
                 }
+            }
+        }
+    }
+
+    private fun signInWithEmailException(e: Exception, email: String, password: String){
+
+        Toast.makeText(act, act.resources.getString(R.string.sign_in_error), Toast.LENGTH_LONG).show()
+        //Log.d(MyLogConst.MY_LOG, "sign In With Email Exception : ${e}")
+        if (e is FirebaseAuthUserCollisionException) {
+            if (e.errorCode == FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE) {
+                Toast.makeText(act, FirebaseAuthConstants.ERROR_EMAIL_ALREADY_IN_USE, Toast.LENGTH_LONG).show()
+            } else if (e.errorCode == FirebaseAuthConstants.ERROR_WRONG_PASSWORD) {
+                Toast.makeText(act, FirebaseAuthConstants.ERROR_WRONG_PASSWORD,Toast.LENGTH_LONG).show()
+            }
+        } else if(e is FirebaseAuthInvalidUserException){
+            if (e.errorCode == FirebaseAuthConstants.ERROR_USER_NOT_FOUND){
+                Toast.makeText(act, FirebaseAuthConstants.ERROR_USER_NOT_FOUND,Toast.LENGTH_LONG).show() //добавить стринг описание ошибки(ошибок)
             }
         }
     }
