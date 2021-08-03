@@ -1,5 +1,6 @@
 package ru.gamebreaker.tabladeanuncioskotlin.model
 
+import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -12,8 +13,11 @@ class DbManager{
     val db = Firebase.database.getReference("main")
     val auth = Firebase.auth
 
-    fun publishAd(ad: Ad){
-        if(auth.uid != null)db.child(ad.key ?: "empty").child(auth.uid!!).child("ad").setValue(ad)
+    fun publishAd(ad: Ad, finishListener: FinishWorkListener){
+        if(auth.uid != null)db.child(ad.key ?: "empty").child(auth.uid!!).child("ad").setValue(ad).addOnCompleteListener {
+            //if (it.isSuccessful) //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
+            finishListener.onFinish()
+        }
     }
 
     fun getMyAds(readDataCallback: ReadDataCallback?){
@@ -41,5 +45,9 @@ class DbManager{
     }
     interface ReadDataCallback {
         fun readData(list: ArrayList<Ad>)
+    }
+
+    interface FinishWorkListener{
+        fun onFinish()
     }
 }

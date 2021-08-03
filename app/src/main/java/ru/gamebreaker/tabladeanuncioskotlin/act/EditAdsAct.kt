@@ -29,9 +29,11 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
-    var editImagePos = 0
     var launcherMultiSelectImage: ActivityResultLauncher<Intent>? = null
     var launcherSingleSelectImage: ActivityResultLauncher<Intent>? = null
+    var editImagePos = 0
+    private var isEditState = false
+    private var ad: Ad? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +45,10 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun checkEditState(){
-        if (isEditState()){
-            fillViews(intent.getSerializableExtra(MainActivity.ADS_DATA) as Ad)
+        isEditState = isEditState()
+        if (isEditState){
+            ad = intent.getSerializableExtra(MainActivity.ADS_DATA) as Ad
+            if(ad != null) fillViews(ad!!)
         }
     }
 
@@ -135,15 +139,25 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
+        val adTemp: Ad =fillAd()
+        if(isEditState){
+            dbManager.publishAd(adTemp.copy(key = ad?.key), onPublishFinish()) //обновляем существующее объявление
+        } else {
+            dbManager.publishAd(adTemp, onPublishFinish()) //публикуем новое объявление
+        }
+    }
 
-        dbManager.publishAd(fillAd())
-
+    private fun  onPublishFinish(): DbManager.FinishWorkListener{
+        return object : DbManager.FinishWorkListener{
+            override fun onFinish() {
+                finish()
+            }
+        }
     }
 
     private fun fillAd(): Ad{
         val ad: Ad
         rootElement.apply{
-
             ad = Ad(
                 tvFraction.text.toString(),
                 tvHeroName.text.toString(),
@@ -157,7 +171,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 dbManager.db.push().key,
                 dbManager.auth.uid
             )
-
         }
         return ad
     }
