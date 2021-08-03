@@ -8,13 +8,12 @@ import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.SignDialogBinding
 
-class DialogHelper(act: MainActivity) {
-    private val activity = act
+class DialogHelper(val act: MainActivity) {
     val accHelper = AccountHelper(act)
 
     fun createSignDialog(index: Int) {
-        val builder = AlertDialog.Builder(activity)
-        val rootDialogElement = SignDialogBinding.inflate(activity.layoutInflater)
+        val builder = AlertDialog.Builder(act)
+        val rootDialogElement = SignDialogBinding.inflate(act.layoutInflater)
         val view = rootDialogElement.root
         builder.setView(view)
         setDialogStare(index, rootDialogElement)
@@ -34,14 +33,14 @@ class DialogHelper(act: MainActivity) {
 
     private fun setOnClickResetPassword(rootDialogElement: SignDialogBinding, dialog: AlertDialog?) {
         if (rootDialogElement.edSignEmail.text.isNotEmpty()) {
-            activity.mAuth.sendPasswordResetEmail(rootDialogElement.edSignEmail.text.toString()).addOnCompleteListener { task ->
+            act.mAuth.sendPasswordResetEmail(rootDialogElement.edSignEmail.text.toString()).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(activity,R.string.email_reset_password_was_sent,Toast.LENGTH_LONG).show()
+                    Toast.makeText(act,R.string.email_reset_password_was_sent,Toast.LENGTH_LONG).show()
                     dialog?.dismiss()
                 }
             }
         } else {
-            rootDialogElement.btForgetP.text = activity.resources.getString(R.string.sent)
+            rootDialogElement.btForgetP.text = act.resources.getString(R.string.sent)
             rootDialogElement.tvDialogMessage.visibility = View.VISIBLE
             rootDialogElement.edSignPassword.visibility = View.GONE
             rootDialogElement.btSignUpIn.visibility = View.GONE
@@ -61,20 +60,20 @@ class DialogHelper(act: MainActivity) {
                 rootDialogElement.edSignEmail.text.toString(),
                 rootDialogElement.edSignPassword.text.toString()
             )
-            Toast.makeText(activity,activity.resources.getString(R.string.sign_in_done),Toast.LENGTH_LONG).show()
+            Toast.makeText(act,act.resources.getString(R.string.sign_in_done),Toast.LENGTH_LONG).show()
             dialog?.dismiss()
         }
     }
 
     private fun setDialogStare(index: Int, rootDialogElement: SignDialogBinding) {
         if (index == DialogConst.SIGN_UP_STATE) {
-            rootDialogElement.tvSignTitle.text = activity.resources.getString(R.string.sign_up)
+            rootDialogElement.tvSignTitle.text = act.resources.getString(R.string.sign_up)
             rootDialogElement.btSignUpIn.text =
-                activity.resources.getString(R.string.sign_up_action)
+                act.resources.getString(R.string.sign_up_action)
         } else {
-            rootDialogElement.tvSignTitle.text = activity.resources.getString(R.string.sign_in)
+            rootDialogElement.tvSignTitle.text = act.resources.getString(R.string.sign_in)
             rootDialogElement.btSignUpIn.text =
-                activity.resources.getString(R.string.sign_in_action)
+                act.resources.getString(R.string.sign_in_action)
             rootDialogElement.btForgetP.visibility = View.VISIBLE
         }
     }

@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
@@ -122,7 +123,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         rootElement.apply {
             mainContent.rcView.layoutManager = LinearLayoutManager(this@MainActivity)
             mainContent.rcView.adapter = adapter
-
         }
     }
 
@@ -131,93 +131,75 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
         val length = Toast.LENGTH_SHORT
         val textAddToast = getString(R.string.textAddToast)
-
         when(item.itemId){
-
             R.id.id_my_ads ->{
-
                 val text = textAddToast + getString(R.string.ad_my_ads)
                 Toast.makeText(this, text, length).show()
-
             }
             R.id.id_heroes ->{
-
                 val text = textAddToast + getString(R.string.ad_heroes)
                 Toast.makeText(this, text, length).show()
-
             }
             R.id.id_dungeons ->{
-
                 val text = textAddToast + getString(R.string.ad_dungeons)
                 Toast.makeText(this, text, length).show()
-
             }
             R.id.id_faction_war ->{
-
                 val text = textAddToast + getString(R.string.ad_faction_war)
                 Toast.makeText(this, text, length).show()
-
             }
             R.id.id_arena ->{
-
                 val text = textAddToast + getString(R.string.ad_arena)
                 Toast.makeText(this, text, length).show()
-
             }
             R.id.id_cb ->{
-
                 val text = textAddToast + getString(R.string.ad_cb)
                 Toast.makeText(this, text, length).show()
-
             }
             R.id.id_tower ->{
-
                 val text = textAddToast + getString(R.string.ad_tower)
                 Toast.makeText(this, text, length).show()
-
             }
             R.id.id_sign_up ->{
-
                 val text = textAddToast + getString(R.string.ac_sign_up)
                 Toast.makeText(this, text, length).show()
-
                 dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
-
             }
             R.id.id_sign_in ->{
-
                 val text = textAddToast + getString(R.string.ac_sign_in)
                 Toast.makeText(this, text, length).show()
-
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
-
             }
             R.id.id_sign_out ->{
-
+                if(mAuth.currentUser?.isAnonymous == true){
+                    rootElement.drawerLayout.closeDrawer(GravityCompat.START)
+                    return true
+                }
                 val text = getString(R.string.sign_out_done)
                 Toast.makeText(this, text, length).show()
-
                 uiUpdate(null)
                 mAuth.signOut()
                 dialogHelper.accHelper.signOutGoogle()
-
             }
-
         }
-
         rootElement.drawerLayout.closeDrawer(GravityCompat.START)
         return true
-
     }
 
-    fun uiUpdate(user:FirebaseUser?){
-        tvAccount.text = if (user == null){
-            resources.getString(R.string.not_reg)
-        }else{
-            user.email
+    fun uiUpdate(user: FirebaseUser?) {
+        if (user == null) {
+            dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
+                override fun onComplete() {
+                    tvAccount.text =
+                        "Гость" // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
+                }
+            })
+        } else if (user.isAnonymous) {
+            tvAccount.text = "Гость"
+        } else if (!user.isAnonymous) {
+            tvAccount.text = user.displayName //.email
         }
     }
 
