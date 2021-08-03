@@ -22,7 +22,6 @@
         android:id="@+id/rcView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingBottom="4dp"
         app:layout_constraintBottom_toTopOf="@+id/botNavView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
