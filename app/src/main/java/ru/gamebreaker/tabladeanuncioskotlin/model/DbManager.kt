@@ -30,6 +30,14 @@ class DbManager{
         readDataFromDb(query, readDataCallback)
     }
 
+    fun deleteAd(ad: Ad, listener: FinishWorkListener){
+        if (ad.key == null || ad.uid == null) return
+        db.child(ad.key).child(ad.uid).removeValue().addOnCompleteListener {
+            if (it.isSuccessful) listener.onFinish()
+            //else Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun readDataFromDb(query: Query, readDataCallback: ReadDataCallback?){
         query.addListenerForSingleValueEvent(object : ValueEventListener{
             val adArray = ArrayList<Ad>()

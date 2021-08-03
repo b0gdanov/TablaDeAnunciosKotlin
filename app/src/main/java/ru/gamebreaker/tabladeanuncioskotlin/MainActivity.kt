@@ -24,9 +24,10 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.GoogleAccConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
+import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRcAdapter.DeleteItemListener {
     private lateinit var tvAccount:TextView
     private lateinit var rootElement:ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
@@ -220,5 +221,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object{
         const val EDIT_STATE = "edit_state"
         const val ADS_DATA = "ads_data"
+    }
+
+    override fun onDeleteItem(ad: Ad) {
+        firebaseViewModel.deleteItem(ad)
     }
 }
