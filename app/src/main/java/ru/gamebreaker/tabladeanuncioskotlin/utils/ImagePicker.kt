@@ -2,6 +2,7 @@ package ru.gamebreaker.tabladeanuncioskotlin.utils
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
@@ -34,42 +35,39 @@ object ImagePicker {
         return options
     }
 
-    fun launcher(edAct: EditAdsAct, launcher: ActivityResultLauncher<Intent>?, imageCounter: Int){
+    fun launcher(edAct: EditAdsAct, imageCounter: Int){
         edAct.addPixToActivity(R.id.place_holder, getOptions(imageCounter)){ result ->
             when (result.status) {
                 PixEventCallback.Status.SUCCESS -> {
-                    val fList = edAct.supportFragmentManager.fragments
-                    fList.forEach {
-                        if (it.isVisible) edAct.supportFragmentManager.beginTransaction().remove(it).commit()
-                    }
+                    getMultiSelectImages(edAct, result.data)
+                    closePixFrag(edAct)
                 }
-                //PixEventCallback.Status.BACK_PRESSED ->
             }
         }
     }
 
-    fun getLauncherForMultiSelectImages(edAct: EditAdsAct): ActivityResultLauncher<Intent>{
-        return edAct.registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result: ActivityResult ->
-            if (result.resultCode == AppCompatActivity.RESULT_OK) {
-/*                if (result.data != null) {
-                    val returnValues = result.data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                    if (returnValues?.size!! > 1 && edAct.chooseImageFragment == null) {
-                        edAct.openChooseItemFragment(returnValues)
-                    } else if (edAct.chooseImageFragment != null) {
-                        edAct.chooseImageFragment?.updateAdapter(returnValues)
-                    } else if (returnValues.size == 1 && edAct.chooseImageFragment == null){
-                        CoroutineScope(Dispatchers.Main).launch{
-                            edAct.rootElement.pBarLoading.visibility = View.VISIBLE
-                            val bitmapArray = ImageManager.imageResize(returnValues) as ArrayList<Bitmap>
-                            edAct.rootElement.pBarLoading.visibility = View.GONE
-                            edAct.imageAdapter.update(bitmapArray)
-                        }
-                    }
-                }*/
+    private fun closePixFrag(edAct: EditAdsAct){
+        val fList = edAct.supportFragmentManager.fragments
+        fList.forEach {
+            if (it.isVisible) edAct.supportFragmentManager.beginTransaction().remove(it).commit()
+        }
+    }
+
+    fun getMultiSelectImages(edAct: EditAdsAct, uris: List<Uri>) {
+        if (uris.size > 1 && edAct.chooseImageFragment == null) {
+            edAct.openChooseItemFragment(uris as ArrayList<Uri>)
+        } else if (edAct.chooseImageFragment != null) {
+            edAct.chooseImageFragment?.updateAdapter(uris as ArrayList<Uri>)
+        } else if (uris.size == 1 && edAct.chooseImageFragment == null) {
+            CoroutineScope(Dispatchers.Main).launch {
+                edAct.rootElement.pBarLoading.visibility = View.VISIBLE
+                val bitmapArray = ImageManager.imageResize(uris as ArrayList<Uri>, edAct) as ArrayList<Bitmap>
+                edAct.rootElement.pBarLoading.visibility = View.GONE
+                edAct.imageAdapter.update(bitmapArray)
             }
         }
     }
+
 
     fun getLauncherForSingleImages(edAct : EditAdsAct): ActivityResultLauncher<Intent> {
         return edAct.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
