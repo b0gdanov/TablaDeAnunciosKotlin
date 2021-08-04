@@ -25,7 +25,7 @@ class AccountHelper(act: MainActivity) {
                     act.mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                signUpWithEmailSuccessful(task.result.user!!)
+                                signUpWithEmailSuccessful(task.result?.user!!)
                             } else {
                                 signUpWithEmailException(task.exception!!, email, password)
                             }

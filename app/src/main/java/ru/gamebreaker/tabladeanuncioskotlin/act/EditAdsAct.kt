@@ -12,7 +12,6 @@ import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import androidx.activity.result.ActivityResultLauncher
-import com.fxn.utility.PermUtil
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
@@ -68,28 +67,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         etDescription.setText(ad.description)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-
-        when (requestCode) {
-            PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    //ImagePicker.getImages(this, 3, ImagePicker.REQUEST_CODE_GET_IMAGES)
-                } else {
-
-                    Toast.makeText(
-                        this,
-                        "Approve permissions to open Pix ImagePicker",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                return
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults) //добавил из-за подчеркивания
-    }
     private fun init(){
         imageAdapter = ImageAdapter()
         rootElement.vpImages.adapter = imageAdapter
