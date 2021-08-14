@@ -3,6 +3,7 @@ package ru.gamebreaker.tabladeanuncioskotlin.utils
 import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
+import androidx.fragment.app.Fragment
 import io.ak1.pix.helpers.PixEventCallback
 import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.models.Mode
@@ -19,7 +20,7 @@ object ImagePicker {
     const val REQUEST_CODE_GET_IMAGES = 999
     const val REQUEST_CODE_GET_SINGLE_IMAGE = 998
 
-    private fun getOptions(imageCounter : Int): Options {
+    private fun getOptions(imageCounter: Int): Options {
         val options = Options().apply {
             count = imageCounter
             isFrontFacing = false
@@ -29,18 +30,8 @@ object ImagePicker {
         return options
     }
 
-    fun getMultiImages(edAct: EditAdsAct, imageCounter: Int){
-        edAct.addPixToActivity(R.id.place_holder, getOptions(imageCounter)){ result ->
-            when (result.status) {
-                PixEventCallback.Status.SUCCESS -> {
-                    singleImage(edAct, result.data[0])
-                }
-            }
-        }
-    }
-
-    fun getSingleImage(edAct: EditAdsAct){
-        edAct.addPixToActivity(R.id.place_holder, getOptions(1)){ result ->
+    fun getMultiImages(edAct: EditAdsAct, imageCounter: Int) {
+        edAct.addPixToActivity(R.id.place_holder, getOptions(imageCounter)) { result ->
             when (result.status) {
                 PixEventCallback.Status.SUCCESS -> {
                     getMultiSelectImages(edAct, result.data)
@@ -50,7 +41,25 @@ object ImagePicker {
         }
     }
 
-    private fun closePixFrag(edAct: EditAdsAct){
+    fun getSingleImage(edAct: EditAdsAct) {
+        val f = edAct.chooseImageFragment
+        edAct.addPixToActivity(R.id.place_holder, getOptions(1)) { result ->
+            when (result.status) {
+                PixEventCallback.Status.SUCCESS -> {
+                    edAct.chooseImageFragment = f
+                    openChooseImageFrag(edAct, f!!)
+                    singleImage(edAct, result.data[0])
+                }
+            }
+        }
+    }
+
+    private fun openChooseImageFrag(edAct: EditAdsAct, f: Fragment){
+        edAct.supportFragmentManager.beginTransaction().replace(R.id.place_holder, f).commit()
+
+    }
+
+    private fun closePixFrag(edAct: EditAdsAct) {
         val fList = edAct.supportFragmentManager.fragments
         fList.forEach {
             if (it.isVisible) edAct.supportFragmentManager.beginTransaction().remove(it).commit()
@@ -65,7 +74,8 @@ object ImagePicker {
         } else if (uris.size == 1 && edAct.chooseImageFragment == null) {
             CoroutineScope(Dispatchers.Main).launch {
                 edAct.rootElement.pBarLoading.visibility = View.VISIBLE
-                val bitmapArray = ImageManager.imageResize(uris as ArrayList<Uri>, edAct) as ArrayList<Bitmap>
+                val bitmapArray =
+                    ImageManager.imageResize(uris as ArrayList<Uri>, edAct) as ArrayList<Bitmap>
                 edAct.rootElement.pBarLoading.visibility = View.GONE
                 edAct.imageAdapter.update(bitmapArray)
             }
@@ -73,7 +83,7 @@ object ImagePicker {
     }
 
 
-    private fun singleImage(edAct : EditAdsAct, uri: Uri){
-                    edAct.chooseImageFragment?.setSingleImage(uri, edAct.editImagePos)
-                }
+    private fun singleImage(edAct: EditAdsAct, uri: Uri) {
+        edAct.chooseImageFragment?.setSingleImage(uri, edAct.editImagePos)
+    }
 }

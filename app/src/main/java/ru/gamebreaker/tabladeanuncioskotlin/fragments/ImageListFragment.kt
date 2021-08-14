@@ -25,7 +25,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ItemTouchMoveCallBack
 
-class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterface, private val newList : ArrayList<Uri>?) : BaseAdsFrag(), AdapterCallBack {
+class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterface) : BaseAdsFrag(), AdapterCallBack {
 
     val adapter = SelectImageRvAdapter(this)
     val dragCallback = ItemTouchMoveCallBack(adapter)
@@ -53,7 +53,6 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
             touchHelper.attachToRecyclerView(rcViewSelectImage)
             rcViewSelectImage.layoutManager = LinearLayoutManager(activity)
             rcViewSelectImage.adapter = adapter
-            if (newList != null) resizeSelectedImages(newList, true)
         }
 
     }
@@ -72,10 +71,10 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
         activity?.supportFragmentManager?.beginTransaction()?.remove(this@ImageListFragment)?.commit()
     }
 
-    private fun resizeSelectedImages(newList : ArrayList<Uri>, needClear : Boolean){
+    fun resizeSelectedImages(newList : ArrayList<Uri>, needClear : Boolean, activity: Activity){
         job = CoroutineScope(Dispatchers.Main).launch {
-            val dialog = ProgressDialog.createProgressDialog(activity as Activity)
-            val bitmapList = ImageManager.imageResize(newList, activity as Activity)
+            val dialog = ProgressDialog.createProgressDialog(activity)
+            val bitmapList = ImageManager.imageResize(newList, activity)
             dialog.dismiss()
             adapter.updateAdapter(bitmapList, needClear)
             if(adapter.mainArray.size > 2) addImageItem?.isVisible = false
@@ -110,7 +109,7 @@ class ImageListFragment(private val fragmentCloseInterface: FragmentCloseInterfa
     }
 
     fun updateAdapter(newList: ArrayList<Uri>){
-        resizeSelectedImages(newList, false)
+        resizeSelectedImages(newList, false, activity as Activity)
     }
 
     fun setSingleImage(uri : Uri, pos : Int){
