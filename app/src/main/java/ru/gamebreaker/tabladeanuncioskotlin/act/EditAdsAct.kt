@@ -1,6 +1,5 @@
 package ru.gamebreaker.tabladeanuncioskotlin.act
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,7 +10,6 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.activity.result.ActivityResultLauncher
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
@@ -100,7 +98,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     fun onClickGetImages(view: View){
         if(imageAdapter.mainArray.size == 0){
-            ImagePicker.launcher(this, 3)
+            ImagePicker.getMultiImages(this, 3)
 
         } else {
 

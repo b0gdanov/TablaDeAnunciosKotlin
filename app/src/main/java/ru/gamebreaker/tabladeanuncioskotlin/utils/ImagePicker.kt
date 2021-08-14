@@ -1,14 +1,8 @@
 package ru.gamebreaker.tabladeanuncioskotlin.utils
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
 import android.view.View
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import io.ak1.pix.helpers.PixEventCallback
 import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.models.Mode
@@ -35,8 +29,18 @@ object ImagePicker {
         return options
     }
 
-    fun launcher(edAct: EditAdsAct, imageCounter: Int){
+    fun getMultiImages(edAct: EditAdsAct, imageCounter: Int){
         edAct.addPixToActivity(R.id.place_holder, getOptions(imageCounter)){ result ->
+            when (result.status) {
+                PixEventCallback.Status.SUCCESS -> {
+                    singleImage(edAct, result.data[0])
+                }
+            }
+        }
+    }
+
+    fun getSingleImage(edAct: EditAdsAct){
+        edAct.addPixToActivity(R.id.place_holder, getOptions(1)){ result ->
             when (result.status) {
                 PixEventCallback.Status.SUCCESS -> {
                     getMultiSelectImages(edAct, result.data)
@@ -69,15 +73,7 @@ object ImagePicker {
     }
 
 
-    fun getLauncherForSingleImages(edAct : EditAdsAct): ActivityResultLauncher<Intent> {
-        return edAct.registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                result: ActivityResult ->
-            /*if (result.resultCode == AppCompatActivity.RESULT_OK) {
-                if (result.data != null) {
-                    val uris = result.data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-                    edAct.chooseImageFragment?.setSingleImage(uris?.get(0)!!, edAct.editImagePos)
+    private fun singleImage(edAct : EditAdsAct, uri: Uri){
+                    edAct.chooseImageFragment?.setSingleImage(uri, edAct.editImagePos)
                 }
-            }*/
-        }
-    }
 }
