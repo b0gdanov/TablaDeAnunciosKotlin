@@ -41,20 +41,33 @@ object ImagePicker {
         }
     }
 
+    fun addImages(edAct: EditAdsAct, imageCounter: Int) {
+        val f = edAct.chooseImageFragment
+        edAct.addPixToActivity(R.id.place_holder, getOptions(imageCounter)) { result ->
+            when (result.status) {
+                PixEventCallback.Status.SUCCESS -> {
+                        edAct.chooseImageFragment = f
+                        openChooseImageFragment(edAct, f!!)
+                        edAct.chooseImageFragment?.updateAdapter(result.data as ArrayList<Uri>, edAct)
+                    }
+            }
+        }
+    }
+
     fun getSingleImage(edAct: EditAdsAct) {
         val f = edAct.chooseImageFragment
         edAct.addPixToActivity(R.id.place_holder, getOptions(1)) { result ->
             when (result.status) {
                 PixEventCallback.Status.SUCCESS -> {
                     edAct.chooseImageFragment = f
-                    openChooseImageFrag(edAct, f!!)
+                    openChooseImageFragment(edAct, f!!)
                     singleImage(edAct, result.data[0])
                 }
             }
         }
     }
 
-    private fun openChooseImageFrag(edAct: EditAdsAct, f: Fragment){
+    private fun openChooseImageFragment(edAct: EditAdsAct, f: Fragment){
         edAct.supportFragmentManager.beginTransaction().replace(R.id.place_holder, f).commit()
 
     }
@@ -69,15 +82,17 @@ object ImagePicker {
     fun getMultiSelectImages(edAct: EditAdsAct, uris: List<Uri>) {
         if (uris.size > 1 && edAct.chooseImageFragment == null) {
             edAct.openChooseItemFragment(uris as ArrayList<Uri>)
-        } else if (edAct.chooseImageFragment != null) {
-            edAct.chooseImageFragment?.updateAdapter(uris as ArrayList<Uri>)
-        } else if (uris.size == 1 && edAct.chooseImageFragment == null) {
+
+        }
+        else if (uris.size == 1 && edAct.chooseImageFragment == null) {
+
             CoroutineScope(Dispatchers.Main).launch {
                 edAct.rootElement.pBarLoading.visibility = View.VISIBLE
                 val bitmapArray =
                     ImageManager.imageResize(uris as ArrayList<Uri>, edAct) as ArrayList<Bitmap>
                 edAct.rootElement.pBarLoading.visibility = View.GONE
                 edAct.imageAdapter.update(bitmapArray)
+                closePixFrag(edAct)
             }
         }
     }
