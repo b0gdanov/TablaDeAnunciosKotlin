@@ -13,6 +13,8 @@ data class Ad(
     val title: String? = null,
     val description: String? = null,
     val mainImage: String? = null,
+    val secondImage: String? = null,
+    val thirdImage: String? = null,
     val key: String? = null,
     var favCounter: String = "0",
     val uid: String? = null,

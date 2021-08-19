@@ -29,6 +29,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
     var editImagePos = 0
+    private var imageIndex = 0
     private var isEditState = false
     private var ad: Ad? = null
 
@@ -112,12 +113,13 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
-        val adTemp = fillAd()
+        ad = fillAd()
         if(isEditState){
-            dbManager.publishAd(adTemp.copy(key = ad?.key), onPublishFinish()) //обновляем существующее объявление
+            ad?.copy(key = ad?.key)?.let {
+                dbManager.publishAd(it, onPublishFinish()) } //обновляем существующее объявление
         } else {
             //dbManager.publishAd(adTemp, onPublishFinish()) //публикуем новое объявление
-            uploadImages(adTemp)
+            uploadImages()
         }
     }
 
@@ -166,14 +168,33 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         fm.commit()
     }
 
-    private fun uploadImages(adTemp: Ad){
-        val byteArray = prepareImageByteArray(imageAdapter.mainArray[0])
+    private fun uploadImages(){
+        if(imageAdapter.mainArray.size == imageIndex){
+            dbManager.publishAd(ad!!, onPublishFinish())
+            return
+        }
+        val byteArray = prepareImageByteArray(imageAdapter.mainArray[imageIndex])
         uploadImage(byteArray){
             dbManager
                 .publishAd(
-                    adTemp.copy(mainImage = it.result.toString()),
+                    ad!!,
                     onPublishFinish()
                 )
+            nextImage(it.result.toString())
+        }
+    }
+
+    private fun nextImage(uri: String){
+        setImageUriToAd(uri)
+        imageIndex++
+        uploadImages()
+    }
+
+    private fun setImageUriToAd(uri: String){
+        when(imageIndex){
+            0 -> ad = ad?.copy(mainImage = uri)
+            1 -> ad = ad?.copy(secondImage = uri)
+            2 -> ad = ad?.copy(thirdImage = uri)
         }
     }
 
