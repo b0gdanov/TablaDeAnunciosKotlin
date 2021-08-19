@@ -10,6 +10,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 import android.graphics.Bitmap
 import android.net.Uri
+import com.google.android.gms.tasks.OnCompleteListener
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
@@ -17,6 +18,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.model.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
+import java.io.ByteArrayOutputStream
 
 
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
@@ -110,11 +112,12 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
-        val adTemp: Ad =fillAd()
+        val adTemp = fillAd()
         if(isEditState){
             dbManager.publishAd(adTemp.copy(key = ad?.key), onPublishFinish()) //обновляем существующее объявление
         } else {
-            dbManager.publishAd(adTemp, onPublishFinish()) //публикуем новое объявление
+            //dbManager.publishAd(adTemp, onPublishFinish()) //публикуем новое объявление
+            uploadImages(adTemp)
         }
     }
 
@@ -139,6 +142,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 etPrice.text.toString(),
                 etTitle.text.toString(),
                 etDescription.text.toString(),
+                "empty",
                 dbManager.db.push().key,
                 "0",
                 dbManager.auth.uid
@@ -154,13 +158,38 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun openChooseItemFragment(newList: ArrayList<Uri>?){
-
         chooseImageFragment = ImageListFragment(this)
         if(newList != null)chooseImageFragment?.resizeSelectedImages(newList, true, this)
         rootElement.scrollViewMain.visibility = View.GONE
         val fm = supportFragmentManager.beginTransaction()
         fm.replace(R.id.place_holder, chooseImageFragment!!)
         fm.commit()
+    }
 
+    private fun uploadImages(adTemp: Ad){
+        val byteArray = prepareImageByteArray(imageAdapter.mainArray[0])
+        uploadImage(byteArray){
+            dbManager
+                .publishAd(
+                    adTemp.copy(mainImage = it.result.toString()),
+                    onPublishFinish()
+                )
+        }
+    }
+
+    private fun prepareImageByteArray(bitmap: Bitmap):ByteArray{
+        val outStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream)
+        return outStream.toByteArray()
+    }
+
+    private fun uploadImage(byteArray: ByteArray, listener: OnCompleteListener<Uri>){
+        val imStorageRef = dbManager.dbStorage
+            .child(dbManager.auth.uid!!)
+            .child("image_${System.currentTimeMillis()}")
+        val upTask = imStorageRef.putBytes(byteArray)
+        upTask.continueWithTask {
+            task -> imStorageRef.downloadUrl
+        }.addOnCompleteListener(listener)
     }
 }

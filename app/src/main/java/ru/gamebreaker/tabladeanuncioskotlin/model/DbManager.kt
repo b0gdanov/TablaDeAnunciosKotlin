@@ -9,9 +9,11 @@ import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
 class DbManager{
     val db = Firebase.database.getReference(MAIN_NODE)
+    val dbStorage = Firebase.storage.getReference(MAIN_NODE)
     val auth = Firebase.auth
 
     fun publishAd(ad: Ad, finishListener: FinishWorkListener){
