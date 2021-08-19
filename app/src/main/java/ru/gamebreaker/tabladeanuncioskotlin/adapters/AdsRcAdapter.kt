@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
@@ -45,12 +46,15 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             tvTitle.text = ad.title
             tvViewCounter.text = ad.viewsCounter
             tvFavCounter.text = ad.favCounter
-            if (ad.isFav){
-                ibFav.setImageResource(R.drawable.ic_favorite_on)
-            } else {
-                ibFav.setImageResource(R.drawable.ic_favorite_off)
-            }
+
+            Picasso.get().load(ad.mainImage).into(mainImage)
+
+            isFav(ad)
             showEditPanel(isOwner(ad))
+            mainOnClick(ad)
+        }
+
+        private fun mainOnClick(ad: Ad) = with(binding){
             ibFav.setOnClickListener {
                 if (act.mAuth.currentUser?.isAnonymous == false)act.onFavClicked(ad)
             }
@@ -60,6 +64,14 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             ibEditAd.setOnClickListener(onClickEdit(ad))
             ibDelAd.setOnClickListener {
                 act.onDeleteItem(ad)
+            }
+        }
+
+        private fun isFav(ad: Ad){
+            if (ad.isFav){
+                binding.ibFav.setImageResource(R.drawable.ic_favorite_on)
+            } else {
+                binding.ibFav.setImageResource(R.drawable.ic_favorite_off)
             }
         }
 
