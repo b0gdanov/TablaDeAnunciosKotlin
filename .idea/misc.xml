@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_logo.xml" value="0.309375" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_description.xml" value="0.5" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/image_adapter_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/list_image_frag.xml" value="0.29322916666666665" />
+        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/main_content.xml" value="0.28125" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/select_image_fragment_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/sp_list_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/spinner_layout.xml" value="0.29322916666666665" />
