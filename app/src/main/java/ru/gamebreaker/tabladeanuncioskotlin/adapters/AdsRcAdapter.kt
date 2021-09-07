@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.R
+import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.AdListItemBinding
@@ -64,6 +65,11 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             ibEditAd.setOnClickListener(onClickEdit(ad))
             ibDelAd.setOnClickListener {
                 act.onDeleteItem(ad)
+            }
+            itemView.setOnClickListener {
+                val i = Intent(binding.root.context, DescriptionActivity::class.java)
+                i.putExtra("AD", ad)
+                binding.root.context.startActivity(i)
             }
         }
 
