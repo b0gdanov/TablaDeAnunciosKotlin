@@ -3,7 +3,6 @@ package ru.gamebreaker.tabladeanuncioskotlin.utils
 import android.graphics.Bitmap
 import android.net.Uri
 import android.view.View
-import androidx.fragment.app.Fragment
 import io.ak1.pix.helpers.PixEventCallback
 import io.ak1.pix.helpers.addPixToActivity
 import io.ak1.pix.models.Mode
@@ -83,10 +82,10 @@ object ImagePicker {
         else if (uris.size == 1 && edAct.chooseImageFragment == null) {
 
             CoroutineScope(Dispatchers.Main).launch {
-                edAct.rootElement.pBarLoading.visibility = View.VISIBLE
+                edAct.binding.pBarLoading.visibility = View.VISIBLE
                 val bitmapArray =
                     ImageManager.imageResize(uris as ArrayList<Uri>, edAct) as ArrayList<Bitmap>
-                edAct.rootElement.pBarLoading.visibility = View.GONE
+                edAct.binding.pBarLoading.visibility = View.GONE
                 edAct.imageAdapter.update(bitmapArray)
                 closePixFrag(edAct)
             }

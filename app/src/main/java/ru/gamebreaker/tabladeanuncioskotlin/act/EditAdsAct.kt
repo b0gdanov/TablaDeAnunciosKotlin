@@ -10,6 +10,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialogs.DialogSpinnerHelper
 import ru.gamebreaker.tabladeanuncioskotlin.utils.CityHelper
 import android.graphics.Bitmap
 import android.net.Uri
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.OnCompleteListener
 import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
@@ -25,7 +26,7 @@ import java.io.ByteArrayOutputStream
 class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     var chooseImageFragment: ImageListFragment? = null
-    lateinit var rootElement: ActivityEditAdsBinding
+    lateinit var binding: ActivityEditAdsBinding
     private val dialog = DialogSpinnerHelper()
     lateinit var imageAdapter: ImageAdapter
     private val dbManager = DbManager()
@@ -36,11 +37,12 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        rootElement = ActivityEditAdsBinding.inflate(layoutInflater)
-        val view = rootElement.root
+        binding = ActivityEditAdsBinding.inflate(layoutInflater)
+        val view = binding.root
         setContentView(view)
         init()
         checkEditState()
+        imageChangeCounter()
     }
 
     private fun checkEditState(){
@@ -55,7 +57,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         return intent.getBooleanExtra(MainActivity.EDIT_STATE, false)
     }
 
-    private fun fillViews(ad: Ad) = with(rootElement) {
+    private fun fillViews(ad: Ad) = with(binding) {
         tvFraction.text = ad.fraction
         tvHeroName.text = ad.heroName
         etTel.setText(ad.tel)
@@ -70,23 +72,23 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     private fun init(){
         imageAdapter = ImageAdapter()
-        rootElement.vpImages.adapter = imageAdapter
+        binding.vpImages.adapter = imageAdapter
     }
 
     //OnClicks
     fun onClickSelectFraction(view: View){
         val listCountry = CityHelper.getAllCountries(this)
-        dialog.showSpinnerDialog(this, listCountry, rootElement.tvFraction)
-        if(rootElement.tvHeroName.text.toString() != getString(R.string.select_hero_name)){
-            rootElement.tvHeroName.text = getString(R.string.select_hero_name)
+        dialog.showSpinnerDialog(this, listCountry, binding.tvFraction)
+        if(binding.tvHeroName.text.toString() != getString(R.string.select_hero_name)){
+            binding.tvHeroName.text = getString(R.string.select_hero_name)
         }
     }
 
     fun onClickSelectHeroName(view: View){
-        val selectedCountry = rootElement.tvFraction.text.toString()
+        val selectedCountry = binding.tvFraction.text.toString()
         if (selectedCountry != getString(R.string.select_fraction)){
             val listCity = CityHelper.getAllCities(selectedCountry,this)
-            dialog.showSpinnerDialog(this, listCity, rootElement.tvHeroName)
+            dialog.showSpinnerDialog(this, listCity, binding.tvHeroName)
 
         }else{
             Toast.makeText(this, getString(R.string.warning_no_fraction_selected), Toast.LENGTH_LONG).show()
@@ -96,7 +98,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectCategory(view: View){
 
          val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
-         dialog.showSpinnerDialog(this, listCategory, rootElement.tvCategory)
+         dialog.showSpinnerDialog(this, listCategory, binding.tvCategory)
 
 
     }
@@ -135,7 +137,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
 
     private fun fillAd(): Ad{
         val ad: Ad
-        rootElement.apply{
+        binding.apply{
             ad = Ad(
                 tvFraction.text.toString(),
                 tvHeroName.text.toString(),
@@ -159,7 +161,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     override fun onFragmentClose(list : ArrayList<Bitmap>) {
-        rootElement.scrollViewMain.visibility = View.VISIBLE
+        binding.scrollViewMain.visibility = View.VISIBLE
         imageAdapter.update(list)
         chooseImageFragment = null
     }
@@ -167,7 +169,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun openChooseItemFragment(newList: ArrayList<Uri>?){
         chooseImageFragment = ImageListFragment(this)
         if(newList != null)chooseImageFragment?.resizeSelectedImages(newList, true, this)
-        rootElement.scrollViewMain.visibility = View.GONE
+        binding.scrollViewMain.visibility = View.GONE
         val fm = supportFragmentManager.beginTransaction()
         fm.replace(R.id.place_holder, chooseImageFragment!!)
         fm.commit()
@@ -217,5 +219,15 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         upTask.continueWithTask {
             task -> imStorageRef.downloadUrl
         }.addOnCompleteListener(listener)
+    }
+
+    private fun imageChangeCounter(){
+        binding.vpImages.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val imageCounter = "${position +1}/${binding.vpImages.adapter?.itemCount}"
+                binding.tvImageCounter.text = imageCounter
+            }
+        })
     }
 }

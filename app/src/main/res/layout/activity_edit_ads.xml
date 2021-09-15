@@ -70,6 +70,17 @@
                         app:layout_constraintStart_toStartOf="@+id/vpImages"
                         app:layout_constraintTop_toTopOf="@+id/vpImages" />
 
+                    <TextView
+                        android:id="@+id/tvImageCounter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black"
+                        android:padding="4dp"
+                        android:text="1/3"
+                        android:textColor="@color/ic_main"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
