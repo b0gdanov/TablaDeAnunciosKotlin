@@ -18,6 +18,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.model.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
+import ru.gamebreaker.tabladeanuncioskotlin.utils.ImageManager
 import java.io.ByteArrayOutputStream
 
 
@@ -64,6 +65,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         etTitle.setText(ad.title)
         etPrice.setText(ad.price)
         etDescription.setText(ad.description)
+        ImageManager.fillImageArray(ad, imageAdapter)
     }
 
     private fun init(){

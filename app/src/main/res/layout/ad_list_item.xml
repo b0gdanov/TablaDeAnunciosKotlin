@@ -47,7 +47,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
+                android:ellipsize="end"
                 android:gravity="center_horizontal"
+                android:maxLines="4"
                 android:text="TextView"
                 android:textColor="@color/ic_main" />
 

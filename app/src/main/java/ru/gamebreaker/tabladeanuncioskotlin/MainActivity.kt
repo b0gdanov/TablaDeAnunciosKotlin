@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
+import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
@@ -214,6 +215,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onAdViewed(ad: Ad) {
         firebaseViewModel.adViewed(ad)
+        val i = Intent(this, DescriptionActivity::class.java)
+        i.putExtra("AD", ad)
+        startActivity(i)
     }
 
     override fun onFavClicked(ad: Ad) {

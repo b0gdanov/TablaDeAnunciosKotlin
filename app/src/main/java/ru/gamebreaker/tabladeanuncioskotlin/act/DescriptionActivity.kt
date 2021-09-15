@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.net.toUri
+import androidx.viewpager2.widget.ViewPager2
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,6 +35,7 @@ class DescriptionActivity : AppCompatActivity() {
             viewPager.adapter = adapter
         }
         getIntentFromMainAct()
+        imageChangeCounter()
     }
 
     private fun getIntentFromMainAct(){
@@ -42,7 +44,7 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun updateUI(ad: Ad) {
-        fillImageArray(ad)
+        ImageManager.fillImageArray(ad, adapter)
         fillTextViews(ad)
     }
 
@@ -61,14 +63,6 @@ class DescriptionActivity : AppCompatActivity() {
 
     private fun  isWithSent(withSent: Boolean): String{
         return if (withSent) "Да" else "Нет"
-    }
-
-    private fun fillImageArray(ad: Ad){
-        val listUris = listOf(ad.mainImage, ad.secondImage, ad.thirdImage)
-        CoroutineScope(Dispatchers.Main).launch {
-            val bitMapList = ImageManager.getBitmapFromUris(listUris)
-            adapter.update(bitMapList as ArrayList<Bitmap>)
-        }
     }
 
     private fun call(){
@@ -91,5 +85,15 @@ class DescriptionActivity : AppCompatActivity() {
         }catch (e: ActivityNotFoundException){
 
         }
+    }
+
+    private fun imageChangeCounter(){
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                val imageCounter = "${position +1}/${binding.viewPager.adapter?.itemCount}"
+                binding.tvImageCounter.text = imageCounter
+            }
+        })
     }
 }
