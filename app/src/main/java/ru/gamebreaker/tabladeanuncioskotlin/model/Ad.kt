@@ -6,6 +6,7 @@ data class Ad(
     val fraction: String? = null,
     val heroName: String? = null,
     val tel: String? = null,
+    val email: String? = null,
     val index: String? = null,
     val withSend: String? = null,
     val category: String? = null,

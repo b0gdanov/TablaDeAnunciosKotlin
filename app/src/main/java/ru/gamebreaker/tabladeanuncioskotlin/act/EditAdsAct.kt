@@ -138,6 +138,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 tvFraction.text.toString(),
                 tvHeroName.text.toString(),
                 etTel.text.toString(),
+                etMail.text.toString(),
                 etIndex.text.toString(),
                 checkBoxWithSend.isChecked.toString(),
                 tvCategory.text.toString(),
