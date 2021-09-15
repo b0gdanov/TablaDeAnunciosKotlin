@@ -12,4 +12,5 @@
     <color name="ic_main">#d3b24d</color>
     <color name="bg_main">#1b323b</color>
     <color name="bg_main_light">#104560</color>
+    <color name="greenka">#00FF08</color>
 </resources>
