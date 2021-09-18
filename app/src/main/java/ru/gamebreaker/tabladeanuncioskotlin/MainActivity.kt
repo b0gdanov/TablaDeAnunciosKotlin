@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
+    lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,10 +58,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         rootElement.mainContent.botNavView.selectedItemId = R.id.id_home
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == GoogleAccConst.GOOGLE_SIGN_IN_REQUEST_CODE){
-            //Log.d(MyLogConst.MY_LOG, MyLogConst.SIGN_IN_RESULT)
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+    private fun onActivityResult() {
+        googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null){
@@ -69,7 +71,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR + "${e.message}")
             }
         }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onStart() {
@@ -85,8 +86,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun init(){
-
         setSupportActionBar(rootElement.mainContent.toolbar) //указываем какой тулбар используется в активити (важно указать в начале)
+        onActivityResult()
         val toggle = ActionBarDrawerToggle(this, rootElement.drawerLayout, rootElement.mainContent.toolbar, R.string.open, R.string.close)
         rootElement.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
