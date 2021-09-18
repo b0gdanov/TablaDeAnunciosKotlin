@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/id_new_ad"
-        android:title="New ad"
+        android:title="@string/create_assembly"
         android:icon="@drawable/ic_new_ads"
         android:orderInCategory="400"/>
     <item
         android:id="@+id/id_my_ads"
-        android:title="My ads"
+        android:title="@string/my_ads"
         android:icon="@drawable/ic_my_ads"
         android:orderInCategory="300"/>
     <item
-        android:id="@+id/id_favs"
-        android:title="Favs"
+        android:id="@+id/id_favorites"
+        android:title="@string/favorites"
         android:icon="@drawable/ic_favorite_on"
         android:orderInCategory="200"/>
     <item
         android:id="@+id/id_home"
-        android:title="Home"
-        android:icon="@drawable/ic_home"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home_b"
         android:orderInCategory="100"/>
 </menu>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg_main_light"
@@ -28,11 +28,22 @@
 
             <TextView
                 android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                android:textColor="@color/ic_main" />
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/tv_title"
+                android:textColor="@color/light_green"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="1sp"/>
+
+            <LinearLayout style="@style/LineEditAds" />
 
             <ImageView
                 android:id="@+id/mainImage"
@@ -40,35 +51,84 @@
                 android:layout_height="200dp"
                 android:layout_margin="4dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_defaul_image" />
+                app:srcCompat="@drawable/ic_default_image"
+                android:contentDescription="@string/main_image" />
+
+            <LinearLayout style="@style/LineEditAds" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/description_logo"
+                android:textColor="@color/ic_main" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:ellipsize="end"
-                android:gravity="center_horizontal"
                 android:maxLines="4"
-                android:text="TextView"
+                android:text="@string/any_text"
+                android:textColor="@color/light_green" />
+
+        </LinearLayout>
+
+            <LinearLayout style="@style/LineEditAds" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/price_logo"
                 android:textColor="@color/ic_main" />
 
             <TextView
                 android:id="@+id/tvPrice"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:text="TextView"
-                android:textColor="@color/ic_main" />
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:text="@string/some_number"
+                android:textColor="@color/light_green" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:text="@string/symbol_rub"
+                android:textColor="@color/light_green" />
+
+        </LinearLayout>
+
+
+
+            <LinearLayout style="@style/LineEditAds" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -76,59 +136,49 @@
 
                     <ImageView
                         android:id="@+id/imViewCounter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_eye" />
+                        app:srcCompat="@drawable/ic_eye"
+                        android:contentDescription="@string/views"
+                        style="@style/Icon" />
 
                     <TextView
                         android:id="@+id/tvViewCounter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:text="0"
-                        android:textColor="@color/ic_main" />
+                        android:text="@string/some_number"
+                        style="@style/ViewsAndFavoritesCounters" />
 
                     <ImageButton
                         android:id="@+id/ibFav"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_favorite_on" />
+                        app:srcCompat="@drawable/ic_favorite_on"
+                        android:contentDescription="@string/favorites"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/Icon" />
 
                     <TextView
                         android:id="@+id/tvFavCounter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:text="0"
-                        android:textColor="@color/ic_main" />
+                        android:text="@string/some_number"
+                        style="@style/ViewsAndFavoritesCounters" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/editPanel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="end"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/ibEditAd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_edit" />
+                        android:background="@drawable/edit_image_button"
+                        android:contentDescription="@string/edit_images"
+                        app:srcCompat="@drawable/ic_edit"
+                        style="@style/RoundButtons" />
 
                     <ImageButton
                         android:id="@+id/ibDelAd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        app:srcCompat="@drawable/ic_delete_images" />
+                        android:background="@drawable/edit_image_button"
+                        android:contentDescription="@string/delete_images"
+                        app:srcCompat="@drawable/ic_delete_images"
+                        style="@style/RoundButtons" />
 
                 </LinearLayout>
             </LinearLayout>

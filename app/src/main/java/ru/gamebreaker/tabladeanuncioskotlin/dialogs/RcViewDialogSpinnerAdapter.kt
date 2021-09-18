@@ -1,18 +1,17 @@
 package ru.gamebreaker.tabladeanuncioskotlin.dialogs
 
 import android.app.AlertDialog
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.gamebreaker.tabladeanuncioskotlin.R
-import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
+
 
 class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog:AlertDialog) : RecyclerView.Adapter<RcViewDialogSpinnerAdapter.SpViewHolder>() {
     private val mainList = ArrayList<String>()
-    //private var ctx = context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.sp_list_item, parent, false)
         return SpViewHolder(view, tvSelection, dialog)
@@ -40,12 +39,11 @@ class RcViewDialogSpinnerAdapter(var tvSelection: TextView, var dialog:AlertDial
             tvSelection.text = itemText
             dialog.dismiss()
         }
-
     }
+
     fun updateAdapter(list: ArrayList<String>){
         mainList.clear()
         mainList.addAll(list)
         notifyDataSetChanged()
-
     }
 }

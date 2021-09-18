@@ -73,7 +73,6 @@
     <string name="price_logo">Цена:</string>
     <string name="price_hint">*Укажите цену</string>
     <string name="description">Описание</string>
-    <string name="description_logo">Описание:</string>
     <string name="description_hint">*Введите описание</string>
     <string name="with_send">С отправкой</string>
     <string name="publish">Опубликовать</string>

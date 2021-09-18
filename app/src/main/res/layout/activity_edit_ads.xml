@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/place_holder"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_main_light"
+    android:layout_height="wrap_content"
     tools:context=".act.EditAdsAct">
 
     <ScrollView
         android:id="@+id/scroll_view_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_main_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,22 +42,22 @@
                         android:padding="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0">
 
                     </androidx.viewpager2.widget.ViewPager2>
 
                     <ImageButton
                         android:id="@+id/imageButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:background="@drawable/edit_image_button"
+                        android:contentDescription="@string/working_with_on_pictures"
                         android:onClick="onClickGetImages"
-                        android:padding="5dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_edit" />
+                        app:srcCompat="@drawable/ic_edit"
+                        style="@style/RoundButtons"/>
 
                     <ProgressBar
                         android:id="@+id/pBarLoading"
@@ -76,12 +76,13 @@
                         android:layout_height="wrap_content"
                         android:background="@color/black"
                         android:padding="4dp"
-                        android:text="1/3"
+                        android:text="@string/image_counter"
                         android:textColor="@color/ic_main"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -99,170 +100,79 @@
 
                     <TextView
                         android:id="@+id/tvTitleFraction"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/tv_fraction"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_fraction" />
 
                     <TextView
                         android:id="@+id/tvFraction"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAds"
                         android:onClick="onClickSelectFraction"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:text="@string/select_fraction"
-                        android:textColor="@color/ic_main"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="@string/select_fraction" />
 
-                    <LinearLayout
-                        android:id="@+id/divider01"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvTitleHeroName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/tv_hero_name"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_hero_name" />
 
                     <TextView
                         android:id="@+id/tvHeroName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAds"
                         android:onClick="onClickSelectHeroName"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:text="@string/select_hero_name"
-                        android:textColor="@color/ic_main"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="@string/select_hero_name" />
 
-                    <LinearLayout
-                        android:id="@+id/divider02"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvTel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/tv_tel"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_tel" />
 
                     <EditText
                         android:id="@+id/etTel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
+                        style="@style/TextAds.Edit"
+                        android:autofillHints="phone"
                         android:ems="10"
                         android:hint="@string/tv_tel_hint"
-                        android:inputType="phone"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:textColor="@color/ic_main"
-                        android:textColorHint="@color/bg_main_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:inputType="phone" />
 
-                    <LinearLayout
-                        android:id="@+id/divider32"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvMail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/email_hint"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/email_hint" />
 
                     <EditText
                         android:id="@+id/etMail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
+                        style="@style/TextAds.Edit"
+                        android:autofillHints="emailAddress"
                         android:ems="10"
-                        android:hint="@string/email_hint"
-                        android:inputType="textWebEmailAddress"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:textColor="@color/ic_main"
-                        android:textColorHint="@color/bg_main_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:hint="@string/email_enter"
+                        android:inputType="textWebEmailAddress" />
 
-                    <LinearLayout
-                        android:id="@+id/divider03"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvIndex"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/tv_index"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_index" />
 
                     <EditText
                         android:id="@+id/etIndex"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
+                        style="@style/TextAds.Edit"
                         android:ems="10"
                         android:hint="@string/tv_index_hint"
-                        android:inputType="number"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:textColor="@color/ic_main"
-                        android:textColorHint="@color/bg_main_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
 
-                    <LinearLayout
-                        android:id="@+id/divider04"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <CheckBox
                         android:id="@+id/checkBoxWithSend"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/with_send"
-                        android:textColor="@color/ic_main"
-                        android:textColorHint="@color/bg_main_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        style="@style/TextAds"
+                        android:text="@string/with_send" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -282,136 +192,72 @@
 
                     <TextView
                         android:id="@+id/tvTitleCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/category"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/category" />
 
                     <TextView
                         android:id="@+id/tvCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/TextAds"
                         android:onClick="onClickSelectCategory"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:text="@string/select_category"
-                        android:textColor="@color/ic_main"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:text="@string/select_category" />
 
-                    <LinearLayout
-                        android:id="@+id/divider20"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/tv_title"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_title" />
 
                     <EditText
                         android:id="@+id/etTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:ems="10"
+                        style="@style/TextAds.Edit"
                         android:hint="@string/ed_title"
-                        android:inputType="textPersonName"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:textColor="@color/ic_main"
-                        android:textColorHint="@color/bg_main_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:importantForAutofill="no"
+                        android:inputType="textCapSentences"
+                        android:maxLength="45" />
 
-
-                    <LinearLayout
-                        android:id="@+id/divider10"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/price"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/price" />
 
                     <EditText
                         android:id="@+id/etPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
+                        style="@style/TextAds.Edit"
                         android:ems="10"
                         android:hint="@string/price_hint"
-                        android:inputType="phone"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:textColor="@color/ic_main"
-                        android:textColorHint="@color/bg_main_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:importantForAutofill="no"
+                        android:inputType="phone" />
 
-                    <LinearLayout
-                        android:id="@+id/divider11"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/ic_main"
-                        android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
                         android:id="@+id/tvDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/description"
-                        android:textColor="@color/ic_main"
-                        android:textStyle="normal" />
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/description" />
 
                     <EditText
                         android:id="@+id/etDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
+                        style="@style/TextAds.Edit"
                         android:ems="10"
                         android:hint="@string/description_hint"
-                        android:padding="10dp"
-                        android:shadowColor="@color/black"
-                        android:textColor="@color/ic_main"
-                        android:textColorHint="@color/bg_main_light"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:importantForAutofill="no"
+                        android:inputType="textCapSentences" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <Button
+            <TextView
                 android:id="@+id/btPublish"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/MyBtnStyle"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="onClickPublish"
                 android:text="@string/publish"
-                android:textColor="@color/ic_main"
-                app:backgroundTint="@color/bg_main" />
+                android:textColor="@color/ic_main" />
 
         </LinearLayout>
     </ScrollView>

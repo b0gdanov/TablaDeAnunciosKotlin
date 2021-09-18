@@ -6,6 +6,13 @@ import java.io.IOException
 import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R
+
+import android.widget.TextView
+
+import android.view.LayoutInflater
+
+import android.view.ViewGroup
 
 object CityHelper {
     fun getAllCountries(context: Context):ArrayList<String>{
@@ -51,18 +58,20 @@ object CityHelper {
         }
         return tempArray
     }
+
     fun filterListData(list : ArrayList<String>, searchText : String?) : ArrayList<String>{
         val tempList = ArrayList<String>()
         tempList.clear()
         if (searchText == null){
-            tempList.add("No result")
+            tempList.add("Безрезультатно")
             return tempList
         }
         for (selection: String in list) {
             if (selection.toLowerCase(Locale.ROOT).startsWith(searchText.toLowerCase(Locale.ROOT)))
                 tempList.add(selection)
         }
-        if (tempList.size == 0)tempList.add("No result")
+        if (tempList.size == 0)tempList.add("Безрезультатно")
         return tempList
     }
+
 }

@@ -3,6 +3,7 @@ package ru.gamebreaker.tabladeanuncioskotlin.dialogs
 import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,5 +41,4 @@ class DialogSpinnerHelper {
             }
         })
     }
-
 }

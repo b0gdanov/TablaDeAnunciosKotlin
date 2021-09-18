@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="greenka">#00FF08</color>
+    <color name="light_green">#00FF08</color>
+    <color name="hint_light_green">#84DD87</color>
 </resources>
