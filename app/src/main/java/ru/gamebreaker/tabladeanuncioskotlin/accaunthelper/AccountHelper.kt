@@ -106,8 +106,8 @@ class AccountHelper(act: MainActivity) {
     }
 
     private fun getSignInClient(): GoogleSignInClient {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(act.getString(R.string.default_web_client_id)).requestEmail().build()
+        //val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(act.getString(R.string.default_web_client_id)).requestEmail().build()   default_web_client_id стал красным
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("412163273501-goeqvu371716okebv4ne1f3i8lf72h66.apps.googleusercontent.com").requestEmail().build() //пока поменял так. Взял из app/build/generated/res/google-services/debug/values/values.xml
         return GoogleSignIn.getClient(act, gso)
     }
 
@@ -140,17 +140,9 @@ class AccountHelper(act: MainActivity) {
     private fun sendEmailVerification(user: FirebaseUser) {
         user.sendEmailVerification().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(
-                    act,
-                    act.resources.getString(R.string.send_verification_email_done),
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(act, act.resources.getString(R.string.send_verification_email_done),Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(
-                    act,
-                    act.resources.getString(R.string.send_verification_email_error),
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(act, act.resources.getString(R.string.send_verification_email_error), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -160,9 +152,9 @@ class AccountHelper(act: MainActivity) {
             task ->
             if (task.isSuccessful){
                 listener.onComplete()
-                Toast.makeText(act, "Вы вошли как гость", Toast.LENGTH_LONG).show()
+                Toast.makeText(act, R.string.you_are_logged_in_as_a_guest, Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(act, "Не удалось войти как гость", Toast.LENGTH_LONG).show()
+                Toast.makeText(act, R.string.failed_to_login_as_guest, Toast.LENGTH_LONG).show()
             }
         }
     }

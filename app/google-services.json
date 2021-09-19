@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "412163273501-kks83obdnhtvutvm25tgcb0ig2n6m0tl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.gamebreaker.tabladeanuncioskotlin",
+            "certificate_hash": "ad6b41b29230e68fbe94ba1a9098b60d80da9497"
+          }
+        },
+        {
           "client_id": "412163273501-pugk9kmmmsugjj4t7l1vtiredndj74ig.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

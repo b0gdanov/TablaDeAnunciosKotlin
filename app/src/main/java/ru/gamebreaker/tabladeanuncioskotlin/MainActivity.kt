@@ -2,15 +2,19 @@ package ru.gamebreaker.tabladeanuncioskotlin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -19,6 +23,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
@@ -26,14 +31,14 @@ import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
-import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.GoogleAccConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRcAdapter.Listener {
-    private lateinit var tvAccount:TextView
-    private lateinit var rootElement:ActivityMainBinding
+    private lateinit var tvAccount: TextView
+    private lateinit var imAccount: ImageView
+    private lateinit var binding :ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
@@ -42,8 +47,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        rootElement = ActivityMainBinding.inflate(layoutInflater)
-        val view = rootElement.root
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
         setContentView(view)
         init()
         initRecyclerView()
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
-        rootElement.mainContent.botNavView.selectedItemId = R.id.id_home
+        binding.mainContent.botNavView.selectedItemId = R.id.id_home
     }
 
     private fun onActivityResult() {
@@ -81,22 +86,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initViewModel(){
         firebaseViewModel.liveAdsData.observe(this, {
             adapter.updateAdapter(it)
-            rootElement.mainContent.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            binding.mainContent.tvEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         })
     }
 
     private fun init(){
-        setSupportActionBar(rootElement.mainContent.toolbar) //указываем какой тулбар используется в активити (важно указать в начале)
+        setSupportActionBar(binding.mainContent.toolbar) //указываем какой тулбар используется в активити (важно указать в начале)
         onActivityResult()
-        val toggle = ActionBarDrawerToggle(this, rootElement.drawerLayout, rootElement.mainContent.toolbar, R.string.open, R.string.close)
-        rootElement.drawerLayout.addDrawerListener(toggle)
+        navViewSettings()
+        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.mainContent.toolbar, R.string.open, R.string.close)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        rootElement.navView.setNavigationItemSelectedListener(this)
-        tvAccount = rootElement.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
+        binding.navView.setNavigationItemSelectedListener(this)
+        tvAccount = binding.navView.getHeaderView(0).findViewById(R.id.tvAccountEmail)
+        imAccount = binding.navView.getHeaderView(0).findViewById(R.id.imAccountImage)
 
     }
 
-    private fun bottomMenuOnClick() = with(rootElement){
+    private fun bottomMenuOnClick() = with(binding){
         mainContent.botNavView.setOnNavigationItemSelectedListener { item ->
             when(item.itemId){
                 R.id.id_new_ad -> {
@@ -122,7 +129,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initRecyclerView(){
-        rootElement.apply {
+        binding.apply {
             mainContent.rcView.layoutManager = LinearLayoutManager(this@MainActivity)
             mainContent.rcView.adapter = adapter
         }
@@ -176,7 +183,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.id_sign_out ->{
                 if(mAuth.currentUser?.isAnonymous == true){
-                    rootElement.drawerLayout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return true
                 }
                 val text = getString(R.string.sign_out_done)
@@ -186,7 +193,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 dialogHelper.accHelper.signOutGoogle()
             }
         }
-        rootElement.drawerLayout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -194,14 +201,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (user == null) {
             dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
                 override fun onComplete() {
-                    tvAccount.text =
-                        "Гость" // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
+                    tvAccount.text = getString(R.string.the_guest) // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
+                    imAccount.setImageResource(R.drawable.ic_account_default)
                 }
             })
         } else if (user.isAnonymous) {
-            tvAccount.text = "Гость"
+            tvAccount.text = getString(R.string.the_guest)
+            imAccount.setImageResource(R.drawable.ic_account_default)
         } else if (!user.isAnonymous) {
             tvAccount.text = user.email
+            Picasso.get().load(user.photoUrl).into(imAccount)
         }
     }
 
@@ -223,5 +232,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onFavClicked(ad: Ad) {
         firebaseViewModel.onFavClick(ad)
+    }
+
+    //изменение цвета текста категорий из выдвижного меню
+    private fun navViewSettings() = with(binding){
+        val menu = navView.menu
+        val adsCategory = menu.findItem(R.id.adsCat)
+        val accCategory = menu.findItem(R.id.accCat)
+        val spanAdsCat = SpannableString(adsCategory.title)
+        val spanAccCat = SpannableString(accCategory.title)
+        spanAdsCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, adsCategory.title.length, 0)
+        spanAccCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, accCategory.title.length, 0)
+        adsCategory.title = spanAdsCat
+        accCategory.title = spanAccCat
     }
 }

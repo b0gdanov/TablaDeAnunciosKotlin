@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="@string/ad_cat1">
+    <item
+        android:id="@+id/adsCat"
+        android:title="@string/ad_cat1">
 
         <menu>
 
@@ -40,7 +42,9 @@
 
     </item>
 
-    <item android:title="@string/ad_cat2">
+    <item
+        android:id="@+id/accCat"
+        android:title="@string/ad_cat2">
 
         <menu>
 
