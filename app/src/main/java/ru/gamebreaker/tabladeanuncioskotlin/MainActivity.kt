@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.navigation.NavigationView
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         firebaseViewModel.loadAllAds()
         bottomMenuOnClick()
         //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
+        scrollListener()
     }
 
     override fun onResume() {
@@ -214,11 +216,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    companion object{
-        const val EDIT_STATE = "edit_state"
-        const val ADS_DATA = "ads_data"
-    }
-
     override fun onDeleteItem(ad: Ad) {
         firebaseViewModel.deleteItem(ad)
     }
@@ -245,5 +242,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         spanAccCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, accCategory.title.length, 0)
         adsCategory.title = spanAdsCat
         accCategory.title = spanAccCat
+    }
+
+    private fun scrollListener() = with(binding.mainContent){
+        rcView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recView, newState)
+                if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE){
+                    Log.d("MyLog", "Can scroll down")
+                }
+            }
+        })
+    }
+
+    companion object{
+        const val EDIT_STATE = "edit_state"
+        const val ADS_DATA = "ads_data"
+        const val SCROLL_DOWN = 1
     }
 }
