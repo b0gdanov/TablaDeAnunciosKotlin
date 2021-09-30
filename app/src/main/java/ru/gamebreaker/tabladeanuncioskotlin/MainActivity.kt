@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
         initRecyclerView()
         initViewModel()
-        firebaseViewModel.loadAllAds()
         bottomMenuOnClick()
         //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
         scrollListener()
@@ -122,7 +121,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     mainContent.toolbar.title = "Избранное"
                 }
                 R.id.id_home -> {
-                    firebaseViewModel.loadAllAds()
+                    firebaseViewModel.loadAllAds("0")
                     mainContent.toolbar.title = getString(R.string.def)
                 }
             }
@@ -249,7 +248,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recView, newState)
                 if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE){
-                    Log.d("MyLog", "Can scroll down")
+                    Log.d("MyLog", "Can not scroll down")
+                    val adsList = firebaseViewModel.liveAdsData.value!!
+                    if (adsList.isNotEmpty()){
+                        adsList[adsList.size - 1].let { firebaseViewModel.loadAllAds(it.time) }
+                    }
                 }
             }
         })
