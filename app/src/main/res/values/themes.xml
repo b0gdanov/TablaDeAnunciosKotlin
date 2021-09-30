@@ -122,4 +122,23 @@
         <item name="android:textColor">@color/ic_main</item>
         <item name="android:textSize">14sp</item>
     </style>
+
+    <!-- Поля текста TextView Название графы. -->
+    <style name="TextColumnName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">#f8f8f9</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Поля текста TextView Значение графы. -->
+    <style name="TextColumnValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">#1ee500</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

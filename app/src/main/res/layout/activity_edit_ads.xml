@@ -99,12 +99,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvTitleFraction"
+                        android:id="@+id/tvFractionTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/tv_fraction" />
 
                     <TextView
-                        android:id="@+id/tvFraction"
+                        android:id="@+id/spFractionValue"
                         style="@style/TextAds"
                         android:onClick="onClickSelectFraction"
                         android:text="@string/select_fraction" />
@@ -112,12 +112,12 @@
                     <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
-                        android:id="@+id/tvTitleHeroName"
+                        android:id="@+id/tvHeroNameTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/tv_hero_name" />
 
                     <TextView
-                        android:id="@+id/tvHeroName"
+                        android:id="@+id/spHeroNameValue"
                         style="@style/TextAds"
                         android:onClick="onClickSelectHeroName"
                         android:text="@string/select_hero_name" />
@@ -125,12 +125,12 @@
                     <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
-                        android:id="@+id/tvTel"
+                        android:id="@+id/tvTelTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/tv_tel" />
 
                     <EditText
-                        android:id="@+id/etTel"
+                        android:id="@+id/etTelValue"
                         style="@style/TextAds.Edit"
                         android:autofillHints="phone"
                         android:ems="10"
@@ -140,12 +140,12 @@
                     <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
-                        android:id="@+id/tvMail"
+                        android:id="@+id/tvMailTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/email_hint" />
 
                     <EditText
-                        android:id="@+id/etMail"
+                        android:id="@+id/etMailValue"
                         style="@style/TextAds.Edit"
                         android:autofillHints="emailAddress"
                         android:ems="10"
@@ -155,12 +155,12 @@
                     <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
-                        android:id="@+id/tvIndex"
+                        android:id="@+id/tvIndexTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/tv_index" />
 
                     <EditText
-                        android:id="@+id/etIndex"
+                        android:id="@+id/etIndexValue"
                         style="@style/TextAds.Edit"
                         android:ems="10"
                         android:hint="@string/tv_index_hint"
@@ -170,7 +170,7 @@
                     <LinearLayout style="@style/LineEditAds" />
 
                     <CheckBox
-                        android:id="@+id/checkBoxWithSend"
+                        android:id="@+id/cbWithSendValue"
                         style="@style/TextAds"
                         android:text="@string/with_send" />
 
@@ -191,12 +191,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvTitleCategory"
+                        android:id="@+id/tvCategoryTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/category" />
 
                     <TextView
-                        android:id="@+id/tvCategory"
+                        android:id="@+id/spCategoryValue"
                         style="@style/TextAds"
                         android:onClick="onClickSelectCategory"
                         android:text="@string/select_category" />
@@ -209,7 +209,7 @@
                         android:text="@string/tv_title" />
 
                     <EditText
-                        android:id="@+id/etTitle"
+                        android:id="@+id/etTitleValue"
                         style="@style/TextAds.Edit"
                         android:hint="@string/ed_title"
                         android:importantForAutofill="no"
@@ -219,12 +219,12 @@
                     <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
-                        android:id="@+id/tvPrice"
+                        android:id="@+id/tvPriceTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/price" />
 
                     <EditText
-                        android:id="@+id/etPrice"
+                        android:id="@+id/etPriceValue"
                         style="@style/TextAds.Edit"
                         android:ems="10"
                         android:hint="@string/price_hint"
@@ -234,12 +234,12 @@
                     <LinearLayout style="@style/LineEditAds" />
 
                     <TextView
-                        android:id="@+id/tvDescription"
+                        android:id="@+id/tvDescriptionTitle"
                         style="@style/HeadingsTextAds"
                         android:text="@string/description" />
 
                     <EditText
-                        android:id="@+id/etDescription"
+                        android:id="@+id/etDescriptionValue"
                         style="@style/TextAds.Edit"
                         android:ems="10"
                         android:hint="@string/description_hint"

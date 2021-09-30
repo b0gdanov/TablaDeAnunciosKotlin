@@ -94,11 +94,11 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="@string/price_logo"
+                android:text="@string/tv_price"
                 android:textColor="@color/ic_main" />
 
             <TextView
-                android:id="@+id/tvPrice"
+                android:id="@+id/tvPriceName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="2dp"

@@ -28,6 +28,7 @@
     <string name="email_reset_password_was_sent">Инструкции для сброса пароля были отправлены на указанный Email</string>
     <string name="email_reset_email_message">Для восстановления пароля укажите ваш Email адрес</string>
     <string name="email_hint">Email</string>
+    <string name="tv_email">Email:</string>
     <string name="email_enter">Введите Email (по желанию)</string>
     <string name="password_hint">Password</string>
     <string name="sent">Отправить</string>
@@ -70,7 +71,7 @@
     <string name="tv_title">Заголовок</string>
     <string name="ed_title">*Введите название</string>
     <string name="price">Цена</string>
-    <string name="price_logo">Цена:</string>
+    <string name="tv_price">Цена:</string>
     <string name="price_hint">*Укажите цену</string>
     <string name="description">Описание</string>
     <string name="description_hint">*Введите описание</string>

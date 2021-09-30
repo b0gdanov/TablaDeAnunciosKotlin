@@ -43,7 +43,7 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
 
         fun setData(ad: Ad) = with(binding) {
             tvDescription.text = ad.description
-            tvPrice.text = ad.price
+            tvPriceName.text = ad.price
             tvTitle.text = ad.title
             tvViewCounter.text = ad.viewsCounter
             tvFavCounter.text = ad.favCounter

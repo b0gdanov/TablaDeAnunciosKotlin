@@ -2,14 +2,10 @@ package ru.gamebreaker.tabladeanuncioskotlin.act
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.net.toUri
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityDescriptionBinding
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
@@ -51,14 +47,14 @@ class DescriptionActivity : AppCompatActivity() {
     private fun fillTextViews(ad: Ad) = with(binding){
         tvTitle.text = ad.title
         tvDescription.text = ad.description
-        tvFractionD.text = ad.fraction
-        tvHeroNameD.text = ad.heroName
-        tvEmailD.text = ad.email
-        tvTelD.text = ad.tel
-        tvIndexD.text = ad.index
-        checkBoxWithSendD.text = isWithSent(ad.withSend.toBoolean())
-        tvCategoryD.text = ad.category
-        tvPriceD.text = ad.price
+        tvFractionValue.text = ad.fraction
+        tvHeroNameValue.text = ad.heroName
+        tvEmailValue.text = ad.email
+        tvTelValue.text = ad.tel
+        tvIndexValue.text = ad.index
+        checkBoxWithSendValue.text = isWithSent(ad.withSend.toBoolean())
+        tvCategoryValue.text = ad.category
+        tvPriceValue.text = ad.price
     }
 
     private fun  isWithSent(withSent: Boolean): String{

@@ -58,15 +58,15 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun fillViews(ad: Ad) = with(binding) {
-        tvFraction.text = ad.fraction
-        tvHeroName.text = ad.heroName
-        etTel.setText(ad.tel)
-        etIndex.setText(ad.index)
-        checkBoxWithSend.isChecked = ad.withSend.toBoolean()
-        tvCategory.text = ad.category
-        etTitle.setText(ad.title)
-        etPrice.setText(ad.price)
-        etDescription.setText(ad.description)
+        spFractionValue.text = ad.fraction
+        spHeroNameValue.text = ad.heroName
+        etTelValue.setText(ad.tel)
+        etIndexValue.setText(ad.index)
+        cbWithSendValue.isChecked = ad.withSend.toBoolean()
+        spCategoryValue.text = ad.category
+        etTitleValue.setText(ad.title)
+        etPriceValue.setText(ad.price)
+        etDescriptionValue.setText(ad.description)
         ImageManager.fillImageArray(ad, imageAdapter)
     }
 
@@ -78,17 +78,17 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     //OnClicks
     fun onClickSelectFraction(view: View){
         val listCountry = CityHelper.getAllCountries(this)
-        dialog.showSpinnerDialog(this, listCountry, binding.tvFraction)
-        if(binding.tvHeroName.text.toString() != getString(R.string.select_hero_name)){
-            binding.tvHeroName.text = getString(R.string.select_hero_name)
+        dialog.showSpinnerDialog(this, listCountry, binding.spFractionValue)
+        if(binding.spHeroNameValue.text.toString() != getString(R.string.select_hero_name)){
+            binding.spHeroNameValue.text = getString(R.string.select_hero_name)
         }
     }
 
     fun onClickSelectHeroName(view: View){
-        val selectedCountry = binding.tvFraction.text.toString()
+        val selectedCountry = binding.spFractionValue.text.toString()
         if (selectedCountry != getString(R.string.select_fraction)){
             val listCity = CityHelper.getAllCities(selectedCountry,this)
-            dialog.showSpinnerDialog(this, listCity, binding.tvHeroName)
+            dialog.showSpinnerDialog(this, listCity, binding.spHeroNameValue)
 
         }else{
             Toast.makeText(this, getString(R.string.warning_no_fraction_selected), Toast.LENGTH_LONG).show()
@@ -98,7 +98,7 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickSelectCategory(view: View){
 
          val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
-         dialog.showSpinnerDialog(this, listCategory, binding.tvCategory)
+         dialog.showSpinnerDialog(this, listCategory, binding.spCategoryValue)
 
 
     }
@@ -139,16 +139,16 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         val ad: Ad
         binding.apply{
             ad = Ad(
-                tvFraction.text.toString(),
-                tvHeroName.text.toString(),
-                etTel.text.toString(),
-                etMail.text.toString(),
-                etIndex.text.toString(),
-                checkBoxWithSend.isChecked.toString(),
-                tvCategory.text.toString(),
-                etPrice.text.toString(),
-                etTitle.text.toString(),
-                etDescription.text.toString(),
+                spFractionValue.text.toString(),
+                spHeroNameValue.text.toString(),
+                etTelValue.text.toString(),
+                etMailValue.text.toString(),
+                etIndexValue.text.toString(),
+                cbWithSendValue.isChecked.toString(),
+                spCategoryValue.text.toString(),
+                etPriceValue.text.toString(),
+                etTitleValue.text.toString(),
+                etDescriptionValue.text.toString(),
                 "empty",
                 "empty",
                 "empty",
