@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
     private var clearUpdate: Boolean = true
+    private var currentCategory: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,16 +88,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun initViewModel(){
         firebaseViewModel.liveAdsData.observe(this, {
+            val list = getAdsByCategory(it)
             if (!clearUpdate){
-                adapter.updateAdapter(it)
+                adapter.updateAdapter(list)
             } else {
-                adapter.updateAdapterWithClear(it)
+                adapter.updateAdapterWithClear(list)
             }
             binding.mainContent.tvEmpty.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
         })
     }
 
+    private fun getAdsByCategory(list: ArrayList<Ad>): ArrayList<Ad>{
+        val tempList = ArrayList<Ad>()
+        tempList.addAll(list)
+        if (currentCategory != getString(R.string.def)){
+            tempList.clear()
+            list.forEach {
+                if (currentCategory == it.category)tempList.add(it)
+            }
+        }
+        tempList.reverse()
+        return tempList
+    }
+
     private fun init(){
+        currentCategory = getString(R.string.def)
         setSupportActionBar(binding.mainContent.toolbar) //указываем какой тулбар используется в активити (важно указать в начале)
         onActivityResult()
         navViewSettings()
@@ -127,7 +143,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     mainContent.toolbar.title = "Избранное"
                 }
                 R.id.id_home -> {
-                    firebaseViewModel.loadAllAds("0")
+                    currentCategory = getString(R.string.def)
+                    firebaseViewModel.loadAllAdsFirstPage()
                     mainContent.toolbar.title = getString(R.string.def)
                 }
             }
@@ -206,8 +223,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun getAdsFromCat(cat: String){
-        val catTime = "${cat}_0"
-        firebaseViewModel.loadAllAdsFromCat(catTime)
+        currentCategory = cat
+        firebaseViewModel.loadAllAdsFromCat(cat)
     }
 
     fun uiUpdate(user: FirebaseUser?) {
@@ -271,12 +288,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun getAdsFromCat(adsList: ArrayList<Ad>) {
-        adsList[adsList.size - 1].let {
-            if (it.category == getString(R.string.def)) {
-                firebaseViewModel.loadAllAds(it.time)
+        adsList[0].let {
+            if (currentCategory == getString(R.string.def)) {
+                firebaseViewModel.loadAllAdsNextPage(it.time)
             } else {
                 val catTime = "${it.category}_${it.time}"
-                    firebaseViewModel.loadAllAdsFromCat(catTime)
+                    firebaseViewModel.loadAllAdsFromCatNextPage(catTime)
             }
         }
     }
