@@ -3,7 +3,9 @@
     <string-array name="category">
         <item>Герои</item>
         <item>Подземелья</item>
-        <item>Башня</item>
+        <item>Война Фракций</item>
+        <item>Арена</item>
         <item>Клан Босс</item>
+        <item>Башня</item>
     </string-array>
 </resources>

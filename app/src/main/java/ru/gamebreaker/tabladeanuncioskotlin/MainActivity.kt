@@ -156,28 +156,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, text, length).show()
             }
             R.id.id_heroes ->{
-                val text = textAddToast + getString(R.string.ad_heroes)
-                Toast.makeText(this, text, length).show()
+                getAdsFromCat(getString(R.string.ad_heroes))
+
+                //val catTime = "${getString(R.string.ad_heroes)}_0"
+                //firebaseViewModel.loadAllAdsFromCat(catTime)
+
+                //val text = textAddToast + getString(R.string.ad_heroes)
+                //Toast.makeText(this, text, length).show()
             }
             R.id.id_dungeons ->{
-                val text = textAddToast + getString(R.string.ad_dungeons)
-                Toast.makeText(this, text, length).show()
+                getAdsFromCat(getString(R.string.ad_dungeons))
             }
             R.id.id_faction_war ->{
-                val text = textAddToast + getString(R.string.ad_faction_war)
-                Toast.makeText(this, text, length).show()
+                getAdsFromCat(getString(R.string.ad_faction_war))
             }
             R.id.id_arena ->{
-                val text = textAddToast + getString(R.string.ad_arena)
-                Toast.makeText(this, text, length).show()
+                getAdsFromCat(getString(R.string.ad_arena))
             }
             R.id.id_cb ->{
-                val text = textAddToast + getString(R.string.ad_cb)
-                Toast.makeText(this, text, length).show()
+                getAdsFromCat(getString(R.string.ad_cb))
             }
             R.id.id_tower ->{
-                val text = textAddToast + getString(R.string.ad_tower)
-                Toast.makeText(this, text, length).show()
+                getAdsFromCat(getString(R.string.ad_tower))
             }
             R.id.id_sign_up ->{
                 val text = textAddToast + getString(R.string.ac_sign_up)
@@ -203,6 +203,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun getAdsFromCat(cat: String){
+        val catTime = "${cat}_0"
+        firebaseViewModel.loadAllAdsFromCat(catTime)
     }
 
     fun uiUpdate(user: FirebaseUser?) {
@@ -258,11 +263,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     clearUpdate = false
                     val adsList = firebaseViewModel.liveAdsData.value!!
                     if (adsList.isNotEmpty()){
-                        adsList[adsList.size - 1].let { firebaseViewModel.loadAllAds(it.time) }
+                        getAdsFromCat(adsList)
                     }
                 }
             }
         })
+    }
+
+    private fun getAdsFromCat(adsList: ArrayList<Ad>) {
+        adsList[adsList.size - 1].let {
+            if (it.category == getString(R.string.def)) {
+                firebaseViewModel.loadAllAds(it.time)
+            } else {
+                val catTime = "${it.category}_${it.time}"
+                    firebaseViewModel.loadAllAdsFromCat(catTime)
+            }
+        }
     }
 
     companion object{
