@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="category">
-        <item>Герои</item>
-        <item>Подземелья</item>
-        <item>Война Фракций</item>
-        <item>Арена</item>
-        <item>Клан Босс</item>
-        <item>Башня</item>
+        <item>@string/ad_heroes</item>
+        <item>@string/ad_faction_war</item>
+        <item>@string/ad_arena</item>
+        <item>@string/ad_dungeons</item>
+        <item>@string/ad_cb</item>
+        <item>@string/ad_tower</item>
     </string-array>
 </resources>
