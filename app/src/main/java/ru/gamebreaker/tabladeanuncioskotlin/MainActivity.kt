@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.id_find_clan ->{
-                Toast.makeText(this, "pressed id_find_clan", Toast.LENGTH_SHORT).show()
+                getClans()
             }
             R.id.id_find_members ->{
                 Toast.makeText(this, "pressed id_find_clan", Toast.LENGTH_SHORT).show()
@@ -238,6 +238,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun getAdsFromCat(cat: String){
         currentCategory = cat
         firebaseViewModel.loadAllAdsFromCat(cat)
+    }
+
+    private fun getClans(){
+        currentCategory = "clan"
+        firebaseViewModel.loadAllClansFirstPage()
     }
 
     fun uiUpdate(user: FirebaseUser?) {

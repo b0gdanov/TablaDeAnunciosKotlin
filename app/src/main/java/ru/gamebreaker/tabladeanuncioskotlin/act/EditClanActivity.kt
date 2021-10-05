@@ -40,8 +40,9 @@ class EditClanActivity : AppCompatActivity() {
                 etLevel.text.toString(),
                 etTournament.text.toString(),
                 etDescription.text.toString(),
+                System.currentTimeMillis().toString(),
                 dbManager.db.push().key,
-                dbManager.auth.uid,
+                dbManager.auth.uid
             )
         }
         return clan

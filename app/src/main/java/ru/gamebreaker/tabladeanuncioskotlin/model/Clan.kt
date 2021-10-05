@@ -5,6 +5,7 @@ data class Clan(
     val level: String? = null,
     val tournament: String? = null,
     val description: String? = null,
+    val time: String? = null,
     val key: String? = null,
     val uid: String? = null
 )

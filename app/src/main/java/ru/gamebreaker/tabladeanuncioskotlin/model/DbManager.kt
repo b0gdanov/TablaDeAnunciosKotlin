@@ -1,7 +1,5 @@
 package ru.gamebreaker.tabladeanuncioskotlin.model
 
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -67,34 +65,44 @@ class DbManager{
         }
     }
 
-    fun getMyAds(readDataCallback: ReadDataCallback?){
+    fun getMyAds(readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
         val query = db.orderByChild(auth.uid + "/ad/uid").equalTo(auth.uid)
-        readDataFromDb(query, readDataCallback)
+        readDataFromDb(true, query, readDataCallback, readDataClanCallback)
     }
 
-    fun getMyFavs(readDataCallback: ReadDataCallback?){
+    fun getMyFavs(readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
         val query = db.orderByChild("/favs/${auth.uid}").equalTo(auth.uid)
-        readDataFromDb(query, readDataCallback)
+        readDataFromDb(true, query, readDataCallback, readDataClanCallback)
     }
 
-    fun getAllAdsFirstPage(readDataCallback: ReadDataCallback?){
+    fun getAllAdsFirstPage(readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
         val query = db.orderByChild(GET_ALL_ADS).limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
+        readDataFromDb(true, query, readDataCallback, readDataClanCallback)
     }
 
-    fun getAllAdsNextPage(time: String, readDataCallback: ReadDataCallback?){
+    fun getAllAdsNextPage(time: String, readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
         val query = db.orderByChild(GET_ALL_ADS).endBefore(time).limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
+        readDataFromDb(true, query, readDataCallback, readDataClanCallback)
     }
 
-    fun getAllAdsFromCatFirstPage(cat: String, readDataCallback: ReadDataCallback?){
+    fun getAllAdsFromCatFirstPage(cat: String, readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
         val query = db.orderByChild(GET_ALL_CAT_ADS).startAt(cat).endAt(cat + "_\uf8ff").limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
+        readDataFromDb(true, query, readDataCallback, readDataClanCallback)
     }
 
-    fun getAllAdsFromCatNextPage(catTime: String, readDataCallback: ReadDataCallback?){
+    fun getAllAdsFromCatNextPage(catTime: String, readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
         val query = db.orderByChild(GET_ALL_CAT_ADS).endBefore(catTime).limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
+        readDataFromDb(true, query, readDataCallback, readDataClanCallback)
+    }
+
+    fun getAllClansFirstPage(adOrClan: Boolean, readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
+        val query = db.orderByChild(CLAN_TIME).limitToLast(ADS_LIMIT)
+        readDataFromDb(false, query, readDataCallback, readDataClanCallback)
+    }
+
+    fun getAllClansNextPage(adOrClan: Boolean, time: String, readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
+        val query = db.orderByChild(CLAN_TIME).endBefore(time).limitToLast(ADS_LIMIT)
+        readDataFromDb(false, query, readDataCallback, readDataClanCallback)
     }
 
     fun deleteAd(ad: Ad, listener: FinishWorkListener){
@@ -105,37 +113,67 @@ class DbManager{
         }
     }
 
-    private fun readDataFromDb(query: Query, readDataCallback: ReadDataCallback?){
+    private fun readDataFromDb(adOrClan: Boolean, query: Query, readDataCallback: ReadDataCallback?, readDataClanCallback: ReadDataClanCallback?){
         query.addListenerForSingleValueEvent(object : ValueEventListener{
             val adArray = ArrayList<Ad>()
+            val clanArray = ArrayList<Clan>()
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (item in snapshot.children){
+                if(adOrClan){
+                    for (item in snapshot.children){
 
-                    var ad: Ad? = null
-                    item.children.forEach {
-                        if (ad == null) ad = it.child(AD_NODE).getValue(Ad::class.java)
+                        var ad: Ad? = null
+                        item.children.forEach {
+                            if (ad == null) ad = it.child(AD_NODE).getValue(Ad::class.java)
+                        }
+                        val infoItem = item.child(INFO_NODE).getValue(InfoItem::class.java)
+
+                        val favCounter = item.child(FAVS_NODE).childrenCount
+                        //Log.d("MyLog", "Counter favs: $favCounter")
+                        val isFav = auth.uid?.let { item.child(FAVS_NODE).child(it).getValue(String::class.java) }
+                        ad?.isFav = isFav != null
+                        ad?.favCounter = favCounter.toString()
+
+                        ad?.viewsCounter = infoItem?.viewsCounter ?: "0"
+                        ad?.emailsCounter = infoItem?.emailsCounter ?: "0"
+                        ad?.callsCounter = infoItem?.callsCounter ?: "0"
+                        if (ad != null)adArray.add(ad!!)
+
                     }
-                    val infoItem = item.child(INFO_NODE).getValue(InfoItem::class.java)
+                    readDataCallback?.readData(adArray)
+                } else {
+                    for (item in snapshot.children){
 
-                    val favCounter = item.child(FAVS_NODE).childrenCount
-                    //Log.d("MyLog", "Counter favs: $favCounter")
-                    val isFav = auth.uid?.let { item.child(FAVS_NODE).child(it).getValue(String::class.java) }
-                    ad?.isFav = isFav != null
-                    ad?.favCounter = favCounter.toString()
+                        var clan: Clan? = null
+                        item.children.forEach {
+                            if (clan == null) clan = it.child(CLAN_NODE).getValue(Clan::class.java)
+                        }
 
-                    ad?.viewsCounter = infoItem?.viewsCounter ?: "0"
-                    ad?.emailsCounter = infoItem?.emailsCounter ?: "0"
-                    ad?.callsCounter = infoItem?.callsCounter ?: "0"
-                    if (ad != null)adArray.add(ad!!)
+/*                        val infoItem = item.child(INFO_NODE).getValue(InfoItem::class.java)
 
+                        val favCounter = item.child(FAVS_NODE).childrenCount
+                        //Log.d("MyLog", "Counter favs: $favCounter")
+                        val isFav = auth.uid?.let { item.child(FAVS_NODE).child(it).getValue(String::class.java) }
+                        clan?.isFav = isFav != null
+                        ad?.favCounter = favCounter.toString()
+
+                        ad?.viewsCounter = infoItem?.viewsCounter ?: "0"
+                        ad?.emailsCounter = infoItem?.emailsCounter ?: "0"
+                        ad?.callsCounter = infoItem?.callsCounter ?: "0"*/
+
+                        if (clan != null)clanArray.add(clan!!)
+                    }
+                    readDataClanCallback?.readDataClan(clanArray)
                 }
-                readDataCallback?.readData(adArray)
             }
             override fun onCancelled(error: DatabaseError) {}
         })
     }
     interface ReadDataCallback {
         fun readData(list: ArrayList<Ad>)
+    }
+
+    interface ReadDataClanCallback{
+        fun readDataClan(list: ArrayList<Clan>)
     }
 
     interface FinishWorkListener{
@@ -153,5 +191,6 @@ class DbManager{
         const val GET_ALL_CAT_ADS = "/adFilter/catTime"
 
         const val CLAN_NODE = "clan"
+        const val CLAN_TIME = "/clan/time"
     }
 }

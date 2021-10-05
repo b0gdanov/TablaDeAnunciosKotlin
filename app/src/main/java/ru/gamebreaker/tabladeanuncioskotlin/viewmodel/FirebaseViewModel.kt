@@ -3,15 +3,21 @@ package ru.gamebreaker.tabladeanuncioskotlin.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.model.Clan
 import ru.gamebreaker.tabladeanuncioskotlin.model.DbManager
 
 class FirebaseViewModel: ViewModel() {
     private  val dbManager = DbManager()
     val liveAdsData = MutableLiveData<ArrayList<Ad>>()
+    val liveClansData = MutableLiveData<ArrayList<Clan>>()
     fun loadAllAdsFirstPage(){
         dbManager.getAllAdsFirstPage(object: DbManager.ReadDataCallback{
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
+            }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
             }
         })
     }
@@ -21,6 +27,10 @@ class FirebaseViewModel: ViewModel() {
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
             }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
+            }
         })
     }
 
@@ -29,6 +39,10 @@ class FirebaseViewModel: ViewModel() {
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
             }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
+            }
         })
     }
 
@@ -36,6 +50,34 @@ class FirebaseViewModel: ViewModel() {
         dbManager.getAllAdsFromCatNextPage(catTime, object: DbManager.ReadDataCallback{
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
+            }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
+            }
+        })
+    }
+
+    fun loadAllClansFirstPage(){
+        dbManager.getAllClansFirstPage(false, object: DbManager.ReadDataCallback{
+            override fun readData(list: ArrayList<Ad>) {
+                liveAdsData.value = list
+            }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
+            }
+        })
+    }
+
+    fun loadAllClansNextPage(time: String){
+        dbManager.getAllClansNextPage(false, time, object: DbManager.ReadDataCallback{
+            override fun readData(list: ArrayList<Ad>) {
+                liveAdsData.value = list
+            }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
             }
         })
     }
@@ -65,6 +107,10 @@ class FirebaseViewModel: ViewModel() {
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
             }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
+            }
         })
     }
 
@@ -72,6 +118,10 @@ class FirebaseViewModel: ViewModel() {
         dbManager.getMyFavs(object: DbManager.ReadDataCallback{
             override fun readData(list: ArrayList<Ad>) {
                 liveAdsData.value = list
+            }
+        }, object: DbManager.ReadDataClanCallback{
+            override fun readDataClan(list: ArrayList<Clan>) {
+                liveClansData.value = list
             }
         })
     }
