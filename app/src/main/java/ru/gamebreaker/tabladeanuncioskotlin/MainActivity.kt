@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
+import ru.gamebreaker.tabladeanuncioskotlin.act.EditClanActivity
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
@@ -133,6 +134,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val i = Intent(this@MainActivity, EditAdsAct::class.java) //передаём контекст на котором находимся и активити на которое хотим перейти
                     startActivity(i) //запускаем интент и новое активити
                 }
+                R.id.id_new_clan -> {
+                    val i = Intent(this@MainActivity, EditClanActivity::class.java) //передаём контекст на котором находимся и активити на которое хотим перейти
+                    startActivity(i) //запускаем интент и новое активити
+                }
                 R.id.id_my_ads -> {
                     firebaseViewModel.loadMyAds()
                     mainContent.toolbar.title = getString(R.string.ad_my_ads)
@@ -196,6 +201,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.id_tower ->{
                 getAdsFromCat(getString(R.string.ad_tower))
             }
+
+            R.id.id_find_clan ->{
+                Toast.makeText(this, "pressed id_find_clan", Toast.LENGTH_SHORT).show()
+            }
+            R.id.id_find_members ->{
+                Toast.makeText(this, "pressed id_find_clan", Toast.LENGTH_SHORT).show()
+            }
+
             R.id.id_sign_up ->{
                 val text = textAddToast + getString(R.string.ac_sign_up)
                 Toast.makeText(this, text, length).show()

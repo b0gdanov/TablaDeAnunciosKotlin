@@ -14,7 +14,12 @@
     <string name="ad_arena">Арена</string>
     <string name="ad_cb">Клан Босс</string>
     <string name="ad_tower">Башня</string>
-    <string name="ad_cat2">Аккаунт</string>
+
+    <string name="ad_cat2">Клан</string>
+    <string name="cl_find_clan">Поиск клана</string>
+    <string name="cl_find_members">Поиск участников</string>
+
+    <string name="ad_cat3">Аккаунт</string>
     <string name="ac_sign_up">Регистрация</string>
     <string name="ac_sign_in">Вход</string>
     <string name="ac_sign_out">Выход</string>
@@ -102,4 +107,14 @@
     <string name="the_guest">Гость</string>
     <string name="you_are_logged_in_as_a_guest">Вы вошли как гость</string>
     <string name="failed_to_login_as_guest">Не удалось войти как гость</string>
+    <string name="is_empty">Пока зесь пусто</string>
+    <string name="clan_name_hint">Название клана</string>
+    <string name="clan_name">Название клана*</string>
+    <string name="clan_level">Уровень клана*</string>
+    <string name="clan_level_hint">Уровень клана</string>
+    <string name="clan_tournament">Уровень турнира*</string>
+    <string name="clan_tournament_hint">Уровень турнира</string>
+    <string name="clan_description">Описание клана*</string>
+    <string name="clan_description_hint">Описание</string>
+    <string name="clan_publish">Опубликовать объявление о клане</string>
 </resources>

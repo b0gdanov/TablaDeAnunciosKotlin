@@ -26,6 +26,13 @@ class DbManager{
         }
     }
 
+    fun publishClan(clan: Clan, finishListener: FinishWorkListener){
+        if(auth.uid != null)db.child(clan.key ?: "empty")
+            .child(auth.uid!!).child(CLAN_NODE).setValue(clan).addOnCompleteListener {
+                finishListener.onFinish()
+        }
+    }
+
     fun adViewed(ad: Ad){
         var counter = ad.viewsCounter.toInt()
         counter++
@@ -144,5 +151,7 @@ class DbManager{
         const val ADS_LIMIT = 2
         const val GET_ALL_ADS = "/adFilter/time"
         const val GET_ALL_CAT_ADS = "/adFilter/catTime"
+
+        const val CLAN_NODE = "clan"
     }
 }
