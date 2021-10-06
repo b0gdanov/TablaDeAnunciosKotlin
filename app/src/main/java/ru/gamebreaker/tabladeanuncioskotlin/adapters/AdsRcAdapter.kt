@@ -15,7 +15,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.AdListItemBinding
 
-class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdHolder>() {
+class AdsRcAdapter(val act: MainActivity) : RecyclerView.Adapter<AdsRcAdapter.AdHolder>() {
 
     val adArray = ArrayList<Ad>()
 
@@ -32,7 +32,7 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
         return adArray.size
     }
 
-    fun updateAdapter(newList: List<Ad>){
+    fun updateAdapter(newList: List<Ad>) {
         val tempArray = ArrayList<Ad>()
         tempArray.addAll(adArray)
         tempArray.addAll(newList)
@@ -43,7 +43,7 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
         adArray.addAll(tempArray)
     }
 
-    fun updateAdapterWithClear(newList: List<Ad>){
+    fun updateAdapterWithClear(newList: List<Ad>) {
 
         val diffResult = DiffUtil.calculateDiff(DiffUtilHelper(adArray, newList))
         diffResult.dispatchUpdatesTo(this)
@@ -51,7 +51,8 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
         adArray.addAll(newList)
     }
 
-    class AdHolder(val binding: AdListItemBinding, val act: MainActivity) : RecyclerView.ViewHolder(binding.root) {
+    class AdHolder(val binding: AdListItemBinding, val act: MainActivity) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun setData(ad: Ad) = with(binding) {
             tvDescription.text = ad.description
@@ -67,9 +68,9 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             mainOnClick(ad)
         }
 
-        private fun mainOnClick(ad: Ad) = with(binding){
+        private fun mainOnClick(ad: Ad) = with(binding) {
             ibFav.setOnClickListener {
-                if (act.mAuth.currentUser?.isAnonymous == false)act.onFavClicked(ad)
+                if (act.mAuth.currentUser?.isAnonymous == false) act.onFavClicked(ad)
             }
             itemView.setOnClickListener {
                 act.onAdViewed(ad)
@@ -80,15 +81,15 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             }
         }
 
-        private fun isFav(ad: Ad){
-            if (ad.isFav){
+        private fun isFav(ad: Ad) {
+            if (ad.isFav) {
                 binding.ibFav.setImageResource(R.drawable.ic_favorite_on)
             } else {
                 binding.ibFav.setImageResource(R.drawable.ic_favorite_off)
             }
         }
 
-        private fun onClickEdit(ad: Ad): View.OnClickListener{
+        private fun onClickEdit(ad: Ad): View.OnClickListener {
             return View.OnClickListener {
                 val editIntent = Intent(act, EditAdsAct::class.java).apply {
                     putExtra(MainActivity.EDIT_STATE, true)
@@ -98,12 +99,12 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
             }
         }
 
-        private fun isOwner(ad: Ad): Boolean{
+        private fun isOwner(ad: Ad): Boolean {
             return ad.uid == act.mAuth.uid
         }
 
-        private fun showEditPanel(isOwner: Boolean){
-            if(isOwner){
+        private fun showEditPanel(isOwner: Boolean) {
+            if (isOwner) {
                 binding.editPanel.visibility = View.VISIBLE
             } else {
                 binding.editPanel.visibility = View.GONE
@@ -111,10 +112,10 @@ class AdsRcAdapter(val act: MainActivity): RecyclerView.Adapter<AdsRcAdapter.AdH
         }
     }
 
-    interface Listener{
-        fun  onDeleteItem(ad: Ad)
-        fun  onAdViewed(ad: Ad)
-        fun  onFavClicked(ad: Ad)
+    interface Listener {
+        fun onDeleteItem(ad: Ad)
+        fun onAdViewed(ad: Ad)
+        fun onFavClicked(ad: Ad)
     }
 
 }

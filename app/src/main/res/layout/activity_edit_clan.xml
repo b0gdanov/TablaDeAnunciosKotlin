@@ -82,6 +82,44 @@
 
         </LinearLayout>
 
+
+
+        <!-- CLAN TEL TEXT -->
+
+        <TextView
+            android:id="@+id/tvTel"
+            style="@style/HeadingsTextAds"
+            android:text="@string/tel_number" />
+
+        <EditText
+            android:id="@+id/etTel"
+            style="@style/TextAds.Edit"
+            android:hint="@string/tel_number_hint"
+            android:inputType="phone" />
+
+        <LinearLayout style="@style/LineEditAds">
+
+        </LinearLayout>
+
+
+
+        <!-- CLAN EMAIL TEXT -->
+
+        <TextView
+            android:id="@+id/tvEmail"
+            style="@style/HeadingsTextAds"
+            android:text="@string/email_adress" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/TextAds.Edit"
+            android:hint="@string/email_adress_hint"
+            android:inputType="textEmailAddress" />
+
+        <LinearLayout style="@style/LineEditAds">
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button

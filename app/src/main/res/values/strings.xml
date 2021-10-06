@@ -118,4 +118,8 @@
     <string name="clan_description">Описание клана*</string>
     <string name="clan_description_hint">Описание</string>
     <string name="clan_publish">Опубликовать объявление о клане</string>
+    <string name="email_adress_hint">Адрес электронной почты</string>
+    <string name="email_adress">Адрес электронной почты*</string>
+    <string name="tel_number_hint">Номер телефона</string>
+    <string name="tel_number">Номер телефона*</string>
 </resources>

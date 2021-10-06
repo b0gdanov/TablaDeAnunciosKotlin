@@ -39,6 +39,12 @@ class DbManager{
         if(auth.uid != null)db.child(ad.key ?: "empty").child(INFO_NODE).setValue(InfoItem(counter.toString(), ad.emailsCounter,ad.callsCounter))
     }
 
+    fun clanViewed(clan: Clan){
+        var counter = clan.viewsCounter.toInt()
+        counter++
+        if(auth.uid != null)db.child(clan.key ?: "empty").child(INFO_NODE).setValue(InfoItem(counter.toString(), clan.emailsCounter,clan.callsCounter))
+    }
+
     fun onFavClick(ad: Ad, listener: FinishWorkListener){
         if (ad.isFav){
             removeFromFavs(ad, listener)
@@ -66,6 +72,37 @@ class DbManager{
             }
         }
     }
+
+
+    fun onFavClickClan(clan: Clan, listener: FinishWorkListener){
+        if (clan.isFav){
+            removeFromFavsClan(clan, listener)
+        } else {
+            addToFavsClan(clan, listener)
+        }
+    }
+
+    private fun addToFavsClan(clan: Clan, listener: FinishWorkListener) {
+        clan.key?.let {
+            auth.uid?.let { uid ->
+                db.child(it).child(FAVS_NODE).child(uid).setValue(uid).addOnCompleteListener {
+                    if (it.isSuccessful) listener.onFinish()
+                }
+            }
+        }
+    }
+
+    private fun removeFromFavsClan(clan: Clan, listener: FinishWorkListener) {
+        clan.key?.let {
+            auth.uid?.let { uid ->
+                db.child(it).child(FAVS_NODE).child(uid).removeValue().addOnCompleteListener {
+                    if (it.isSuccessful) listener.onFinish()
+                }
+            }
+        }
+    }
+
+
 
     fun getMyAds(readDataCallback: ReadDataCallback?){
         val query = db.orderByChild(auth.uid + "/ad/uid").equalTo(auth.uid)
@@ -97,9 +134,28 @@ class DbManager{
         readDataFromDb(query, readDataCallback)
     }
 
+
+    fun getAllClans(readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild(GET_CLAN_TIME).limitToLast(ADS_LIMIT)
+        readDataFromDb(query, readDataCallback)
+    }
+
+    fun getAllClansNext(Time: String, readDataCallback: ReadDataCallback?){
+        val query = db.orderByChild(GET_CLAN_TIME).endBefore(Time).limitToLast(ADS_LIMIT)
+        readDataFromDb(query, readDataCallback)
+    }
+
     fun deleteAd(ad: Ad, listener: FinishWorkListener){
         if (ad.key == null || ad.uid == null) return
         db.child(ad.key).child(ad.uid).removeValue().addOnCompleteListener {
+            if (it.isSuccessful) listener.onFinish()
+            //else Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun deleteClan(clan: Clan, listener: FinishWorkListener){
+        if (clan.key == null || clan.uid == null) return
+        db.child(clan.key).child(clan.uid).removeValue().addOnCompleteListener {
             if (it.isSuccessful) listener.onFinish()
             //else Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
         }
@@ -153,5 +209,6 @@ class DbManager{
         const val GET_ALL_CAT_ADS = "/adFilter/catTime"
 
         const val CLAN_NODE = "clan"
+        const val GET_CLAN_TIME = "/clan/time"
     }
 }

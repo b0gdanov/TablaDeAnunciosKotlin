@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme">
         <activity
+            android:name=".act.ClanInfoActivity"
+            android:exported="true" />
+        <activity
             android:name=".act.EditClanActivity"
             android:exported="true" />
         <activity

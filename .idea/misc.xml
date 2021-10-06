@@ -4,46 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_logo.xml" value="0.309375" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_description.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.1" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_clan.xml" value="0.25" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_main.xml" value="0.1782178217821782" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/ad_list_item.xml" value="0.5" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/clan_list_item.xml" value="0.28125" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/image_adapter_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/list_image_frag.xml" value="0.29322916666666665" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/main_content.xml" value="0.1782178217821782" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/select_image_fragment_item.xml" value="0.33" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/sp_list_item.xml" value="0.29322916666666665" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/layout/spinner_layout.xml" value="0.29322916666666665" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/menu/bot_main_menu.xml" value="0.28125" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/menu/drawer_main_menu.xml" value="0.5" />
         <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/menu/menu_choose_image.xml" value="0.29322916666666665" />
-        <entry key="..\:/AndroidStudioProjects/samoobushenie/ant/TablaDeAnunciosKotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.29739583333333336" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/bot_nav_selector.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_account_default.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_defaul_image.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_default_image.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_edit.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_eye.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_favorite_off.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_favorite_on.xml" value="0.35648148148148145" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_logo.xml" value="0.3880208333333333" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/drawable/ic_menu_doom_tower.xml" value="0.3296296296296296" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout-v26/ad_list_item.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_description.xml" value="0.33" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_ads.xml" value="0.25" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_main.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/ad_list_item.xml" value="0.44597249508840864" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/main_content.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/nav_header_main.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/sign_dialog.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/sp_list_item.xml" value="0.33" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/layout/spinner_layout.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/menu/bot_main_menu.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/menu/drawer_main_menu.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/menu/main_menu.xml" value="0.371875" />
-        <entry key="..\:/Users/Shizza/StudioProjects/TablaDeAnunciosKotlin/app/src/main/res/menu/menu_choose_image.xml" value="0.371875" />
+        <entry key="..\:/Users/User/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_clan_info.xml" value="0.25" />
+        <entry key="..\:/Users/User/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_description.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/User/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_edit_clan.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/User/TablaDeAnunciosKotlin/app/src/main/res/layout/activity_main.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/User/TablaDeAnunciosKotlin/app/src/main/res/layout/ad_list_item.xml" value="0.38697916666666665" />
+        <entry key="..\:/Users/User/TablaDeAnunciosKotlin/app/src/main/res/layout/clan_list_item.xml" value="1.0" />
+        <entry key="..\:/Users/User/TablaDeAnunciosKotlin/app/src/main/res/layout/main_content.xml" value="0.38697916666666665" />
       </map>
     </option>
   </component>

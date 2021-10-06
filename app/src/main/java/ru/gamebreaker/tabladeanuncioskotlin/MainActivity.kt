@@ -1,4 +1,5 @@
 package ru.gamebreaker.tabladeanuncioskotlin
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,28 +27,35 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
+import ru.gamebreaker.tabladeanuncioskotlin.act.ClanInfoActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditClanActivity
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.adapters.ClansRcAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.model.Clan
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRcAdapter.Listener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
+    AdsRcAdapter.Listener, ClansRcAdapter.Listener {
     private lateinit var tvAccount: TextView
     private lateinit var imAccount: ImageView
-    private lateinit var binding :ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val dialogHelper = DialogHelper(this)
     val mAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
+    val adapterClans = ClansRcAdapter(this)
     lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
     private var clearUpdate: Boolean = true
+    private var clearUpdateClan: Boolean = true
     private var currentCategory: String? = null
+    private var inClanCat: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         init()
         initRecyclerView()
         initViewModel()
+        initViewModelClan()
         bottomMenuOnClick()
         //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
         scrollListener()
@@ -68,18 +77,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun onActivityResult() {
-        googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                if (account != null){
-                    Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR)
-                    dialogHelper.accHelper.signInFirebaseWithGoogle(account.idToken!!)
+        googleSignInLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)
+                    if (account != null) {
+                        Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR)
+                        dialogHelper.accHelper.signInFirebaseWithGoogle(account.idToken!!)
+                    }
+                } catch (e: ApiException) {
+                    Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR + "${e.message}")
                 }
-            }catch (e:ApiException){
-                Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR + "${e.message}")
             }
-        }
     }
 
     override fun onStart() {
@@ -87,37 +97,72 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         uiUpdate(mAuth.currentUser)
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         firebaseViewModel.liveAdsData.observe(this, {
             val list = getAdsByCategory(it)
-            if (!clearUpdate){
+            if (!clearUpdate) {
                 adapter.updateAdapter(list)
             } else {
                 adapter.updateAdapterWithClear(list)
             }
-            binding.mainContent.tvEmpty.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
+            binding.mainContent.tvEmpty.visibility =
+                if (adapter.itemCount == 0) View.VISIBLE else View.GONE
         })
     }
 
-    private fun getAdsByCategory(list: ArrayList<Ad>): ArrayList<Ad>{
+    private fun initViewModelClan() {
+        firebaseViewModel.liveClansData.observe(this, {
+            binding.apply {
+                mainContent.rcView.adapter = adapterClans
+
+                val list = getClans(it)
+                if (!clearUpdateClan) {
+                    adapterClans.updateAdapter(list)
+                } else {
+                    adapterClans.updateAdapterWithClear(list)
+                }
+            }
+        })
+    }
+
+    private fun getAdsByCategory(list: ArrayList<Ad>): ArrayList<Ad> {
         val tempList = ArrayList<Ad>()
         tempList.addAll(list)
-        if (currentCategory != getString(R.string.def)){
+        if (currentCategory != getString(R.string.def)) {
             tempList.clear()
             list.forEach {
-                if (currentCategory == it.category)tempList.add(it)
+                if (currentCategory == it.category) tempList.add(it)
             }
         }
         tempList.reverse()
         return tempList
     }
 
-    private fun init(){
+    private fun getClans(list: ArrayList<Clan>): ArrayList<Clan> {
+        val tempList = ArrayList<Clan>()
+        tempList.addAll(list)
+        if (currentCategory != getString(R.string.def)) {
+            tempList.clear()
+            list.forEach {
+                tempList.add(it)
+            }
+        }
+        tempList.reverse()
+        return tempList
+    }
+
+    private fun init() {
         currentCategory = getString(R.string.def)
         setSupportActionBar(binding.mainContent.toolbar) //указываем какой тулбар используется в активити (важно указать в начале)
         onActivityResult()
         navViewSettings()
-        val toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.mainContent.toolbar, R.string.open, R.string.close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.mainContent.toolbar,
+            R.string.open,
+            R.string.close
+        )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         binding.navView.setNavigationItemSelectedListener(this)
@@ -126,29 +171,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    private fun bottomMenuOnClick() = with(binding){
+    private fun bottomMenuOnClick() = with(binding) {
         mainContent.botNavView.setOnNavigationItemSelectedListener { item ->
             clearUpdate = true
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.id_new_ad -> {
-                    val i = Intent(this@MainActivity, EditAdsAct::class.java) //передаём контекст на котором находимся и активити на которое хотим перейти
+                    inClanCat = false
+                    val i = Intent(
+                        this@MainActivity,
+                        EditAdsAct::class.java
+                    ) //передаём контекст на котором находимся и активити на которое хотим перейти
                     startActivity(i) //запускаем интент и новое активити
                 }
                 R.id.id_new_clan -> {
-                    val i = Intent(this@MainActivity, EditClanActivity::class.java) //передаём контекст на котором находимся и активити на которое хотим перейти
+                    inClanCat = false
+                    val i = Intent(
+                        this@MainActivity,
+                        EditClanActivity::class.java
+                    ) //передаём контекст на котором находимся и активити на которое хотим перейти
                     startActivity(i) //запускаем интент и новое активити
                 }
                 R.id.id_my_ads -> {
                     firebaseViewModel.loadMyAds()
+                    inClanCat = false
                     mainContent.toolbar.title = getString(R.string.ad_my_ads)
                 }
                 R.id.id_favorites -> {
                     //Toast.makeText(this@MainActivity, "favs", Toast.LENGTH_SHORT).show()
                     firebaseViewModel.loadMyFavs()
+                    inClanCat = false
                     mainContent.toolbar.title = "Избранное"
                 }
                 R.id.id_home -> {
                     currentCategory = getString(R.string.def)
+                    inClanCat = true
                     firebaseViewModel.loadAllAdsFirstPage()
                     mainContent.toolbar.title = getString(R.string.def)
                 }
@@ -157,7 +213,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         binding.apply {
             mainContent.rcView.layoutManager = LinearLayoutManager(this@MainActivity)
             mainContent.rcView.adapter = adapter
@@ -172,12 +228,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         clearUpdate = true
         val length = Toast.LENGTH_SHORT
         val textAddToast = getString(R.string.textAddToast)
-        when(item.itemId){
-            R.id.id_my_ads ->{
+        when (item.itemId) {
+            R.id.id_my_ads -> {
                 val text = textAddToast + getString(R.string.ad_my_ads)
                 Toast.makeText(this, text, length).show()
             }
-            R.id.id_heroes ->{
+            R.id.id_heroes -> {
                 getAdsFromCat(getString(R.string.ad_heroes))
 
                 //val catTime = "${getString(R.string.ad_heroes)}_0"
@@ -186,41 +242,42 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 //val text = textAddToast + getString(R.string.ad_heroes)
                 //Toast.makeText(this, text, length).show()
             }
-            R.id.id_dungeons ->{
+            R.id.id_dungeons -> {
                 getAdsFromCat(getString(R.string.ad_dungeons))
             }
-            R.id.id_faction_war ->{
+            R.id.id_faction_war -> {
                 getAdsFromCat(getString(R.string.ad_faction_war))
             }
-            R.id.id_arena ->{
+            R.id.id_arena -> {
                 getAdsFromCat(getString(R.string.ad_arena))
             }
-            R.id.id_cb ->{
+            R.id.id_cb -> {
                 getAdsFromCat(getString(R.string.ad_cb))
             }
-            R.id.id_tower ->{
+            R.id.id_tower -> {
                 getAdsFromCat(getString(R.string.ad_tower))
             }
 
-            R.id.id_find_clan ->{
-                Toast.makeText(this, "pressed id_find_clan", Toast.LENGTH_SHORT).show()
+            R.id.id_find_clan -> {
+                inClanCat = true
+                getClansFromNavigationView()
             }
-            R.id.id_find_members ->{
+            R.id.id_find_members -> {
                 Toast.makeText(this, "pressed id_find_clan", Toast.LENGTH_SHORT).show()
             }
 
-            R.id.id_sign_up ->{
+            R.id.id_sign_up -> {
                 val text = textAddToast + getString(R.string.ac_sign_up)
                 Toast.makeText(this, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
             }
-            R.id.id_sign_in ->{
+            R.id.id_sign_in -> {
                 val text = textAddToast + getString(R.string.ac_sign_in)
                 Toast.makeText(this, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
-            R.id.id_sign_out ->{
-                if(mAuth.currentUser?.isAnonymous == true){
+            R.id.id_sign_out -> {
+                if (mAuth.currentUser?.isAnonymous == true) {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return true
                 }
@@ -235,16 +292,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun getAdsFromCat(cat: String){
+    private fun getAdsFromCat(cat: String) {
+        inClanCat = false
         currentCategory = cat
         firebaseViewModel.loadAllAdsFromCat(cat)
+    }
+
+    private fun getClansFromNavigationView() {
+        firebaseViewModel.loadAllClans()
     }
 
     fun uiUpdate(user: FirebaseUser?) {
         if (user == null) {
             dialogHelper.accHelper.signInAnonymously(object : AccountHelper.Listener {
                 override fun onComplete() {
-                    tvAccount.text = getString(R.string.the_guest) // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
+                    tvAccount.text =
+                        getString(R.string.the_guest) // tvAccount.setText(R.string.text) или tvAccount.text = getString(R.string.text)
                     imAccount.setImageResource(R.drawable.ic_account_default)
                 }
             })
@@ -272,27 +335,63 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         firebaseViewModel.onFavClick(ad)
     }
 
+    override fun onDeleteItemClan(clan: Clan) {
+        firebaseViewModel.deleteItemClan(clan)
+    }
+
+    override fun onClanViewed(clan: Clan) {
+        firebaseViewModel.clanViewed(clan)
+        val i = Intent(this, ClanInfoActivity::class.java)
+        i.putExtra("CLAN", clan)
+        startActivity(i)
+    }
+
+    override fun onFavClickedClan(clan: Clan) {
+        firebaseViewModel.onFavClickClan(clan)
+    }
+
     //изменение цвета текста категорий из выдвижного меню
-    private fun navViewSettings() = with(binding){
+    private fun navViewSettings() = with(binding) {
         val menu = navView.menu
         val adsCategory = menu.findItem(R.id.adsCat)
         val accCategory = menu.findItem(R.id.accCat)
         val spanAdsCat = SpannableString(adsCategory.title)
         val spanAccCat = SpannableString(accCategory.title)
-        spanAdsCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, adsCategory.title.length, 0)
-        spanAccCat.setSpan(ForegroundColorSpan(ContextCompat.getColor(this@MainActivity, R.color.ic_main)), 0, accCategory.title.length, 0)
+        spanAdsCat.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.ic_main
+                )
+            ), 0, adsCategory.title.length, 0
+        )
+        spanAccCat.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(
+                    this@MainActivity,
+                    R.color.ic_main
+                )
+            ), 0, accCategory.title.length, 0
+        )
         adsCategory.title = spanAdsCat
         accCategory.title = spanAccCat
     }
 
-    private fun scrollListener() = with(binding.mainContent){
-        rcView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+    private fun scrollListener() = with(binding.mainContent) {
+        rcView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recView, newState)
-                if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE){
+                if (!recView.canScrollVertically(SCROLL_DOWN) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if(inClanCat){
+                        clearUpdate = false
+                        val clansList = firebaseViewModel.liveClansData.value!!
+                        if(clansList.isNotEmpty()) {
+                            getClansFromListener(clansList)
+                        }
+                    }
                     clearUpdate = false
                     val adsList = firebaseViewModel.liveAdsData.value!!
-                    if (adsList.isNotEmpty()){
+                    if (adsList.isNotEmpty()) {
                         getAdsFromCat(adsList)
                     }
                 }
@@ -306,14 +405,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 firebaseViewModel.loadAllAdsNextPage(it.time)
             } else {
                 val catTime = "${it.category}_${it.time}"
-                    firebaseViewModel.loadAllAdsFromCatNextPage(catTime)
+                firebaseViewModel.loadAllAdsFromCatNextPage(catTime)
             }
         }
     }
 
-    companion object{
+    private fun getClansFromListener(clanList: ArrayList<Clan>) {
+        clanList[0].let {
+                firebaseViewModel.loadAllClansNext(it.time)
+        }
+    }
+
+    companion object {
         const val EDIT_STATE = "edit_state"
         const val ADS_DATA = "ads_data"
+        const val CLAN_DATA = "clan_data"
         const val SCROLL_DOWN = 1
     }
 }
