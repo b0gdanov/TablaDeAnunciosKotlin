@@ -259,7 +259,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun getAdsFromCat(cat: String){
         currentCategory = cat
-        firebaseViewModel.loadAllAdsFromCat(cat)
+        filterDb?.let { firebaseViewModel.loadAllAdsFromCat(cat, it) }
     }
 
     fun uiUpdate(user: FirebaseUser?) {
