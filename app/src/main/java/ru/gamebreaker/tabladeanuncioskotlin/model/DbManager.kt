@@ -119,11 +119,22 @@ class DbManager{
         return db.orderByChild("/adFilter/$orderBy").startAt(filter).endAt(filter + "\uf8ff").limitToLast(ADS_LIMIT)
     }
 
-    fun getAllAdsFromCatNextPage(catTime: String, readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild(GET_ALL_CAT_ADS).endBefore(catTime).limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
+    fun getAllAdsFromCatNextPage(cat: String, time: String, filter: String, readDataCallback: ReadDataCallback?){
+        if(filter.isEmpty()){
+            val query = db.orderByChild(GET_ALL_CAT_ADS).endBefore(filter + "_" + time).limitToLast(ADS_LIMIT)
+            readDataFromDb(query, readDataCallback)
+        } else {
+            getAllAdsFromCatByFilterNextPage(cat, time, filter, readDataCallback)
+        }
+
     }
 
+    fun getAllAdsFromCatByFilterNextPage(cat: String, time: String, tempFilter: String, readDataCallback: ReadDataCallback?){
+        val orderBy = "cat_" + tempFilter.split("|")[0]
+        val filter = cat + "_" + tempFilter.split("|")[1]
+        val query = db.orderByChild("/adFilter/$orderBy").endBefore(filter + "_" + time).limitToLast(ADS_LIMIT)
+        readNextPageFromDb(query, filter, orderBy,readDataCallback)
+    }
 
     fun getAllClans(readDataCallback: ReadDataCallback?){
         val query = db.orderByChild(GET_CLAN_TIME).limitToLast(ADS_LIMIT)

@@ -330,8 +330,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (currentCategory == getString(R.string.def)) {
                 filterDb?.let { it1 -> firebaseViewModel.loadAllAdsNextPage(it.time, it1) }
             } else {
-                val catTime = "${it.category}_${it.time}"
-                    firebaseViewModel.loadAllAdsFromCatNextPage(catTime)
+                filterDb?.let { it1 ->
+                    firebaseViewModel.loadAllAdsFromCatNextPage(it.category!!, it.time,
+                        it1
+                    )
+                }
             }
         }
     }
