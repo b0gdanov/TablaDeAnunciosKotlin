@@ -42,28 +42,10 @@
 
     </item>
 
-    <item
-        android:id="@+id/clanCat"
-        android:title="@string/ad_cat2">
-
-        <menu>
-
-            <item
-                android:id="@+id/id_find_clan"
-                android:title="@string/cl_find_clan"
-                android:icon="@drawable/ic_menu_clan_battles"/>
-            <item
-                android:id="@+id/id_find_members"
-                android:title="@string/cl_find_members"
-                android:icon="@drawable/ic_reg"/>
-
-        </menu>
-
-    </item>
 
     <item
         android:id="@+id/accCat"
-        android:title="@string/ad_cat3">
+        android:title="@string/ad_cat2">
 
         <menu>
 

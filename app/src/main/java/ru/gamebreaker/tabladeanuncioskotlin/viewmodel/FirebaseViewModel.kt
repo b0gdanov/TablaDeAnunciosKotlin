@@ -3,14 +3,11 @@ package ru.gamebreaker.tabladeanuncioskotlin.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.model.Clan
 import ru.gamebreaker.tabladeanuncioskotlin.model.DbManager
 
 class FirebaseViewModel: ViewModel() {
     private  val dbManager = DbManager()
     val liveAdsData = MutableLiveData<ArrayList<Ad>>()
-    val liveClansData = MutableLiveData<ArrayList<Clan>>()
-
     fun loadAllAdsFirstPage(){
         dbManager.getAllAdsFirstPage(object: DbManager.ReadDataCallback{
             override fun readData(list: ArrayList<Ad>) {
@@ -75,29 +72,12 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
-    fun onFavClickClan(clan: Clan){
-        dbManager.onFavClickClan(clan, object: DbManager.FinishWorkListener{
-            override fun onFinish() {
-                val updatedList = liveClansData.value
-                val pos = updatedList?.indexOf(clan)
-                if (pos != -1){
-                    pos?.let {
-                        val favCounter = if (clan.isFav) clan.favCounter.toInt() - 1 else clan.favCounter.toInt() + 1
-                        updatedList[pos] = updatedList[pos].copy(isFav = !clan.isFav, favCounter = favCounter.toString())
-                    }
-                }
-                liveClansData.postValue(updatedList)
-            }
-        })
-    }
+
 
     fun adViewed(ad: Ad){
         dbManager.adViewed(ad)
     }
 
-    fun clanViewed(clan: Clan){
-        dbManager.clanViewed(clan)
-    }
 
     fun loadMyAds(){
         dbManager.getMyAds(object: DbManager.ReadDataCallback{
@@ -125,13 +105,5 @@ class FirebaseViewModel: ViewModel() {
         })
     }
 
-    fun deleteItemClan(clan: Clan){
-        dbManager.deleteClan(clan, object : DbManager.FinishWorkListener{
-            override fun onFinish() {
-                val updatedList = liveClansData.value
-                updatedList?.remove(clan)
-                liveClansData.postValue(updatedList)
-            }
-        })
-    }
+
 }

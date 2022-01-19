@@ -2,7 +2,6 @@ package ru.gamebreaker.tabladeanuncioskotlin.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
-import ru.gamebreaker.tabladeanuncioskotlin.model.Clan
 
 class DiffUtilHelper(val oldList: List<Ad>, val newList: List<Ad>) : DiffUtil.Callback() {
 
