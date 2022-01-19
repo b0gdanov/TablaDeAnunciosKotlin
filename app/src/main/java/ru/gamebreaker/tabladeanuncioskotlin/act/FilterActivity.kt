@@ -37,8 +37,8 @@ class FilterActivity : AppCompatActivity() {
         val filter = intent.getStringExtra(FILTER_KEY)
         if (filter != null && filter != "empty"){
             val filterArray = filter.split("_")
-            if (filterArray[0] != getString(R.string.select_fraction)) spFractionValue.text = filterArray[0]
-            if (filterArray[1] != getString(R.string.select_hero_name)) spHeroNameValue.text = filterArray[1]
+            if (filterArray[0] != "empty") spFractionValue.text = filterArray[0]
+            if (filterArray[1] != "empty") spHeroNameValue.text = filterArray[1]
             if (filterArray[2] != "empty") etIndexValue.setText(filterArray[2])
             cbWithSendValue.isChecked = filterArray[3].toBoolean()
         }
