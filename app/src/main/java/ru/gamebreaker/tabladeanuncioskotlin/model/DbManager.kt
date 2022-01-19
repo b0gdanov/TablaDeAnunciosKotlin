@@ -87,9 +87,21 @@ class DbManager{
         return db.orderByChild("/adFilter/$orderBy").startAt(filter).endAt(filter + "\uf8ff").limitToLast(ADS_LIMIT)
     }
 
-    fun getAllAdsNextPage(time: String, readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild(GET_ALL_ADS).endBefore(time).limitToLast(ADS_LIMIT)
-        readDataFromDb(query, readDataCallback)
+    fun getAllAdsNextPage(time: String, filter: String, readDataCallback: ReadDataCallback?){
+        if(filter.isEmpty()){
+            val query = db.orderByChild(GET_ALL_ADS).endBefore(time).limitToLast(ADS_LIMIT)
+            readDataFromDb(query, readDataCallback)
+        } else {
+            getAllAdsByFilterNextPage(filter, time, readDataCallback)
+        }
+
+    }
+
+    private fun getAllAdsByFilterNextPage(tempFilter: String, time: String, readDataCallback: ReadDataCallback?){
+        val orderBy = tempFilter.split("|")[0]
+        val filter = tempFilter.split("|")[1]
+        val query =  db.orderByChild("/adFilter/$orderBy").endBefore(filter + "_$time").limitToLast(ADS_LIMIT)
+        readNextPageFromDb(query, filter, orderBy, readDataCallback)
     }
 
     fun getAllAdsFromCatFirstPage(cat: String, filter: String, readDataCallback: ReadDataCallback?){
@@ -131,8 +143,6 @@ class DbManager{
         }
     }
 
-
-
     private fun readDataFromDb(query: Query, readDataCallback: ReadDataCallback?){
         query.addListenerForSingleValueEvent(object : ValueEventListener{
             val adArray = ArrayList<Ad>()
@@ -162,6 +172,37 @@ class DbManager{
             override fun onCancelled(error: DatabaseError) {}
         })
     }
+
+    private fun readNextPageFromDb(query: Query, filter: String, orderBy: String, readDataCallback: ReadDataCallback?){
+        query.addListenerForSingleValueEvent(object : ValueEventListener{
+            val adArray = ArrayList<Ad>()
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (item in snapshot.children){
+
+                    var ad: Ad? = null
+                    item.children.forEach {
+                        if (ad == null) ad = it.child(AD_NODE).getValue(Ad::class.java)
+                    }
+                    val infoItem = item.child(INFO_NODE).getValue(InfoItem::class.java)
+                    val filterNodeValue = item.child(FILTER_NODE).child(orderBy).value.toString()
+
+                    val favCounter = item.child(FAVS_NODE).childrenCount
+                    //Log.d("MyLog", "Counter favs: $favCounter")
+                    val isFav = auth.uid?.let { item.child(FAVS_NODE).child(it).getValue(String::class.java) }
+                    ad?.isFav = isFav != null
+                    ad?.favCounter = favCounter.toString()
+
+                    ad?.viewsCounter = infoItem?.viewsCounter ?: "0"
+                    ad?.emailsCounter = infoItem?.emailsCounter ?: "0"
+                    ad?.callsCounter = infoItem?.callsCounter ?: "0"
+                    if (ad != null && filterNodeValue.startsWith(filter))adArray.add(ad!!)
+                }
+                readDataCallback?.readData(adArray)
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
     interface ReadDataCallback {
         fun readData(list: ArrayList<Ad>)
     }
