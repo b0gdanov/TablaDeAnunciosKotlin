@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var filterDb: String? = ""
     private var pref: SharedPreferences? = null
     private var isPremiumUser = false
+    private var bManager: BillingManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(view)
         pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
         isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF, false)!!
-        isPremiumUser = true //убрать, это тест Премиум пользователя
+        //isPremiumUser = true //убрать, это тест Премиум пользователя
         if(!isPremiumUser){
                 (application as AppMainState).showAdIfAvailable(this){
 
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onDestroy() {
         super.onDestroy()
         binding.mainContent.adView2.destroy()
+        bManager?.closeConnection()
     }
 
     private fun initAds(){
@@ -269,6 +271,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.id_tower ->{
                 getAdsFromCat(getString(R.string.ad_tower))
+            }
+            R.id.remove_ads ->{
+                bManager = BillingManager(this)
+                bManager?.startConnection()
             }
             R.id.id_sign_up ->{
                 val text = textAddToast + getString(R.string.ac_sign_up)

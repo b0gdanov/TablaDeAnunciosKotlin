@@ -26,7 +26,7 @@ open class BaseAdsFrag: Fragment(), InterstitialAdsClose {
         super.onViewCreated(view, savedInstanceState)
         pref = activity?.getSharedPreferences(BillingManager.MAIN_PREF, AppCompatActivity.MODE_PRIVATE)
         isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF, false)!!
-        isPremiumUser = true //убрать, это тест Премиум пользователя
+        //isPremiumUser = true //убрать, это тест Премиум пользователя
         if (!isPremiumUser){
             initAds()
             loadInterAd()
