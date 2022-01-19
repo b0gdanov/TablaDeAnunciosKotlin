@@ -46,9 +46,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val mAuth = Firebase.auth
     val adapter = AdsRcAdapter(this)
     lateinit var googleSignInLauncher: ActivityResultLauncher<Intent>
+    lateinit var filterLauncher: ActivityResultLauncher<Intent>
     private val firebaseViewModel: FirebaseViewModel by viewModels()
     private var clearUpdate: Boolean = true
     private var currentCategory: String? = null
+    private var filter: String? = "empty"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomMenuOnClick()
         //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
         scrollListener()
+        onActivityResultFilter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -69,7 +72,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.id_filter) startActivity(Intent(this@MainActivity, FilterActivity::class.java))
+        if (item.itemId == R.id.id_filter) {
+            val i = Intent(this@MainActivity, FilterActivity::class.java).apply {
+                putExtra(FilterActivity.FILTER_KEY, filter)
+            }
+            filterLauncher.launch(i)
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -89,6 +97,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }catch (e:ApiException){
                 Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR + "${e.message}")
+            }
+        }
+    }
+
+    private fun onActivityResultFilter(){
+        filterLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if (it.resultCode == RESULT_OK){
+                filter = it.data?.getStringExtra(FilterActivity.FILTER_KEY)!!
+                Log.d("MyLog", "Filter: $filter")
             }
         }
     }

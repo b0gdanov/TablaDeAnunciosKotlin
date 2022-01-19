@@ -1,5 +1,6 @@
 package ru.gamebreaker.tabladeanuncioskotlin.act
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,11 +25,23 @@ class FilterActivity : AppCompatActivity() {
         onClickSelectHeroName()
         onClickDone()
         actionBarSettings()
+        getFilter()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getFilter() = with(binding){
+        val filter = intent.getStringExtra(FILTER_KEY)
+        if (filter != null && filter != "empty"){
+            val filterArray = filter.split("_")
+            if (filterArray[0] != getString(R.string.select_fraction)) spFractionValue.text = filterArray[0]
+            if (filterArray[1] != getString(R.string.select_hero_name)) spHeroNameValue.text = filterArray[1]
+            if (filterArray[2] != "empty") etIndexValue.setText(filterArray[2])
+            cbWithSendValue.isChecked = filterArray[3].toBoolean()
+        }
     }
 
     //OnClicks
@@ -57,7 +70,12 @@ class FilterActivity : AppCompatActivity() {
 
     private fun onClickDone() = with(binding){
         btDone.setOnClickListener {
+            val i = Intent().apply {
+                putExtra(FILTER_KEY, createFilter())
+            }
+            setResult(RESULT_OK, i)
             Log.d("MyLog", "Filter: ${createFilter()}")
+            finish()
         }
     }
 
@@ -73,6 +91,9 @@ class FilterActivity : AppCompatActivity() {
             if (s != getString(R.string.select_fraction) && s != getString(R.string.select_hero_name) && s.isNotEmpty()){
                 sBuilder.append(s)
                 if (i != arrayTempFilter.size - 1) sBuilder.append("_")
+            } else {
+                sBuilder.append("empty")
+                if (i != arrayTempFilter.size - 1) sBuilder.append("_")
             }
         }
         return sBuilder.toString()
@@ -81,5 +102,9 @@ class FilterActivity : AppCompatActivity() {
     fun actionBarSettings(){
         val ab = supportActionBar
         ab?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    companion object{
+        const val FILTER_KEY = "filter_key"
     }
 }
