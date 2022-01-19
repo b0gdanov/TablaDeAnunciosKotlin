@@ -24,6 +24,7 @@ class FilterActivity : AppCompatActivity() {
         onClickSelectFraction()
         onClickSelectHeroName()
         onClickDone()
+        onClickClear()
         actionBarSettings()
         getFilter()
     }
@@ -76,6 +77,16 @@ class FilterActivity : AppCompatActivity() {
             setResult(RESULT_OK, i)
             Log.d("MyLog", "Filter: ${createFilter()}")
             finish()
+        }
+    }
+
+    private fun onClickClear() = with(binding){
+        btClear.setOnClickListener {
+            spFractionValue.text = getString(R.string.select_fraction)
+            spHeroNameValue.text = getString(R.string.select_hero_name)
+            etIndexValue.setText("")
+            cbWithSendValue.isChecked = false
+            setResult(RESULT_CANCELED)
         }
     }
 

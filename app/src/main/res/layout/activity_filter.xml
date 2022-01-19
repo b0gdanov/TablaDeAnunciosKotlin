@@ -96,6 +96,15 @@
                 android:text="@string/apply_filter"
                 android:textColor="@color/ic_main" />
 
+            <TextView
+                android:id="@+id/btClear"
+                style="@style/MyBtnStyle"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Очистить фильтр"
+                android:textColor="@color/ic_main" />
+
         </LinearLayout>
     </ScrollView>
 

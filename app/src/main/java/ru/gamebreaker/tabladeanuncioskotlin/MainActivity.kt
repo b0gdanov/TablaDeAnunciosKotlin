@@ -110,6 +110,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 //Log.d("MyLog", "Filter: $filter")
                 //Log.d("MyLog", "getFilter: ${FilterManager.getFilter(filter!!)}")
                 filterDb = FilterManager.getFilter(filter!!)
+            } else if (it.resultCode == RESULT_CANCELED){
+                filterDb = ""
+                filter = "empty"
             }
         }
     }
