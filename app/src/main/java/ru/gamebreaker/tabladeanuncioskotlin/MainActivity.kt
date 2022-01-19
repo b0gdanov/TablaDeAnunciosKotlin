@@ -1,6 +1,7 @@
 package ru.gamebreaker.tabladeanuncioskotlin
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
@@ -40,6 +41,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.utils.AppMainState
+import ru.gamebreaker.tabladeanuncioskotlin.utils.BillingManager
 import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
@@ -57,17 +59,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var currentCategory: String? = null
     private var filter: String? = "empty"
     private var filterDb: String? = ""
+    private var pref: SharedPreferences? = null
+    private var isPremiumUser = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        (application as AppMainState).showAdIfAvailable(this){
+        pref = getSharedPreferences(BillingManager.MAIN_PREF, MODE_PRIVATE)
+        isPremiumUser = pref?.getBoolean(BillingManager.REMOVE_ADS_PREF, false)!!
+        isPremiumUser = true //убрать, это тест Премиум пользователя
+        if(!isPremiumUser){
+                (application as AppMainState).showAdIfAvailable(this){
 
+            }
+            initAds()
+        } else {
+            binding.mainContent.adView2.visibility = View.GONE
         }
+
         init()
-        initAds()
         initRecyclerView()
         initViewModel()
         bottomMenuOnClick()
