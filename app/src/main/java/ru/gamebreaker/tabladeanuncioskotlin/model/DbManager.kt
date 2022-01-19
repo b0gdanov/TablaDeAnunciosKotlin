@@ -1,7 +1,5 @@
 package ru.gamebreaker.tabladeanuncioskotlin.model
 
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -74,9 +72,19 @@ class DbManager{
         readDataFromDb(query, readDataCallback)
     }
 
-    fun getAllAdsFirstPage(readDataCallback: ReadDataCallback?){
-        val query = db.orderByChild(GET_ALL_ADS).limitToLast(ADS_LIMIT)
+    fun getAllAdsFirstPage(filter: String, readDataCallback: ReadDataCallback?){
+        val query = if(filter.isEmpty()){
+            db.orderByChild(GET_ALL_ADS).limitToLast(ADS_LIMIT)
+        } else {
+            getAllAdsByFilterFirstPage(filter)
+        }
         readDataFromDb(query, readDataCallback)
+    }
+
+    fun getAllAdsByFilterFirstPage(tempFilter: String): Query{
+        val orderBy = tempFilter.split("|")[0]
+        val filter = tempFilter.split("|")[1]
+        return db.orderByChild("/adFilter/$orderBy").startAt(filter).endAt(filter + "\uf8ff").limitToLast(ADS_LIMIT)
     }
 
     fun getAllAdsNextPage(time: String, readDataCallback: ReadDataCallback?){
