@@ -36,6 +36,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, AdsRcAdapter.Listener {
@@ -106,6 +107,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (it.resultCode == RESULT_OK){
                 filter = it.data?.getStringExtra(FilterActivity.FILTER_KEY)!!
                 Log.d("MyLog", "Filter: $filter")
+                Log.d("MyLog", "getFilter: ${FilterManager.getFilter(filter!!)}")
             }
         }
     }

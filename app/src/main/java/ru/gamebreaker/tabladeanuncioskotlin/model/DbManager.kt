@@ -64,14 +64,6 @@ class DbManager{
         }
     }
 
-
-
-
-
-
-
-
-
     fun getMyAds(readDataCallback: ReadDataCallback?){
         val query = db.orderByChild(auth.uid + "/ad/uid").equalTo(auth.uid)
         readDataFromDb(query, readDataCallback)
