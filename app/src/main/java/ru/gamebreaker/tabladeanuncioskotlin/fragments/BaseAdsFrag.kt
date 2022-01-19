@@ -43,21 +43,16 @@ open class BaseAdsFrag: Fragment(), InterstitialAdsClose {
     }
 
     private fun initAds(){
-
         MobileAds.initialize(activity as Activity)
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
-
     }
 
     private fun loadInterAd(){
-
         val  adRequest = AdRequest.Builder().build()
         InterstitialAd.load(context as Activity, getString(R.string.ad_id_test_interstitial), adRequest, object : InterstitialAdLoadCallback(){
             override fun onAdLoaded(ad: InterstitialAd) {
-
                 mInterstitialAd = ad
-
             }
         })
     }
