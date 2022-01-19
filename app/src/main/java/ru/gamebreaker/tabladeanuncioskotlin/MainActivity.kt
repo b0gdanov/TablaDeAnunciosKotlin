@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -29,6 +30,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.accaunthelper.AccountHelper
 import ru.gamebreaker.tabladeanuncioskotlin.act.DescriptionActivity
 import ru.gamebreaker.tabladeanuncioskotlin.act.EditAdsAct
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.AdsRcAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.act.FilterActivity
 import ru.gamebreaker.tabladeanuncioskotlin.databinding.ActivityMainBinding
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
@@ -59,6 +61,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         bottomMenuOnClick()
         //Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT).show()
         scrollListener()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.id_filter) startActivity(Intent(this@MainActivity, FilterActivity::class.java))
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
@@ -159,9 +171,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    /*
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
+     */
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         clearUpdate = true

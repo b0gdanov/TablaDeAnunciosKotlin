@@ -13,6 +13,10 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme">
         <activity
+            android:name=".act.FilterActivity"
+            android:theme="@style/AppTheme.Filter"
+            android:exported="false" />
+        <activity
             android:name=".act.DescriptionActivity"
             android:exported="true" />
         <activity android:name=".MainActivity" />

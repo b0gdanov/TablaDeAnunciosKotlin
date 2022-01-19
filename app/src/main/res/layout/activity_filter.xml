@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/place_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".act.EditAdsAct">
+
+    <ScrollView
+        android:id="@+id/scroll_view_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_main_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                app:cardBackgroundColor="@color/bg_main"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvFractionTitle"
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_fraction" />
+
+                    <TextView
+                        android:id="@+id/spFractionValue"
+                        style="@style/TextAds"
+                        android:text="@string/select_fraction" />
+
+                    <LinearLayout style="@style/LineEditAds" />
+
+                    <TextView
+                        android:id="@+id/tvHeroNameTitle"
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_hero_name" />
+
+                    <TextView
+                        android:id="@+id/spHeroNameValue"
+                        style="@style/TextAds"
+                        android:text="@string/select_hero_name" />
+
+                    <LinearLayout style="@style/LineEditAds" />
+
+                    <LinearLayout style="@style/LineEditAds" />
+
+                    <LinearLayout style="@style/LineEditAds" />
+
+                    <TextView
+                        android:id="@+id/tvIndexTitle"
+                        style="@style/HeadingsTextAds"
+                        android:text="@string/tv_index" />
+
+                    <EditText
+                        android:id="@+id/etIndexValue"
+                        style="@style/TextAds.Edit"
+                        android:ems="10"
+                        android:hint="@string/tv_index_hint"
+                        android:importantForAutofill="no"
+                        android:inputType="number" />
+
+                    <LinearLayout style="@style/LineEditAds" />
+
+                    <CheckBox
+                        android:id="@+id/cbWithSendValue"
+                        style="@style/TextAds"
+                        android:text="@string/with_send" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/btDone"
+                style="@style/MyBtnStyle"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/apply_filter"
+                android:textColor="@color/ic_main" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

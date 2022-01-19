@@ -26,6 +26,15 @@
     </style>
 
     <!-- ActionBar theme. -->
+    <style name="AppTheme.Filter" parent="Theme.MaterialComponents.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/ic_main</item>
+        <item name="colorPrimaryVariant">@color/ic_main</item>
+        <item name="colorOnPrimary">@color/ic_main</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- ActionBar theme. -->
     <style name="ActionBarCustom">
         <!-- Primary brand color. -->
         <item name="android:textColorSecondary">@color/ic_main</item>

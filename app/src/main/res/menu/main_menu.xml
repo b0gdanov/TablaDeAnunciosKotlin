@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/id_new_ads"
-        android:icon="@drawable/ic_new_ads"
-        android:title="@string/new_ad"
+        android:id="@+id/id_filter"
+        android:icon="@drawable/ic_filter"
+        android:title="@string/filter"
         app:showAsAction="ifRoom"/>
 </menu>

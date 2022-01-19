@@ -47,7 +47,7 @@
     <string name="link_done">Аккаунты успешно объединены</string>
     <string name="enter_to_g">У вас уже есть аккаунт с данным адресом. Для объединения Email войдите с помощью Google и повторите</string>
     <!-- Main menu -->
-    <string name="new_ad">New ad</string>
+    <string name="filter">Filter</string>
     <!-- Edit Ads Act -->
     <string name="tv_fraction">Фракция</string>
     <string name="select_fraction">*Выберите фракуцию</string>
@@ -102,4 +102,5 @@
     <string name="the_guest">Гость</string>
     <string name="you_are_logged_in_as_a_guest">Вы вошли как гость</string>
     <string name="failed_to_login_as_guest">Не удалось войти как гость</string>
+    <string name="apply_filter">Применить фильтр</string>
 </resources>
