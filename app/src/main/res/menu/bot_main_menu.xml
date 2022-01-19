@@ -4,6 +4,11 @@
         android:id="@+id/id_new_ad"
         android:title="@string/create_assembly"
         android:icon="@drawable/ic_new_ads"
+        android:orderInCategory="500"/>
+    <item
+        android:id="@+id/id_new_clan"
+        android:title="@string/create_assembly"
+        android:icon="@drawable/ic_menu_clan_battles"
         android:orderInCategory="400"/>
     <item
         android:id="@+id/id_my_ads"
