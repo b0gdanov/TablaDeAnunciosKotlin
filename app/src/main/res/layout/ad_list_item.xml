@@ -89,30 +89,56 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:text="@string/tv_price"
-                android:textColor="@color/ic_main" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tvPriceName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="2dp"
-                android:paddingEnd="2dp"
-                android:text="@string/some_number"
-                android:textColor="@color/light_green" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/tv_price"
+                    android:textColor="@color/ic_main" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="2dp"
-                android:paddingEnd="2dp"
-                android:text="@string/symbol_rub"
-                android:textColor="@color/light_green" />
+                <TextView
+                    android:id="@+id/tvPriceName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:text="@string/some_number"
+                    android:textColor="@color/light_green" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:text="@string/symbol_rub"
+                    android:textColor="@color/light_green" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvPublishTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="01/01/2025"
+                    android:textColor="@color/light_green" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
