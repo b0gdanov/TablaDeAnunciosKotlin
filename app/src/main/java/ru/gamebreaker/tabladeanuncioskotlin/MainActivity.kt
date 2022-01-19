@@ -39,6 +39,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogConst
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.DialogHelper
 import ru.gamebreaker.tabladeanuncioskotlin.dialoghelper.MyLogConst
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
+import ru.gamebreaker.tabladeanuncioskotlin.utils.AppMainState
 import ru.gamebreaker.tabladeanuncioskotlin.utils.FilterManager
 import ru.gamebreaker.tabladeanuncioskotlin.viewmodel.FirebaseViewModel
 
@@ -62,6 +63,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        (application as AppMainState).showAdIfAvailable(this){
+
+        }
         init()
         initAds()
         initRecyclerView()

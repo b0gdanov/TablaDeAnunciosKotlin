@@ -4,6 +4,7 @@
     package="ru.gamebreaker.tabladeanuncioskotlin">
 
     <application
+        android:name=".utils.AppMainState"
         android:allowBackup="true"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
@@ -21,7 +22,8 @@
             android:exported="true" />
         <activity android:name=".MainActivity" />
         <activity android:name=".act.EditAdsAct" />
-        <activity android:name=".SplashScreenActivity">
+        <activity android:name=".SplashScreenActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
