@@ -86,7 +86,7 @@ class BillingManager(val act: AppCompatActivity) {
     }
 
     companion object{
-        const val REMOVE_ADS = "remove_ads"
+        const val REMOVE_ADS = "remove_a_d_s"
         const val MAIN_PREF = "main_pref"
         const val REMOVE_ADS_PREF = "remove_ads_pref"
     }

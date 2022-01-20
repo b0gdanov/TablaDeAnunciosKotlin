@@ -119,10 +119,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickPublish(view: View){
         ad = fillAd()
         if(isEditState){
-            ad?.copy(key = ad?.key)?.let {
-                dbManager.publishAd(it, onPublishFinish()) } //обновляем существующее объявление
+            dbManager.publishAd(ad!!, onPublishFinish()) //обновляем существующее объявление
         } else {
-            //dbManager.publishAd(adTemp, onPublishFinish()) //публикуем новое объявление
             uploadImages()
         }
     }
@@ -136,9 +134,9 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     private fun fillAd(): Ad{
-        val ad: Ad
+        val adTemp: Ad
         binding.apply{
-            ad = Ad(
+            adTemp = Ad(
                 spFractionValue.text.toString(),
                 spHeroNameValue.text.toString(),
                 etTelValue.text.toString(),
@@ -149,16 +147,16 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
                 etPriceValue.text.toString(),
                 etTitleValue.text.toString(),
                 etDescriptionValue.text.toString(),
-                "empty",
-                "empty",
-                "empty",
-                dbManager.db.push().key,
+                ad?.mainImage ?: "empty",
+                ad?.secondImage ?: "empty",
+                ad?.thirdImage ?: "empty",
+                ad?.key ?: dbManager.db.push().key,
                 "0",
                 dbManager.auth.uid,
-                System.currentTimeMillis().toString()
+                ad?.time ?: System.currentTimeMillis().toString()
             )
         }
-        return ad
+        return adTemp
     }
 
     override fun onFragmentClose(list : ArrayList<Bitmap>) {
