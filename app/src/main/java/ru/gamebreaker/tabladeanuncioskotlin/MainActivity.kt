@@ -233,57 +233,64 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    /*
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
-     */
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean = with(binding) {
         clearUpdate = true
         val length = Toast.LENGTH_SHORT
         val textAddToast = getString(R.string.textAddToast)
         when(item.itemId){
             R.id.id_my_ads ->{
-                val text = textAddToast + getString(R.string.ad_my_ads)
-                Toast.makeText(this, text, length).show()
+                firebaseViewModel.loadMyAds()
+                mainContent.toolbar.title = getString(R.string.ad_my_ads)
+            }
+            R.id.all_ads ->{
+                currentCategory = getString(R.string.def)
+                filterDb?.let { firebaseViewModel.loadAllAdsFirstPage(it) }
+                mainContent.toolbar.title = getString(R.string.def)
             }
             R.id.id_heroes ->{
                 getAdsFromCat(getString(R.string.ad_heroes))
-
-                //val catTime = "${getString(R.string.ad_heroes)}_0"
-                //firebaseViewModel.loadAllAdsFromCat(catTime)
-
-                //val text = textAddToast + getString(R.string.ad_heroes)
-                //Toast.makeText(this, text, length).show()
+                mainContent.toolbar.title = getString(R.string.ad_heroes)
             }
             R.id.id_dungeons ->{
                 getAdsFromCat(getString(R.string.ad_dungeons))
+                mainContent.toolbar.title = getString(R.string.ad_dungeons)
             }
             R.id.id_faction_war ->{
                 getAdsFromCat(getString(R.string.ad_faction_war))
+                mainContent.toolbar.title = getString(R.string.ad_faction_war)
             }
             R.id.id_arena ->{
                 getAdsFromCat(getString(R.string.ad_arena))
+                mainContent.toolbar.title = getString(R.string.ad_arena)
             }
             R.id.id_cb ->{
                 getAdsFromCat(getString(R.string.ad_cb))
+                mainContent.toolbar.title = getString(R.string.ad_cb)
             }
             R.id.id_tower ->{
                 getAdsFromCat(getString(R.string.ad_tower))
+                mainContent.toolbar.title = getString(R.string.ad_tower)
+            }
+            R.id.id_lf_clan ->{
+                getAdsFromCat(getString(R.string.lf_clan))
+                mainContent.toolbar.title = getString(R.string.lf_clan)
+            }
+            R.id.id_lf_members ->{
+                getAdsFromCat(getString(R.string.lf_members))
+                mainContent.toolbar.title = getString(R.string.lf_members)
             }
             R.id.remove_ads ->{
-                bManager = BillingManager(this)
+                bManager = BillingManager(this@MainActivity)
                 bManager?.startConnection()
             }
             R.id.id_sign_up ->{
                 val text = textAddToast + getString(R.string.ac_sign_up)
-                Toast.makeText(this, text, length).show()
+                Toast.makeText(this@MainActivity, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_UP_STATE)
             }
             R.id.id_sign_in ->{
                 val text = textAddToast + getString(R.string.ac_sign_in)
-                Toast.makeText(this, text, length).show()
+                Toast.makeText(this@MainActivity, text, length).show()
                 dialogHelper.createSignDialog(DialogConst.SIGN_IN_STATE)
             }
             R.id.id_sign_out ->{
@@ -292,7 +299,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     return true
                 }
                 val text = getString(R.string.sign_out_done)
-                Toast.makeText(this, text, length).show()
+                Toast.makeText(this@MainActivity, text, length).show()
                 uiUpdate(null)
                 mAuth.signOut()
                 dialogHelper.accHelper.signOutGoogle()

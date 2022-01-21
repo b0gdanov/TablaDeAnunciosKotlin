@@ -5,14 +5,10 @@
 
     <item
         android:id="@+id/adsCat"
-        android:title="@string/ad_cat1">
+        android:title="@string/categories">
 
         <menu>
 
-            <item
-                android:id="@+id/id_my_ads"
-                android:icon="@drawable/ic_menu_doom_tower"
-                android:title="@string/ad_my_ads" />
             <item
                 android:id="@+id/id_heroes"
                 android:icon="@drawable/ic_menu_clan_battles"
@@ -37,6 +33,34 @@
                 android:id="@+id/id_tower"
                 android:icon="@drawable/ic_menu_doom_tower"
                 android:title="@string/ad_tower" />
+            <item
+                android:id="@+id/id_lf_clan"
+                android:icon="@drawable/ic_menu_doom_tower"
+                android:title="@string/lf_clan" />
+            <item
+                android:id="@+id/id_lf_members"
+                android:icon="@drawable/ic_menu_doom_tower"
+                android:title="@string/lf_members" />
+
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/adsCat2"
+        android:title="@string/ad_cat1">
+
+        <menu>
+
+            <item
+                android:id="@+id/id_my_ads"
+                android:icon="@drawable/ic_menu_doom_tower"
+                android:title="@string/ad_my_ads" />
+            <item
+                android:id="@+id/all_ads"
+                android:icon="@drawable/ic_menu_clan_battles"
+                android:title="@string/all_ads" />
+
 
         </menu>
 
@@ -49,7 +73,7 @@
 
         <menu>
             <item
-                android:title="Убрать рекламу"
+                android:title="@string/remove_ads"
                 android:icon="@drawable/ic_remove_ads"
                 android:id="@+id/remove_ads"/>
             <item

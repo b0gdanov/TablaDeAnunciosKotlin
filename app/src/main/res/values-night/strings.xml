@@ -7,7 +7,7 @@
     <!-- Menu Drawer Strings -->
     <string name="ad_cat1">Объявления</string>
     <string name="def">Разное</string>
-    <string name="ad_my_ads">Мои сборки</string>
+    <string name="ad_my_ads">Мои объявления</string>
     <string name="ad_heroes">Герои</string>
     <string name="ad_dungeons">Подземелья</string>
     <string name="ad_faction_war">Война фракций</string>
@@ -103,4 +103,9 @@
     <string name="you_are_logged_in_as_a_guest">Вы вошли как гость</string>
     <string name="failed_to_login_as_guest">Не удалось войти как гость</string>
     <string name="apply_filter">Применить фильтр</string>
+    <string name="lf_clan">Поиск клана</string>
+    <string name="lf_members">Посиск соклановцев</string>
+    <string name="remove_ads">Убрать рекламу</string>
+    <string name="all_ads">Все объявления</string>
+    <string name="categories">Категории</string>
 </resources>

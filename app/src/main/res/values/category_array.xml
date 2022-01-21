@@ -7,5 +7,7 @@
         <item>@string/ad_dungeons</item>
         <item>@string/ad_cb</item>
         <item>@string/ad_tower</item>
+        <item>@string/lf_clan</item>
+        <item>@string/lf_members</item>
     </string-array>
 </resources>
