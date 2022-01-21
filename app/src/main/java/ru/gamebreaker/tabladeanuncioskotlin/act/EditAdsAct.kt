@@ -16,6 +16,7 @@ import ru.gamebreaker.tabladeanuncioskotlin.MainActivity
 import ru.gamebreaker.tabladeanuncioskotlin.utils.ImagePicker
 import ru.gamebreaker.tabladeanuncioskotlin.model.Ad
 import ru.gamebreaker.tabladeanuncioskotlin.adapters.ImageAdapter
+import ru.gamebreaker.tabladeanuncioskotlin.dialogs.RcViewDialogSpinnerAdapter
 import ru.gamebreaker.tabladeanuncioskotlin.model.DbManager
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.FragmentCloseInterface
 import ru.gamebreaker.tabladeanuncioskotlin.fragments.ImageListFragment
@@ -43,6 +44,8 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         init()
         checkEditState()
         imageChangeCounter()
+
+
     }
 
     private fun checkEditState(){
@@ -95,12 +98,9 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
-    fun onClickSelectCategory(view: View){
-
-         val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
-         dialog.showSpinnerDialog(this, listCategory, binding.spCategoryValue)
-
-
+    fun onClickSelectCategory(view: View) {
+        val listCategory = resources.getStringArray(R.array.category).toMutableList() as ArrayList
+        dialog.showSpinnerDialog(this, listCategory, binding.spCategoryValue)
     }
 
     fun onClickGetImages(view: View){

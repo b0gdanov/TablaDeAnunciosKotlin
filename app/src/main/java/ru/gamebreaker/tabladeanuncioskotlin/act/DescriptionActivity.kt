@@ -45,6 +45,9 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun fillTextViews(ad: Ad) = with(binding){
+
+
+
         tvTitle.text = ad.title
         tvDescription.text = ad.description
         tvFractionValue.text = ad.fraction

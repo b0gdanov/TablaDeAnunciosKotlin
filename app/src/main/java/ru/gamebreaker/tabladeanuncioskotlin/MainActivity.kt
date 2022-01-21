@@ -73,13 +73,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //isPremiumUser = true //убрать, это тест Премиум пользователя
         if(!isPremiumUser){
                 (application as AppMainState).showAdIfAvailable(this){
-
             }
             initAds()
         } else {
             binding.mainContent.adView2.visibility = View.GONE
         }
-
         init()
         initRecyclerView()
         initViewModel()
@@ -103,15 +101,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.mainContent.botNavView.selectedItemId = R.id.id_home
-        binding.mainContent.adView2.resume()
+    override fun onStart() {
+        super.onStart()
+        uiUpdate(mAuth.currentUser)
     }
 
     override fun onPause() {
         super.onPause()
         binding.mainContent.adView2.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.mainContent.botNavView.selectedItemId = R.id.id_home
+        binding.mainContent.adView2.resume()
     }
 
     override fun onDestroy() {
@@ -153,11 +156,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 filter = "empty"
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        uiUpdate(mAuth.currentUser)
     }
 
     private fun initViewModel(){
