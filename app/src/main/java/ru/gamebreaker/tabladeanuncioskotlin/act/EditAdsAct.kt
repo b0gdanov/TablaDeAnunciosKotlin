@@ -44,8 +44,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         init()
         checkEditState()
         imageChangeCounter()
-
-
     }
 
     private fun checkEditState(){
@@ -92,7 +90,6 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         if (selectedCountry != getString(R.string.select_fraction)){
             val listCity = CityHelper.getAllCities(selectedCountry,this)
             dialog.showSpinnerDialog(this, listCity, binding.spHeroNameValue)
-
         }else{
             Toast.makeText(this, getString(R.string.warning_no_fraction_selected), Toast.LENGTH_LONG).show()
         }
@@ -106,23 +103,15 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     fun onClickGetImages(view: View){
         if(imageAdapter.mainArray.size == 0){
             ImagePicker.getMultiImages(this, 3)
-
         } else {
-
             openChooseItemFragment(null)
             chooseImageFragment?.updateAdapterFromEdit(imageAdapter.mainArray)
-
         }
-
     }
 
     fun onClickPublish(view: View){
         ad = fillAd()
-        if(isEditState){
-            dbManager.publishAd(ad!!, onPublishFinish()) //обновляем существующее объявление
-        } else {
-            uploadImages()
-        }
+        uploadImages()
     }
 
     private fun  onPublishFinish(): DbManager.FinishWorkListener{
@@ -174,19 +163,32 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         fm.commit()
     }
 
-    private fun uploadImages(){
-        if(imageAdapter.mainArray.size == imageIndex){
+    private fun uploadImages() {
+        if (imageIndex == 3) {
             dbManager.publishAd(ad!!, onPublishFinish())
             return
         }
-        val byteArray = prepareImageByteArray(imageAdapter.mainArray[imageIndex])
-        uploadImage(byteArray){
-            dbManager
-                .publishAd(
-                    ad!!,
-                    onPublishFinish()
-                )
-            nextImage(it.result.toString())
+        val oldUrl = getUelFromAd()
+        if (imageAdapter.mainArray.size > imageIndex) {
+            val byteArray = prepareImageByteArray(imageAdapter.mainArray[imageIndex])
+            if (oldUrl.startsWith("http")) {
+                updateImage(byteArray, oldUrl) {
+                    nextImage(it.result.toString())
+                }
+            } else {
+                uploadImage(byteArray) {
+                    //dbManager.publishAd(ad!!, onPublishFinish())
+                    nextImage(it.result.toString())
+                }
+            }
+        } else {
+            if (oldUrl.startsWith("http")) {
+                deleteImageByUrl(oldUrl) {
+                    nextImage("empty")
+                }
+            } else {
+                nextImage("empty")
+            }
         }
     }
 
@@ -204,6 +206,10 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         }
     }
 
+    private fun getUelFromAd(): String{
+        return listOf(ad?.mainImage!!, ad?.secondImage!!, ad?.thirdImage!!)[imageIndex]
+    }
+
     private fun prepareImageByteArray(bitmap: Bitmap):ByteArray{
         val outStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 20, outStream)
@@ -217,6 +223,17 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
         val upTask = imStorageRef.putBytes(byteArray)
         upTask.continueWithTask {
             task -> imStorageRef.downloadUrl
+        }.addOnCompleteListener(listener)
+    }
+
+    private fun deleteImageByUrl(oldUrl: String, listener: OnCompleteListener<Void>) {
+        dbManager.dbStorage.storage.getReferenceFromUrl(oldUrl).delete().addOnCompleteListener(listener)
+    }
+    private fun updateImage(byteArray: ByteArray, url: String, listener: OnCompleteListener<Uri>){
+        val imStorageRef = dbManager.dbStorage.storage.getReferenceFromUrl(url)
+        val upTask = imStorageRef.putBytes(byteArray)
+        upTask.continueWithTask {
+                task -> imStorageRef.downloadUrl
         }.addOnCompleteListener(listener)
     }
 
