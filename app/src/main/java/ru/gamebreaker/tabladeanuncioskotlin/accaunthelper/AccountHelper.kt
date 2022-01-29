@@ -106,8 +106,8 @@ class AccountHelper(act: MainActivity) {
     }
 
     private fun getSignInClient(): GoogleSignInClient {
-        //val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(act.getString(R.string.default_web_client_id)).requestEmail().build()   default_web_client_id стал красным
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("412163273501-goeqvu371716okebv4ne1f3i8lf72h66.apps.googleusercontent.com").requestEmail().build() //пока поменял так. Взял из app/build/generated/res/google-services/debug/values/values.xml
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(act.getString(R.string.default_web_client_id)).requestEmail().build()  // default_web_client_id стал красным
+        //val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("412163273501-goeqvu371716okebv4ne1f3i8lf72h66.apps.googleusercontent.com").requestEmail().build() //пока поменял так. Взял из app/build/generated/res/google-services/debug/values/values.xml
         return GoogleSignIn.getClient(act, gso)
     }
 
@@ -125,12 +125,13 @@ class AccountHelper(act: MainActivity) {
         val credential = GoogleAuthProvider.getCredential(token, null)
         act.mAuth.currentUser?.delete()?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                act.mAuth.signInWithCredential(credential).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
+                act.mAuth.signInWithCredential(credential).addOnCompleteListener { task1 ->
+                    if (task1.isSuccessful) {
                         Toast.makeText(act, R.string.sign_in_done, Toast.LENGTH_LONG).show()
-                        act.uiUpdate(task.result?.user)
+                        act.uiUpdate(task1.result?.user)
                     } else {
-                        Log.d(MyLogConst.MY_LOG, "Google Sign in Exception : ${task.exception}")
+                        Toast.makeText(act, "Google Sign in Exception : ${task1.exception}", Toast.LENGTH_LONG).show()
+                        Log.d(MyLogConst.MY_LOG, "Google Sign in Exception : ${task1.exception}")
                     }
                 }
             }

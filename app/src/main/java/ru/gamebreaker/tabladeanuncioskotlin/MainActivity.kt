@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }catch (e:ApiException){
                 Log.d(MyLogConst.MY_LOG, MyLogConst.API_ERROR + "${e.message}")
+                Toast.makeText(this,MyLogConst.API_ERROR + " : ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }

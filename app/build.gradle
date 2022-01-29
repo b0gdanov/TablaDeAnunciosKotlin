@@ -8,12 +8,25 @@ android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+    signingConfigs {
+        release {
+            storeFile file ('X:\\AndroidStudioProjects\\keystore\\TBK keystore\\key1.jks')
+            storePassword '1qazwsxedcV'
+            keyAlias 'TbK'
+            keyPassword '1qazwsxedcV'
+        }
+    }
+
     defaultConfig {
         applicationId "ru.gamebreaker.tabladeanuncioskotlin"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         android.defaultConfig.vectorDrawables.useSupportLibrary = true
@@ -24,6 +37,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {

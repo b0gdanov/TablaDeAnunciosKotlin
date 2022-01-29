@@ -3,7 +3,7 @@
     <string name="ad_id_test_banner">ca-app-pub-3940256099942544/6300978111</string>
     <string name="ad_id_test_interstitial">ca-app-pub-3940256099942544/1033173712</string>
     <!-- App name Strings -->
-    <string name="app_name">TablaDeAnunciosKotlin</string>
+    <string name="app_name">Game Helper for: Raid SL</string>
     <!-- Menu Drawer Strings -->
     <string name="ad_cat1">Объявления</string>
     <string name="def">Разное</string>

@@ -15,27 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "412163273501-g43qo31rp62r8hfgbol3f8j4tl4kmer5.apps.googleusercontent.com",
+          "client_id": "412163273501-ihgb3pb3ul3daopfphfa9lgq4ahaa50h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "ru.gamebreaker.tabladeanuncioskotlin",
-            "certificate_hash": "c66bd2f68c409299f3c987f2e62a1394672012fb"
-          }
-        },
-        {
-          "client_id": "412163273501-kks83obdnhtvutvm25tgcb0ig2n6m0tl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ru.gamebreaker.tabladeanuncioskotlin",
-            "certificate_hash": "ad6b41b29230e68fbe94ba1a9098b60d80da9497"
-          }
-        },
-        {
-          "client_id": "412163273501-pugk9kmmmsugjj4t7l1vtiredndj74ig.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ru.gamebreaker.tabladeanuncioskotlin",
-            "certificate_hash": "c531f74a36855ae4a6c1ab3f424342fbaba6fd96"
+            "certificate_hash": "64d8a56bf66faa37fb4417b372d0f37a50f81e50"
           }
         },
         {
