@@ -111,14 +111,16 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
+        binding.progressLayout.visibility = View.VISIBLE
         ad = fillAd()
         uploadImages()
     }
 
     private fun  onPublishFinish(): DbManager.FinishWorkListener{
         return object : DbManager.FinishWorkListener{
-            override fun onFinish() {
-                finish()
+            override fun onFinish(isDone: Boolean) {
+                binding.progressLayout.visibility = View.GONE
+                if (isDone)finish()
             }
         }
     }
