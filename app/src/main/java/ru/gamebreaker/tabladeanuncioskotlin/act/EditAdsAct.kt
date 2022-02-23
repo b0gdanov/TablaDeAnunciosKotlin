@@ -111,9 +111,25 @@ class EditAdsAct : AppCompatActivity(), FragmentCloseInterface {
     }
 
     fun onClickPublish(view: View){
+        if(isFieldsEmpty()){
+            showToast("Внимание! Все поля * должны быть заполнены!")
+            return
+        }
         binding.progressLayout.visibility = View.VISIBLE
         ad = fillAd()
         uploadImages()
+    }
+
+    private fun isFieldsEmpty(): Boolean = with(binding){
+        return      spFractionValue.text.toString() == getString(R.string.select_fraction)
+                ||  spHeroNameValue.text.toString() == getString(R.string.select_hero_name)
+                ||  spCategoryValue.text.toString() == getString(R.string.select_category)
+                ||  etTelValue.text.isEmpty()
+                ||  etIndexValue.text.isEmpty()
+                ||  etTitleValue.text.isEmpty()
+                ||  etPriceValue.text.isEmpty()
+                ||  etDescriptionValue.text.isEmpty()
+                ||  imageAdapter.mainArray.size == 0
     }
 
     private fun  onPublishFinish(): DbManager.FinishWorkListener{
